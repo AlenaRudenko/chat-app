@@ -3,10 +3,30 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "npm run lint:es",
+      "prettier --write"
+    ],
+    "*.(css|scss)": [
+      "npm run stylelint:fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "scripts": {
     "start": "webpack serve --env mode=development",
     "build:dev": "webpack --env mode=development",
-    "build:prod": "webpack --env mode=production"
+    "build:prod": "webpack --env mode=production",
+    "lint:es": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "lint:es:fix": "npm run lint:es -- --fix",
+    "stylelint": "stylelint '**/*{.css,.scss}'",
+    "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",
+    "prepare": "husky install",
+    "stylelint-scss-check": "stylelint-config-prettier-scss-check"
   },
   "keywords": [],
   "author": "",
@@ -22,16 +42,33 @@
     "@types/react-dom": "^18.2.11",
     "@types/webpack": "^5.28.3",
     "@types/webpack-dev-server": "^4.7.2",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.8.1",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "fork-ts-checker-webpack-plugin": "^9.0.0",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^8.0.0",
+    "install": "^0.13.0",
+    "lint-staged": "^15.2.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "npm": "^10.2.5",
+    "prettier": "^3.1.1",
     "react-refresh": "^0.14.0",
     "react-refresh-typescript": "2.0.9",
     "sass": "^1.69.0",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
+    "stylelint": "^16.0.1",
+    "stylelint-scss": "^6.0.0",
     "ts-loader": "^9.5.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
@@ -43,5 +80,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0"
+    
   }
 }
