@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "lint-staged": {
-    "**/*.{js,jsx}": [
+    "**/*.{ts,js,jsx,tsx}": [
       "npm run lint:es",
       "prettier --write"
     ],
