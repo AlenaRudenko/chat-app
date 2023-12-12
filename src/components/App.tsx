@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react'
 import './style.scss'
+import { Outlet, Route, Routes } from 'react-router-dom'
 
 export const App = () => {
-  const [state, setState] = useState(1)
-  console.log(true)
-  const func = (name: string) => {
-    return
-  }
-  useEffect(() => {
-    const a = state + 1
-  }, [])
   return (
     <div>
-      <h1>Hello World!</h1>
+      <Outlet />
     </div>
   )
 }
