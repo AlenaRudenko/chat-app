@@ -1,14 +1,94 @@
-import { Box, Container } from '@mui/material'
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
+import Grid from '@mui/material/Grid'
 import classes from './Authpage.module.scss'
+import { lightTheme, darkTheme } from '../../theme/themes'
+import { useState } from 'react'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import { Box, IconButton, Paper, TextField, Typography } from '@mui/material'
+import { Header } from '../../components/header/Header'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 
 export const AuthPage = () => {
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
+  const toggleDarkTheme = () => {
+    setIsDarkTheme(!isDarkTheme)
+  }
+
   return (
-    <Container className={classes.container} maxWidth={false}>
-      <Grid2 columns={16} minHeight={160} rowSpacing={12} container>
-        <Grid2 xs={8}>dd</Grid2>
-        <Grid2 xs={8}>dd</Grid2>
-      </Grid2>
-    </Container>
+    <div>
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+        <Typography>
+          {' '}
+          <Container maxWidth={false} disableGutters>
+            {/* <IconButton onClick={toggleDarkTheme}>{isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}</IconButton>
+
+            <Button
+              className={classes.Button}
+              color='primary'
+              startIcon={isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
+              variant='contained'
+              disableElevation
+              onClick={toggleDarkTheme}
+            >
+              Change Theme
+            </Button> */}
+            <Grid
+              sx={{ height: '100vh', justifyContent: 'center', backgroundColor: 'red', alignItems: 'center' }}
+              container
+            >
+              <Grid md={6} item>
+                <Paper
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '100vh',
+                  }}
+                  sx={{
+                    background: (): string => {
+                      if (isDarkTheme) {
+                        return 'linear-gradient(180deg, #4c3a51,#b25068,#e7ab79)'
+                      }
+                      return 'linear-gradient(180deg, #076585,#92bbc9,#ffffff)'
+                    },
+                  }}
+                  square
+                />
+              </Grid>
+              <Grid className={classes.paper} md={6} spacing={2} sm={12} xs={12} item>
+                <Paper
+                  style={{
+                    height: '100vh',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    display: 'flex',
+                  }}
+                  square
+                >
+                  <Header {...{ toggleDarkTheme, isDarkTheme }} />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      width: '30%',
+                      minHeight: '90%',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <TextField margin='normal' variant='standard' fullWidth label='NickName' />
+                    <Button className={classes.Button} color='primary' variant='contained' disableElevation>
+                      Sign in
+                    </Button>
+                  </Box>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>{' '}
+        </Typography>
+      </ThemeProvider>
+    </div>
   )
 }
