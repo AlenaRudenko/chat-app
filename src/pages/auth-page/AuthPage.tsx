@@ -9,7 +9,7 @@ import { Box, IconButton, Paper, TextField, Typography } from '@mui/material'
 import { Header } from '../../components/header/Header'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
-
+import Illustration from '../../assets/Illustration.png'
 export const AuthPage = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false)
   const toggleDarkTheme = () => {
@@ -20,20 +20,7 @@ export const AuthPage = () => {
     <div>
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         <Typography>
-          {' '}
           <Container maxWidth={false} disableGutters>
-            {/* <IconButton onClick={toggleDarkTheme}>{isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}</IconButton>
-
-            <Button
-              className={classes.Button}
-              color='primary'
-              startIcon={isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
-              variant='contained'
-              disableElevation
-              onClick={toggleDarkTheme}
-            >
-              Change Theme
-            </Button> */}
             <Grid
               sx={{ height: '100vh', justifyContent: 'center', backgroundColor: 'red', alignItems: 'center' }}
               container
@@ -46,6 +33,7 @@ export const AuthPage = () => {
                     height: '100vh',
                   }}
                   sx={{
+                    justifyContent: 'center',
                     background: (): string => {
                       if (isDarkTheme) {
                         return 'linear-gradient(180deg, #4c3a51,#b25068,#e7ab79)'
@@ -54,7 +42,9 @@ export const AuthPage = () => {
                     },
                   }}
                   square
-                />
+                >
+                  <img alt='' height='356.65px' src={Illustration} width='446.61px' />
+                </Paper>
               </Grid>
               <Grid className={classes.paper} md={6} spacing={2} sm={12} xs={12} item>
                 <Paper
