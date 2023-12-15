@@ -1,6 +1,7 @@
 import createTheme from '@mui/material/styles/createTheme'
+import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
-export const lightTheme = createTheme({
+let lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -26,17 +27,19 @@ export const lightTheme = createTheme({
     },
   },
   typography: {
+    fontFamily: 'Jost',
     h2: {
       fontFamily: 'Jost',
+      fontSize: '2.2rem',
     },
     h3: {
       fontFamily: 'Jost',
-    },
-    h4: {
-      fontFamily: 'Jost',
+      fontSize: '2.2rem',
     },
     h1: {
       fontFamily: 'Jost',
+      fontSize: '3.2rem',
+      fontWeight: 400,
     },
     body1: {
       fontFamily: 'Roboto',
@@ -57,18 +60,18 @@ export const lightTheme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-
-          color: 'white',
-          '&:hover': {
-            backgroundColor: '#e68e5b',
-            boxShadow: 'none',
-          },
+          // color: 'white',
+          // '&:hover': {
+          //   backgroundColor: '#e68e5b',
+          //   boxShadow: 'none',
+          // },
         },
       },
     },
   },
 })
-export const darkTheme = createTheme({
+
+let darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
@@ -94,17 +97,19 @@ export const darkTheme = createTheme({
     },
   },
   typography: {
+    fontFamily: 'Jost',
     h2: {
       fontFamily: 'Jost',
+      fontSize: '2.2rem',
     },
     h3: {
       fontFamily: 'Jost',
-    },
-    h4: {
-      fontFamily: 'Jost',
+      fontSize: '2.2rem',
     },
     h1: {
       fontFamily: 'Jost',
+      fontSize: '3.2rem',
+      fontWeight: 400,
     },
     body1: {
       fontFamily: 'Roboto',
@@ -130,14 +135,15 @@ export const darkTheme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          backgroundColor: '#e68e5b',
-          color: 'white',
-          '&:hover': {
-            backgroundColor: '#FFBE98',
-            boxShadow: 'none',
-          },
+          // color: 'white',
+          // '&:hover': {
+          //   backgroundColor: '#e68e5b',
+          //   boxShadow: 'none',
+          // },
         },
       },
     },
   },
 })
+export const newDarkTheme = responsiveFontSizes(darkTheme)
+export const newLightTheme = responsiveFontSizes(lightTheme)
