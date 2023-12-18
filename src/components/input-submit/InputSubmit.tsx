@@ -22,7 +22,7 @@ export const InputSubmitForm = ({
   return (
     <Container
       sx={{
-        height: '30%',
+        height: '50%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,7 +50,7 @@ export const InputSubmitForm = ({
             </Button>
           </Typography>
         ) : (
-          <Typography>
+          <Typography sx={{textAlign:'center'}}>
             Already have an account?
             <Button disableElevation variant='text' onClick={handleForm}>
               SIGN IN
