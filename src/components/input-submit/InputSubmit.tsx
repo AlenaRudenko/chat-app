@@ -1,7 +1,6 @@
-import { Button, Container, Link, TextField, Typography } from '@mui/material'
-import { ChangeEvent } from 'react'
+import { Button, Container, TextField, Typography, useTheme } from '@mui/material'
 
-interface IProps {
+type IProps = {
   buttonTitle: string
   handleSubmit: () => void
   inputValue: string
@@ -19,6 +18,7 @@ export const InputSubmitForm = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInput(event.target.value)
   }
+  const theme = useTheme()
   return (
     <Container
       sx={{
@@ -45,14 +45,14 @@ export const InputSubmitForm = ({
         {buttonTitle === 'SIGN IN' ? (
           <Typography>
             No Account yet?
-            <Button disableElevation variant='text' onClick={handleForm}>
+            <Button color='primary' variant='text' disableElevation onClick={handleForm}>
               SIGN UP
             </Button>
           </Typography>
         ) : (
-          <Typography sx={{textAlign:'center'}}>
+          <Typography sx={{ textAlign: 'center' }}>
             Already have an account?
-            <Button disableElevation variant='text' onClick={handleForm}>
+            <Button variant='text' disableElevation onClick={handleForm}>
               SIGN IN
             </Button>
           </Typography>

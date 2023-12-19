@@ -1,6 +1,7 @@
 import createTheme from '@mui/material/styles/createTheme'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
+// eslint-disable-next-line prefer-const
 let lightTheme = createTheme({
   palette: {
     mode: 'light',
@@ -55,22 +56,44 @@ let lightTheme = createTheme({
     },
   },
   components: {
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Jost',
+          fontSize: 30,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         // Name of the slot
-        root: {
-          // Some CSS
-          // color: 'white',
-          // '&:hover': {
-          //   backgroundColor: '#e68e5b',
-          //   boxShadow: 'none',
-          // },
-        },
       },
     },
   },
 })
 
+// eslint-disable-next-line prefer-const
 let darkTheme = createTheme({
   palette: {
     mode: 'dark',

@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import { router } from './routes'
 import './App.scss'
@@ -7,4 +7,5 @@ if (!root) {
   throw new Error('root not found')
 }
 const container = createRoot(root)
+
 container.render(<RouterProvider router={router} />)

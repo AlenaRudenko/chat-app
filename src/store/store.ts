@@ -1,5 +1,2 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { userSlice } from "./user-slice/userSlice";
-
-
-
+import { configureStore } from '@reduxjs/toolkit'
+import { userSlice } from './user-slice/userSlice'
