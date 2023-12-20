@@ -1,3 +1,5 @@
+import { darkScrollbar } from '@mui/material'
+import { grey } from '@mui/material/colors'
 import createTheme from '@mui/material/styles/createTheme'
 import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
 
@@ -56,6 +58,23 @@ let lightTheme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          ...darkScrollbar({
+            track: grey[200],
+            thumb: grey[400],
+            active: grey[400]
+          }
+      
+        
+        
+          ),
+          //scrollbarWidth for Firefox
+          scrollbarWidth: "thin"
+        }
+      }
+    },
     MuiInputBase: {
       styleOverrides: {
         input: {
@@ -153,6 +172,15 @@ let darkTheme = createTheme({
     borderRadius: 4,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          ...darkScrollbar(undefined),
+          //scrollbarWidth for Firefox
+          scrollbarWidth: "thin"
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         // Name of the slot
@@ -166,6 +194,37 @@ let darkTheme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          
+          fontFamily: 'Jost',
+          fontSize: 30,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Jost',
+        },
+      },
+    },
+    
   },
 })
 export const newDarkTheme = responsiveFontSizes(darkTheme)
