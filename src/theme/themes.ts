@@ -135,7 +135,7 @@ let darkTheme = createTheme({
       main: '#6788A5',
     },
     background: {
-      paper: '#5a5656',
+      paper: '#282e33',
     },
   },
   typography: {
