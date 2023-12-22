@@ -1,9 +1,9 @@
-import { Box, Container, IconButton, styled, useTheme } from '@mui/material'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
+import { Box, Container, styled, useTheme } from '@mui/material'
+
 import { Logo } from '../logo/Logo'
 import { MyThemeContext } from '../../theme-context/themeContext'
 import { useContext } from 'react'
+import { ThemeIcon } from '../theme-icon/ThemeIcon'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   visibility: 'hidden',
@@ -17,8 +17,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }))
 
 export const Header = () => {
-  const theme = useTheme()
-  const toggleTheme = useContext(MyThemeContext)
   return (
     <Container
       maxWidth={false}
@@ -31,9 +29,7 @@ export const Header = () => {
       <StyledBox>
         <Logo />
       </StyledBox>
-      <IconButton onClick={toggleTheme}>
-        {theme.palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
-      </IconButton>
+<ThemeIcon />
     </Container>
   )
 }

@@ -39,12 +39,7 @@ export const AuthPage = () => {
               }}
               sx={{
                 justifyContent: 'center',
-                background: (): string => {
-                  if (theme.palette.mode === 'dark') {
-                    return 'linear-gradient(180deg, #4c3a51,#b25068,#e7ab79)'
-                  }
-                  return 'linear-gradient(180deg, #076585,#92bbc9,#ffffff)'
-                },
+                background: theme.palette.background.default
               }}
               square
             >

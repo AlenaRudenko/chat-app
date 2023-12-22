@@ -6,21 +6,26 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
+import PersonAdd from '@mui/icons-material/PersonAdd';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import Settings from '@mui/icons-material/Settings';
+import SendIcon from '@mui/icons-material/Send';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useState } from 'react';
-import { AppBar, Button, Container, TextField } from '@mui/material';
+import { AppBar, Avatar, Container, Menu, MenuItem, Paper, TextField } from '@mui/material';
 import { ChatLayout } from './chat-layout/ChatLayout';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { ThemeIcon } from '../../components/theme-icon/ThemeIcon';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Logout from '@mui/icons-material/Logout';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 const drawerWidth = 300;
 
@@ -32,7 +37,7 @@ const MyAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  
+  backgroundColor:theme.palette.primary.dark,
 ...(!open && {
 width: `calc(100% - ${theme.spacing(7)} )`,
   [theme.breakpoints.up('sm')]: {
@@ -63,7 +68,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   height:'100vh',
   // padding: theme.spacing(3),
   scrollbarGutter: 'stable both-edges',
-  background:'linear-gradient(0deg, #076585,#92bbc9,#ffffff)',
+  flexWrap: 'wrap',
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -129,21 +134,42 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+
+
+
+const ChatTextField = styled(TextField)(({theme}) => ({
+  
+  "& .MuiInput-underline::before":{
+    borderBottom: 'none' ,
+  },
+  "& .MuiInput-underline::after":{
+    borderBottom: 'none' ,
+  },
+}))
+
 export const MainPage = () => {
   const theme = useTheme();
+
   const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
-
-
-
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const menuopen = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const menuOpen = Boolean(anchorEl);
   return (
-    <Box sx={{ display: 'flex', minHeight:'100vh', backgroundColor:theme.palette.background.default, alignItems:'center' }}>
+    <Box sx={{ display: 'flex', minHeight:'100vh', alignItems:'center' }}>
+      
       <CssBaseline />
-      <AppBar sx={{ height:'64px' }} position="fixed" elevation={0}>
-        <Toolbar >          
+      <AppBar sx={{ height:'64px', backgroundColor:theme.palette.primary.dark }} position="fixed" elevation={0}>
+        <Toolbar sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>          
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -152,11 +178,37 @@ export const MainPage = () => {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
+          
           </IconButton>
-
-          <Typography variant="h6" noWrap component="div">
-            
-          </Typography>
+            <div>
+              <IconButton 
+                   id="demo-positioned-button"
+                   aria-controls={open ? 'demo-positioned-menu' : undefined}
+                   aria-haspopup="true"
+                   aria-expanded={open ? 'true' : undefined}
+                   onClick={handleClick}>
+                  <MoreVertIcon />
+              </IconButton>
+              <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={menuopen}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+    horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Покинуть канал</MenuItem>
+        <MenuItem onClick={handleClose}>Выйти из аккаунта</MenuItem>
+      </Menu>
+          <ThemeIcon />
+            </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -202,20 +254,27 @@ export const MainPage = () => {
         </List>
       </Drawer>
       <Main open={open}>
-        <DrawerHeader />
-        <ChatLayout />
-        <DrawerHeader />
-      </Main>
-      <MyAppBar open={open} position='fixed' sx={{ top: 'auto', bottom: 0, display:'flex',flexDirection:'row', justifyContent:'flex-start', alignItems:'flex-start' }}>
-        <Toolbar sx={{padding:'none'}}>
-        {/* <Container  sx={{width:'300px', padding:'none'}}>
-          <IconButton>
-            <LogoutIcon />
-          </IconButton>
+        <Paper sx={{ display:'flex',
+  alignItems:'flex-end',
+  justifyContent:'center',width:'100%',
+  height:'100%', background:theme.palette.background.default,}}>
+                <DrawerHeader />
+        <Container maxWidth={false} disableGutters >
+          <ChatLayout />
+          </Container>
 
-        </Container> */}
-        <TextField label='message'></TextField>
-        </Toolbar></MyAppBar>
+        <DrawerHeader />
+        </Paper>
+  
+      </Main>
+      <MyAppBar open={open} elevation={0} position='fixed' sx={{ top: 'auto', bottom: 0, borderLeft:`0.1px solid ${theme.palette.primary.dark}`}}>
+        <Toolbar sx={{display:'flex', justifyContent:'space-between', alignItems:'center',bgcolor:theme.palette.background.paper}}> 
+          <ChatTextField fullWidth placeholder="Ответить..." variant="standard" ></ChatTextField>
+          <IconButton>
+            <SendIcon />
+          </IconButton>
+        </Toolbar>
+      </MyAppBar>
     </Box>
   );
 }
