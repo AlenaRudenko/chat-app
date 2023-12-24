@@ -39,7 +39,7 @@ export const AuthPage = () => {
               }}
               sx={{
                 justifyContent: 'center',
-                background: theme.palette.background.default
+                background: theme.palette.background.default,
               }}
               square
             >

@@ -1,8 +1,5 @@
 import { Box, Container, styled, useTheme } from '@mui/material'
-
 import { Logo } from '../logo/Logo'
-import { MyThemeContext } from '../../theme-context/themeContext'
-import { useContext } from 'react'
 import { ThemeIcon } from '../theme-icon/ThemeIcon'
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -29,7 +26,7 @@ export const Header = () => {
       <StyledBox>
         <Logo />
       </StyledBox>
-<ThemeIcon />
+      <ThemeIcon />
     </Container>
   )
 }

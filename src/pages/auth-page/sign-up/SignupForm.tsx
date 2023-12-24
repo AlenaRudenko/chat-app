@@ -1,6 +1,6 @@
 import { InputSubmitForm } from '../../../components/input-submit/InputSubmit'
 
-interface IProps {
+type IProps = {
   setAuthForm: (value: string) => void
 }
 
@@ -10,8 +10,8 @@ export const SignupForm = ({ setAuthForm }: IProps) => {
   }
   return (
     <InputSubmitForm
-      handleForm={handleForm}
       buttonTitle='SIGN IN'
+      handleForm={handleForm}
       handleInput={() => {}}
       handleSubmit={() => {}}
       inputValue=''

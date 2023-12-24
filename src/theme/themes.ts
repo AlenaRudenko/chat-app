@@ -9,7 +9,7 @@ let lightTheme = createTheme({
     mode: 'light',
     primary: {
       main: '#FFBE98',
-      dark:'#f1f1f1'
+      dark: '#f1f1f1',
     },
     secondary: {
       main: '#98cdff',
@@ -27,7 +27,7 @@ let lightTheme = createTheme({
       main: '#6788A5',
     },
     background: {
-      default:'linear-gradient(180deg, #076585,#92bbc9,#ffffff)',
+      default: 'linear-gradient(180deg, #076585,#92bbc9,#ffffff)',
       paper: '#fff',
     },
   },
@@ -66,16 +66,12 @@ let lightTheme = createTheme({
           ...darkScrollbar({
             track: '#f1f1f1',
             thumb: grey[300],
-            active: grey[400]
-          }
-      
-        
-        
-          ),
+            active: grey[400],
+          }),
           //scrollbarWidth for Firefox
-          scrollbarWidth: "thin"
-        }
-      }
+          scrollbarWidth: 'thin',
+        },
+      },
     },
     MuiInputBase: {
       styleOverrides: {
@@ -120,7 +116,7 @@ let darkTheme = createTheme({
     mode: 'dark',
     primary: {
       main: '#282e33',
-      dark:'#18191d'
+      dark: '#18191d',
     },
     secondary: {
       main: '#6E7EAC',
@@ -139,7 +135,7 @@ let darkTheme = createTheme({
     },
     background: {
       paper: '#282e33',
-      default:'linear-gradient(180deg, #4c3a51,#b25068,#e7ab79)'
+      default: 'linear-gradient(180deg, #4c3a51,#b25068,#e7ab79)',
     },
   },
   typography: {
@@ -181,18 +177,19 @@ let darkTheme = createTheme({
         html: {
           ...darkScrollbar(undefined),
           //scrollbarWidth for Firefox
-          scrollbarWidth: "thin"
-        }
-      }
+          scrollbarWidth: 'thin',
+        },
+      },
     },
     MuiButton: {
-      variants:[
+      variants: [
         {
           props: { variant: 'text' },
           style: {
             textTransform: 'none',
             color: '#FFBE98',
-        },}
+          },
+        },
       ],
       styleOverrides: {
         // Name of the slot
@@ -216,7 +213,6 @@ let darkTheme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          
           fontFamily: 'Jost',
           fontSize: 30,
         },
@@ -236,7 +232,6 @@ let darkTheme = createTheme({
         },
       },
     },
-    
   },
 })
 export const newDarkTheme = responsiveFontSizes(darkTheme)
