@@ -3,7 +3,7 @@ import classes from './Authpage.module.scss'
 import { useState } from 'react'
 import Container from '@mui/material/Container'
 import { Box, Paper, Typography, styled, useTheme } from '@mui/material'
-import { Header } from '../../components/header/Header'
+import { MainHeader } from '../../components/header/main-header/MainHeader'
 import Illustration from '../../assets/Illustration.png'
 import { Logo } from '../../components/logo/Logo'
 import { SigninForm } from './sign-in/SigninForm'
@@ -78,7 +78,7 @@ export const AuthPage = () => {
               }}
               square
             >
-              <Header />
+              <MainHeader />
 
               <Box
                 sx={{

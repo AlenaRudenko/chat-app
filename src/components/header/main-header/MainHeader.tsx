@@ -1,6 +1,6 @@
 import { Box, Container, styled, useTheme } from '@mui/material'
-import { Logo } from '../logo/Logo'
-import { ThemeIcon } from '../theme-icon/ThemeIcon'
+import { Logo } from '../../logo/Logo'
+import { ThemeIcon } from '../../theme-icon/ThemeIcon'
 
 const StyledBox = styled(Box)(({ theme }) => ({
   visibility: 'hidden',
@@ -13,7 +13,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }))
 
-export const Header = () => {
+export const MainHeader = () => {
   return (
     <Container
       maxWidth={false}
