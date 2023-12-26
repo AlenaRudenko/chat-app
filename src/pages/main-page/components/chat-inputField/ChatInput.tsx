@@ -16,7 +16,7 @@ const drawerWidth = 300
     ...(!open && {
       width: `calc(100% - ${theme.spacing(7)} )`,
       [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - 50px)`,
+        width: `calc(100% - ${theme.spacing(9)})`,
       },
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,

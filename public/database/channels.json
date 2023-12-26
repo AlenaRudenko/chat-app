@@ -1,0 +1,16 @@
+{
+    "channels": [
+      {
+        "userId": "feb042250f75284d5c91f42190afc289",
+        "channelName": "Test channel",
+        "createdAt": "2023-11-17T12:02:59.029Z",
+        "id": "5dbb3ca088c9823994e1b078ba4f5ac2"
+      },
+      {
+        "userId": "feb042250f75284d5c91f42190afc289",
+        "channelName": "News channel",
+        "createdAt": "2023-11-17T12:03:59.029Z",
+        "id": "5dbb3ca088c9823994e1b078ba4f5ac3"
+      }
+    ]
+  }

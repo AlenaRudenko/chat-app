@@ -1,11 +1,12 @@
 import {  styled } from "@mui/material/styles"
 import { type Theme, type CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
-import { Divider, List, ListItem, ListItemButton } from "@mui/material"
+import { Avatar, Divider, List, ListItem, ListItemButton } from "@mui/material"
 import ListItemIcon from '@mui/material/ListItemIcon'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import ListItemText from '@mui/material/ListItemText'
+import { useEffect } from "react"
 const drawerWidth = 300
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -29,10 +30,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     top: '64px',
     border: 'none',
     height: `calc(100vh - 64px)`,
-    width: `calc(${theme.spacing(7)} + 3px)`,
-    [theme.breakpoints.up('sm')]: {
-      width: '50px',
-    },
+    width: `calc(${theme.spacing(9)} )`,
   })
   const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     width: drawerWidth,
@@ -49,51 +47,50 @@ const openedMixin = (theme: Theme): CSSObject => ({
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   }))
+
+  function randomColor() {
+    let hex = Math.floor(Math.random() * 0xFFFFFF);
+    let color = "#" + hex.toString(16);
   
+    return color;
+  }
+
 interface IProps {
     isDrawerOpen:boolean;
 
 }
 
 export const ChannelDrawer = ({isDrawerOpen}:IProps) => {
+
     return   <Drawer anchor='left' open={isDrawerOpen} variant='permanent'>
     <Divider sx={{ border: 'none' }} />
     <List>
-      {['Inbox', 'Starred', 'Send email', 'Drafts', 'Inbox', 'Starred', 'Send email', 'Drafts'].map(
+      {['Inbox', 'Starred', 'Send email', 'Drafts'].map(
         (text, index) => (
-          <ListItem key={text} sx={{ display: 'block' }} disablePadding>
+          <ListItem key={text} sx={{ display: 'block', ml:'2px' }} disablePadding>
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
+                justifyContent:'initial',
               }}
             >
-              <ListItemIcon
+              <Avatar
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
+                  width: 32,
+                  height: 32,
+                  mr: isDrawerOpen ? 3 : 'auto',
                   justifyContent: 'center',
+                  backgroundColor:randomColor(),
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                {text[0].toUpperCase()}
+              </Avatar>
+              <ListItemText primary={text} sx={{ opacity: isDrawerOpen ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
         ),
       )}
     </List>
-    <Divider />
-    <List>
-      {['All mail', 'Trash', 'Spam'].map((text, index) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+    
   </Drawer>
 }
