@@ -1,18 +1,24 @@
-import { InputSubmitForm } from '../../../components/input-submit/InputSubmit'
+
+import { InputSubmitForm } from '../../../components/input-submit/InputSubmitForm'
 type IProps = {
-  setAuthForm: (value: string) => void
+  setAuthForm: (value: string) => void;
+  handleInput:(value:string) => void;
+  value:string;
+  handleLogin:() => void
 }
-export const SigninForm = ({ setAuthForm }: IProps) => {
+
+export const SigninForm = ({ setAuthForm,handleInput, value,handleLogin }: IProps) => {
+  
   const handleForm = () => {
     setAuthForm('signup')
   }
   return (
     <InputSubmitForm
-      buttonTitle='SIGN UP'
+      buttonTitle='SIGN IN'
       handleForm={handleForm}
-      handleInput={() => {}}
-      handleSubmit={() => {}}
-      inputValue=''
+      handleInput={handleInput}
+      handleSubmit={handleLogin}
+      inputValue={value}
     />
   )
 }

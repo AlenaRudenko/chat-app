@@ -2,53 +2,56 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { ApiService } from '../../services/Api.service'
 import  IUser  from '../../interfaces/User';
+import { LocalService } from '../../services/LocalStore.service';
 
-interface IState {
-  users:IUser[];
-  status:string | null;
-  error:string | null;
-}
-const initialState:IState= {
-  users:[],
-  status:null,
-  error:null
+
+const initialState= {
+  user:{} as IUser,
+  status:null as string,
+  error:null as string
 }
 
-export const fetchUsers = createAsyncThunk('user/fetchUser',async (_, {rejectWithValue}) => {
+export const authLogin = createAsyncThunk('user/authLogin',async (userLogin:string, {rejectWithValue}) => {
   try {
     const response = await ApiService.getUsers();
-console.log(response.statusText)
-if(response.statusText !== 'OK'  ) {
-  throw new Error()
+    const users = response.data.users;
+    const currentUser = users.find((user:IUser) => user.nickName === userLogin);
+    if(response.statusText !== 'OK'  ) {
+      throw new Error('Server error!')} else if(!currentUser) {
+        throw new Error('Пользователя не существует !')
+      }
+  return response.data
 }
-return response.data
-  } catch(error) {
-   return rejectWithValue(error)
+ 
+  catch(error) { console.log(error.message)
+   return rejectWithValue(error.message);
+  
   }
 
 }) 
 const userSlice = createSlice({
-  name: 'user',
+  name: 'userReducer',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUser>) => {
-      state.users.push(action.payload) 
-    },
   },
   extraReducers:(builder) => {     
-    builder.addCase(fetchUsers.pending, (state) => {
+    builder.addCase(authLogin.pending, (state) => {
         state.status = 'loading';
         state.error = null
     })
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+    builder.addCase(authLogin.fulfilled, (state, action) => {
       state.status = 'resolved';
-      state.users = action.payload
+      const users = action.payload.users;
+      const currentUser = users.find((user:IUser) => user.nickName === "testUser");
+      state.user = currentUser;
+      LocalService.setUserId(currentUser.id)
+      console.log(currentUser)
     })
-    builder.addCase(fetchUsers.rejected, (state, action) => {
+    builder.addCase(authLogin.rejected, (state, action) => {
       state.status = 'rejected';
-      // state.error = action.payload
+        state.error = action.error.message
     })
   }
 })
-export const {setUser} = userSlice.actions
+// export const {setUser} = userSlice.actions
 export default userSlice.reducer

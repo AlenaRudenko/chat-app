@@ -1,19 +1,20 @@
 import { Button, Container, TextField, Typography, useTheme } from '@mui/material'
+import { TEvent } from 'src/interfaces/event'
 
 type IProps = {
   buttonTitle: string
   handleSubmit: () => void
   inputValue: string
-  handleInput: (event: string | undefined) => void
+  handleInput: (value:string) => void
   handleForm: () => void
 }
 
 export const InputSubmitForm = ({
   buttonTitle = 'OK',
   handleForm,
-  handleSubmit = () => {},
-  inputValue = '',
-  handleInput = () => {},
+  handleSubmit,
+  inputValue,
+  handleInput,
 }: IProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInput(event.target.value)
@@ -43,7 +44,7 @@ export const InputSubmitForm = ({
       </Button>
       <Typography>
         {buttonTitle === 'SIGN IN' ? (
-          <Typography>
+          <Typography sx={{ textAlign: 'center' }}>
             No Account yet?
             <Button color='primary' variant='text' disableElevation onClick={handleForm}>
               SIGN UP

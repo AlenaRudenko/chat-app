@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid'
 import classes from './Authpage.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
 import { Box, Paper, Typography, styled, useTheme } from '@mui/material'
 import { MainHeader } from '../../components/header/main-header/MainHeader'
@@ -8,6 +8,10 @@ import Illustration from '../../assets/Illustration.png'
 import { Logo } from '../../components/logo/Logo'
 import { SigninForm } from './sign-in/SigninForm'
 import { SignupForm } from './sign-up/SignupForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../store/store'
+import { authLogin } from '../../store/user-slice/userSlice'
+import { useSnackbar } from 'notistack'
 
 const styledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -20,7 +24,22 @@ const styledBox = styled(Box)(({ theme }) => ({
   },
 }))
 export const AuthPage = () => {
-  const [authForm, setAuthForm] = useState('signin')
+  const [authForm, setAuthForm] = useState('signin');
+  const [value, setValue] = useState<string>('')
+  const handleInput = (valueInput:string) => {
+    setValue(valueInput)
+  }
+  const dispatch = useDispatch<AppDispatch>()
+  const handleLogin = () => {
+    dispatch(authLogin(value))
+  }
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const {user, error, status} = useSelector((state:RootState) => state.user);
+  useEffect(() => {
+   if(error) {
+    enqueueSnackbar("Пользователя не существует", { variant: 'error'})
+   } 
+  },[error])
   const theme = useTheme()
   return (
     <div>
@@ -89,7 +108,7 @@ export const AuthPage = () => {
                   alignItems: 'center',
                 }}
               >
-                {authForm === 'signin' ? <SigninForm {...{ setAuthForm }} /> : <SignupForm {...{ setAuthForm }} />}
+                {authForm === 'signin' ? <SigninForm key={'signin'}{...{ setAuthForm,handleInput, value,handleLogin }} /> : <SignupForm key={'signup'}{...{ setAuthForm,handleInput,value }} />}
               </Box>
             </Paper>
           </Grid>
