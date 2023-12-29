@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  userSlice  from './user-slice/userSlice'
-import { channelSlice } from './channels-slice/channelsSlice'
-
+import userSlice from './user-slice/userSlice'
 
 export const store = configureStore({
-    reducer:{
-        user:userSlice
-    }
-});
+  reducer: {
+    user: userSlice,
+  },
+})
 
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}

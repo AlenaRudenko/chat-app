@@ -1,6 +1,6 @@
 export interface Channel {
-    userId:string;
-    channelName:string;
-    createdAt:string;
-    id:string
+  userId: string
+  channelName: string
+  createdAt: string
+  id: string
 }

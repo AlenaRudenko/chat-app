@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid'
 import classes from './Authpage.module.scss'
 import { useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
-import { Box, Paper, Typography, styled, useTheme } from '@mui/material'
+import { Box, Paper, Typography, useTheme } from '@mui/material'
 import { MainHeader } from '../../components/header/main-header/MainHeader'
 import Illustration from '../../assets/Illustration.png'
 import { Logo } from '../../components/logo/Logo'
@@ -13,34 +13,29 @@ import { AppDispatch, RootState } from '../../store/store'
 import { authLogin } from '../../store/user-slice/userSlice'
 import { useSnackbar } from 'notistack'
 
-const styledBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '40%',
-  minHeight: '90%',
-  justifyContent: 'center',
-  alignItems: 'center',
-  [theme.breakpoints.down('md')]: {
-    width: '60%',
-  },
-}))
 export const AuthPage = () => {
-  const [authForm, setAuthForm] = useState('signin');
+  const [authForm, setAuthForm] = useState('signin')
   const [value, setValue] = useState<string>('')
-  const handleInput = (valueInput:string) => {
+
+  const theme = useTheme()
+  const dispatch = useDispatch<AppDispatch>()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { user, error, status } = useSelector((state: RootState) => state.user)
+
+  const handleInput = (valueInput: string) => {
     setValue(valueInput)
   }
-  const dispatch = useDispatch<AppDispatch>()
+
   const handleLogin = () => {
     dispatch(authLogin(value))
   }
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const {user, error, status} = useSelector((state:RootState) => state.user);
+
   useEffect(() => {
-   if(error) {
-    enqueueSnackbar("Пользователя не существует", { variant: 'error'})
-   } 
-  },[error])
-  const theme = useTheme()
+    if (error) {
+      enqueueSnackbar('Пользователя не существует', { variant: 'error' })
+    }
+  }, [enqueueSnackbar, error])
+
   return (
     <div>
       <Container maxWidth={false} disableGutters>
@@ -108,7 +103,11 @@ export const AuthPage = () => {
                   alignItems: 'center',
                 }}
               >
-                {authForm === 'signin' ? <SigninForm key={'signin'}{...{ setAuthForm,handleInput, value,handleLogin }} /> : <SignupForm key={'signup'}{...{ setAuthForm,handleInput,value }} />}
+                {authForm === 'signin' ? (
+                  <SigninForm key='signin' {...{ setAuthForm, handleInput, value, handleLogin }} />
+                ) : (
+                  <SignupForm key='signup' {...{ setAuthForm, handleInput, value }} />
+                )}
               </Box>
             </Paper>
           </Grid>

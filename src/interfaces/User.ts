@@ -1,5 +1,5 @@
 export default interface IUser {
-    nickName: string;
-    createdAt: string;
-    id: string;
+  nickName: string
+  createdAt: string
+  id: string
 }

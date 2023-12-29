@@ -1,21 +1,14 @@
 import { Button, Container, TextField, Typography, useTheme } from '@mui/material'
-import { TEvent } from 'src/interfaces/event'
 
 type IProps = {
   buttonTitle: string
   handleSubmit: () => void
   inputValue: string
-  handleInput: (value:string) => void
+  handleInput: (value: string) => void
   handleForm: () => void
 }
 
-export const InputSubmitForm = ({
-  buttonTitle = 'OK',
-  handleForm,
-  handleSubmit,
-  inputValue,
-  handleInput,
-}: IProps) => {
+export const InputSubmitForm = ({ buttonTitle = 'OK', handleForm, handleSubmit, inputValue, handleInput }: IProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInput(event.target.value)
   }
