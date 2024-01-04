@@ -1,6 +1,6 @@
 import { App } from './components/App'
 
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { AuthPage } from './pages/auth-page/AuthPage'
 import { MainPage } from './pages/main-page/MainPage'
 
@@ -9,6 +9,10 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
+      {
+        path: '/',
+        element: <Navigate to='/auth' replace />,
+      },
       {
         path: '/auth',
         element: <AuthPage />,
