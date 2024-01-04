@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class Api {
   private instance = axios.create({
-    baseURL: 'https://chatapp-bslw--3000--a2aabdd9.local-credentialless.webcontainer.io/',
+    baseURL: 'http://localhost:3000/',
     headers: {
       'Content-type': 'application/json',
     },
@@ -10,6 +10,9 @@ class Api {
 
   getUsers() {
     return this.instance.get('/database/users.json')
+  }
+  getChannels() {
+    return this.instance.get('/database/channels.json')
   }
 }
 

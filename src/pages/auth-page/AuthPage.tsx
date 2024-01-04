@@ -6,36 +6,50 @@ import { Box, Paper, Typography, useTheme } from '@mui/material'
 import { MainHeader } from '../../components/header/main-header/MainHeader'
 import Illustration from '../../assets/Illustration.png'
 import { Logo } from '../../components/logo/Logo'
-import { SigninForm } from './sign-in/SigninForm'
-import { SignupForm } from './sign-up/SignupForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../store/store'
-import { authLogin } from '../../store/user-slice/userSlice'
 import { useSnackbar } from 'notistack'
+import { InputSubmitForm } from '../../components/input-submit/InputSubmitForm'
+import { TState } from './types'
+import { authLogin } from '../../store/user-slice/thunk'
+import { LocalService } from '../../services/LocalStore.service'
+import { useNavigate } from 'react-router-dom'
 
 export const AuthPage = () => {
-  const [authForm, setAuthForm] = useState('signin')
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<TState['value']>('')
+  const [authType, setAuthType] = useState<TState['authType']>('signin')
 
   const theme = useTheme()
   const dispatch = useDispatch<AppDispatch>()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { user, error, status } = useSelector((state: RootState) => state.user)
+  const state = useSelector((state: RootState) => state.user)
+
+  const handleOnClickBtnSing = () => {
+    setAuthType((authType) => (authType === 'signin' ? 'signup' : 'signin'))
+  }
 
   const handleInput = (valueInput: string) => {
     setValue(valueInput)
   }
 
-  const handleLogin = () => {
-    dispatch(authLogin(value))
+  const handleSubmit = () => {
+    if (authType === 'signin') {
+      dispatch(authLogin({ login: value }))
+    } else dispatch(authLogin({ login: value }))
   }
 
   useEffect(() => {
-    if (error) {
+    if (state.error) {
       enqueueSnackbar('Пользователя не существует', { variant: 'error' })
     }
-  }, [enqueueSnackbar, error])
+  }, [enqueueSnackbar, state.error])
 
+  useEffect(() => {
+    const userId = LocalService.getUserId()
+    if (userId) {
+      dispatch(authLogin({ id: userId }))
+    }
+  }, [dispatch])
   return (
     <div>
       <Container maxWidth={false} disableGutters>
@@ -103,11 +117,7 @@ export const AuthPage = () => {
                   alignItems: 'center',
                 }}
               >
-                {authForm === 'signin' ? (
-                  <SigninForm key='signin' {...{ setAuthForm, handleInput, value, handleLogin }} />
-                ) : (
-                  <SignupForm key='signup' {...{ setAuthForm, handleInput, value }} />
-                )}
+                <InputSubmitForm {...{ handleOnClickBtnSing, authType, handleInput, value, handleSubmit }} />
               </Box>
             </Paper>
           </Grid>

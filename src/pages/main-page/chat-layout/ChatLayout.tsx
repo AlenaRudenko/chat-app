@@ -1,170 +1,9 @@
-import { Avatar, Box, Container, ListItem, Typography, styled } from '@mui/material'
-import classes from './ChatLayout.module.scss'
+import { Box } from '@mui/material'
+import { memo } from 'react'
+import { dummyData } from './constants'
+import { UserProfile } from '../user-profile/UserProfile'
 
-const Bubble = styled(ListItem)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: '41.59px',
-  width: 'auto',
-  maxWidth: '50%',
-  minWidth: '5%',
-  height: 'auto',
-  margin: '5px',
-  padding: '10px',
-  display: 'inline-block',
-  textAlign: 'center',
-  overflowWrap: 'break-word',
-}))
-
-export const ChatLayout = () => {
-  const dummyData = [
-    {
-      message: 'start',
-      id: 1,
-    },
-    {
-      message: '2: This shoul fdfdffdf right',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 10,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'end',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 1,
-    },
-    {
-      message: '3: This should be in left again',
-      id: 2,
-    },
-    {
-      message: 'ssssssssssssssend',
-      id: 2,
-    },
-  ]
-
-  const chatBubbles = dummyData.map((obj, i = 0) => {
-    const reverse = obj.id === 1 ? 'row-reverse' : 'row'
-    return (
-      <>
-        <Container
-          maxWidth={false}
-          sx={{ padding: '0px 20px', height: '100%', display: 'flex', flexDirection: reverse, alignItems: 'center' }}
-          disableGutters
-        >
-          <Avatar>A</Avatar>
-          <Bubble key={i++}>
-            <Typography sx={{ whiteSpace: 'pre-wrap', display: 'inline' }}>{obj.message}</Typography>
-          </Bubble>
-        </Container>
-        <div className={classes.spacer_xs} />
-      </>
-    )
-  })
+const ChatLayout = memo(() => {
   return (
     <Box
       sx={{
@@ -176,7 +15,18 @@ export const ChatLayout = () => {
         width: '100%',
       }}
     >
-      {chatBubbles}
+      {dummyData.map((user, i = 0) => {
+        const reverse = user.id === 1 ? 'row-reverse' : 'row'
+        const randomKey = Math.random().toString(36).slice(2, 7)
+        return (
+          <div key={randomKey}>
+            <UserProfile {...{ user, reverse }} />
+          </div>
+        )
+      })}
     </Box>
   )
-}
+})
+
+ChatLayout.displayName = 'ChatLayout'
+export default ChatLayout

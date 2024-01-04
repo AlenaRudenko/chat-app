@@ -1,18 +1,10 @@
-import { Button, Container, TextField, Typography, useTheme } from '@mui/material'
+import { Button, Container, TextField, Typography } from '@mui/material'
+import { TProps } from './types'
 
-type IProps = {
-  buttonTitle: string
-  handleSubmit: () => void
-  inputValue: string
-  handleInput: (value: string) => void
-  handleForm: () => void
-}
-
-export const InputSubmitForm = ({ buttonTitle = 'OK', handleForm, handleSubmit, inputValue, handleInput }: IProps) => {
+export const InputSubmitForm = ({ authType, handleOnClickBtnSing, handleSubmit, value, handleInput }: TProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInput(event.target.value)
   }
-  const theme = useTheme()
   return (
     <Container
       sx={{
@@ -24,29 +16,22 @@ export const InputSubmitForm = ({ buttonTitle = 'OK', handleForm, handleSubmit, 
         width: '100%',
       }}
     >
-      <TextField
-        label='NickName'
-        margin='normal'
-        value={inputValue}
-        variant='outlined'
-        fullWidth
-        onChange={handleChange}
-      />
+      <TextField label='NickName' margin='normal' value={value} variant='outlined' fullWidth onChange={handleChange} />
       <Button color='primary' variant='contained' disableElevation onClick={handleSubmit}>
-        {buttonTitle}
+        {authType === 'signin' ? 'SIGN IN' : 'SIGN UP'}
       </Button>
       <Typography>
-        {buttonTitle === 'SIGN IN' ? (
+        {authType === 'signin' ? (
           <Typography sx={{ textAlign: 'center' }}>
             No Account yet?
-            <Button color='primary' variant='text' disableElevation onClick={handleForm}>
+            <Button color='primary' variant='text' disableElevation onClick={handleOnClickBtnSing}>
               SIGN UP
             </Button>
           </Typography>
         ) : (
           <Typography sx={{ textAlign: 'center' }}>
             Already have an account?
-            <Button variant='text' disableElevation onClick={handleForm}>
+            <Button variant='text' disableElevation onClick={handleOnClickBtnSing}>
               SIGN IN
             </Button>
           </Typography>
