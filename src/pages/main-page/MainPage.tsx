@@ -3,15 +3,14 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { useTheme } from '@mui/material/styles'
 import { useState } from 'react'
 import { Paper } from '@mui/material'
-import ChatLayout from './chat-layout/ChatLayout'
 import { ChatHeader } from '../../components/header/chat-header/ChatHeader'
 import { ChatInput } from './components/chat-inputField/ChatInput'
 import { IState } from './types'
 import ChannelDrawer from './components/drawer/ChannelDrawer'
+import { ChatLayout } from './chat-layout/ChatLayout'
 
 export const MainPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<IState['isDrawerOpen']>(true)
-  const [anchorEl, setAnchorEl] = useState<IState['anchorEl']>(null)
 
   const theme = useTheme()
 
@@ -19,15 +18,10 @@ export const MainPage = () => {
     setIsDrawerOpen(!isDrawerOpen)
   }
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    if (anchorEl) {
-      setAnchorEl(null)
-    } else setAnchorEl(event.currentTarget)
-  }
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
       <CssBaseline />
-      <ChatHeader {...{ isDrawerOpen, handleDrawerOpen, handleMenu, anchorEl }} />
+      <ChatHeader {...{ isDrawerOpen, handleDrawerOpen }} />
       <ChannelDrawer {...{ isDrawerOpen }} />
       <Paper
         sx={{

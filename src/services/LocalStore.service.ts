@@ -1,11 +1,14 @@
 import IUser from '../interfaces/User'
 
 class LocalStore {
-  setUserId(value: IUser['id']) {
-    return localStorage.setItem('id', value)
+  setUserLogin(value: IUser['nickName']) {
+    return localStorage.setItem('login', value)
   }
-  getUserId(): string {
-    return localStorage.getItem('id')
+  getUserLogin(): string {
+    return localStorage.getItem('login')
+  }
+  clearUserLogin() {
+    return localStorage.removeItem('login')
   }
 }
 export const LocalService = new LocalStore()

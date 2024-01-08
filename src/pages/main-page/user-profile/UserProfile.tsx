@@ -1,6 +1,6 @@
 import { Avatar, Container, Typography } from '@mui/material'
-import Bubble from '../chat-layout/styles'
 import { IProps } from './types'
+import { Bubble } from './styles'
 
 export const UserProfile = ({ user, reverse }: IProps) => {
   return (

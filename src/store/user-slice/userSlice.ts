@@ -1,31 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authLogin } from './thunk'
+import { authLogin, regUser } from './thunk'
 import { TState } from './types'
 
 const initialState = {
-  user: {},
-  status: null,
-  error: null,
+  user: null,
+  authStatus: null,
+  regStatus: null,
+  authError: null,
+  regError: null,
 } as TState
 
 const userSlice = createSlice({
   name: 'userReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrors: (state) => {
+      state.authError = null
+      state.regError = null
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(authLogin.pending, (state) => {
-      state.status = 'loading'
-      state.error = null
+      state.regStatus = 'loading'
+      state.authError = null
     })
     builder.addCase(authLogin.fulfilled, (state, action) => {
-      state.status = 'resolved'
+      state.regStatus = 'resolved'
       state.user = action.payload
     })
     builder.addCase(authLogin.rejected, (state, action) => {
-      state.status = 'rejected'
-      state.error = action.error.message
+      state.regStatus = 'rejected'
+      state.authError = action.error.message
+    })
+    builder.addCase(regUser.pending, (state, action) => {
+      state.regStatus = 'loading'
+    })
+    builder.addCase(regUser.fulfilled, (state, action) => {
+      state.regStatus = 'success'
+    })
+    builder.addCase(regUser.rejected, (state, action) => {
+      state.regStatus = 'rejected'
+      state.regError = action.error.message
     })
   },
 })
+
+export const { clearErrors } = userSlice.actions
 // export const {setUser} = userSlice.actions
 export default userSlice.reducer

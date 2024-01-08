@@ -1,7 +1,9 @@
 export type TProps = {
-  authType: string
-  handleSubmit: () => void
+  submitButtonText: string
+  authChangeText: string
+  authChangeButtonText: string
+  onSubmit: () => void
   value: string
-  handleInput: (value: string) => void
-  handleOnClickBtnSing: () => void
+  onInputChange: (value: string) => void
+  onClickAuthBtnChange: () => void
 }

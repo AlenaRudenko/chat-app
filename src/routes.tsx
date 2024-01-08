@@ -3,6 +3,7 @@ import { App } from './components/App'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { AuthPage } from './pages/auth-page/AuthPage'
 import { MainPage } from './pages/main-page/MainPage'
+import { ProtectedRoute } from './components/wrapped-component/WrappedComponent'
 
 export const router = createBrowserRouter([
   {
@@ -15,11 +16,19 @@ export const router = createBrowserRouter([
       },
       {
         path: '/auth',
-        element: <AuthPage />,
+        element: (
+          <ProtectedRoute>
+            <AuthPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/main',
-        element: <MainPage />,
+        element: (
+          <ProtectedRoute>
+            <MainPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

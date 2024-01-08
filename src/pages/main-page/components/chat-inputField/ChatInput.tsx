@@ -1,5 +1,4 @@
-import { styled, Toolbar, useTheme, IconButton, TextField } from '@mui/material'
-import MuiAppBar from '@mui/material/AppBar'
+import { Toolbar, useTheme, IconButton } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'

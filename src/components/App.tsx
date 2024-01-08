@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppTheme } from '../hooks/useAppTheme'
 import { MyThemeContext } from '../theme-context/themeContext'
-import { SnackbarProvider, enqueueSnackbar } from 'notistack'
+import { SnackbarProvider } from 'notistack'
 
 export const App = () => {
   const [theme, setTheme] = useAppTheme()

@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { dummyData } from './constants'
 import { UserProfile } from '../user-profile/UserProfile'
 
-const ChatLayout = memo(() => {
+export const ChatLayout = memo(() => {
   return (
     <Box
       sx={{
@@ -27,6 +27,3 @@ const ChatLayout = memo(() => {
     </Box>
   )
 })
-
-ChatLayout.displayName = 'ChatLayout'
-export default ChatLayout
