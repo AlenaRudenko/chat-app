@@ -1,18 +1,22 @@
-import { useEffect, useState } from 'react'
 import './style.scss'
+import { Outlet } from 'react-router-dom'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { useAppTheme } from '../hooks/useAppTheme'
+import { MyThemeContext } from '../theme-context/themeContext'
+import { SnackbarProvider } from 'notistack'
 
 export const App = () => {
-  const [state, setState] = useState(1)
-  console.log(true)
-  const func = (name: string) => {
-    return
-  }
-  useEffect(() => {
-    const a = state + 1
-  }, [])
+  const [theme, setTheme] = useAppTheme()
   return (
     <div>
-      <h1>Hello World!</h1>
+      <MyThemeContext.Provider value={setTheme}>
+        <SnackbarProvider autoHideDuration={1500} maxSnack={2}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Outlet />
+          </ThemeProvider>
+        </SnackbarProvider>
+      </MyThemeContext.Provider>
     </div>
   )
 }

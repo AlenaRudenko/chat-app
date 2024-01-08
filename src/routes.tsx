@@ -1,6 +1,9 @@
 import { App } from './components/App'
 
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { AuthPage } from './pages/auth-page/AuthPage'
+import { MainPage } from './pages/main-page/MainPage'
+import { ProtectedRoute } from './components/wrapped-component/WrappedComponent'
 
 export const router = createBrowserRouter([
   {
@@ -8,8 +11,24 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: '/',
+        element: <Navigate to='/auth' replace />,
+      },
+      {
         path: '/auth',
-        element: <div>login or sign up</div>,
+        element: (
+          <ProtectedRoute>
+            <AuthPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/main',
+        element: (
+          <ProtectedRoute>
+            <MainPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

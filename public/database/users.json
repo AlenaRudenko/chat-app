@@ -1,0 +1,18 @@
+{
+    "users": [
+      {
+        "nickName": "testUser",
+        "createdAt": "2023-11-17T12:31:58.415Z",
+        "id": "feb042250f75284d5c91f42190afc289"
+      },
+      {
+        "nickName": "testUser2",
+        "createdAt": "2023-11-17T12:31:58.415Z",
+        "id": "feb042250f75284d5c91f42190dfc289"
+      },      {
+        "nickName": "testUser3",
+        "createdAt": "2023-11-17T12:31:58.415Z",
+        "id": "feb042250f75284d5c91f42190gfc289"
+      }
+    ]
+}
