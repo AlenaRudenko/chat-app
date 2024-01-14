@@ -5,7 +5,7 @@ import { LocalService } from '../../services/LocalStore.service'
 
 type TProps = {
   login: string
-  navigateFn: () => void
+  navigateFn?: () => void
 }
 
 export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }>(
@@ -28,7 +28,7 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
 
       LocalService.setUserLogin(currentUser.nickName)
 
-      navigateFn()
+      navigateFn && navigateFn()
 
       return currentUser
     } catch (error) {

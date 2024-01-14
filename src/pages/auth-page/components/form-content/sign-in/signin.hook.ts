@@ -1,12 +1,12 @@
 import { authLogin } from '../../../../../store/user-slice/thunk'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../../../../../store/store'
+import { AppDispatch, getAuthError } from '../../../../../store/store'
 import { useSnackbar } from 'notistack'
 import { useNavigate } from 'react-router-dom'
 
 export const useSignin = (login: string) => {
-  const error = useSelector((state: RootState) => state.user.authError)
+  const error = useSelector(getAuthError)
 
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch<AppDispatch>()

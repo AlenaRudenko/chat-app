@@ -1,9 +1,9 @@
 import { App } from './components/App'
-
-import { Navigate, createBrowserRouter } from 'react-router-dom'
-import { AuthPage } from './pages/auth-page/AuthPage'
-import { MainPage } from './pages/main-page/MainPage'
-import { ProtectedRoute } from './components/wrapped-component/WrappedComponent'
+import { Navigate, createBrowserRouter, defer } from 'react-router-dom'
+import { AuthPageWrapper } from './pages/auth-page/AuthPage'
+import { MainPageWrapper } from './pages/main-page/MainPage'
+import { mainPageLoader } from './pages/main-page/mainPage.loader'
+import { authPageLoader } from './pages/auth-page/authPage.loader'
 
 export const router = createBrowserRouter([
   {
@@ -16,19 +16,13 @@ export const router = createBrowserRouter([
       },
       {
         path: '/auth',
-        element: (
-          <ProtectedRoute>
-            <AuthPage />
-          </ProtectedRoute>
-        ),
+        element: <AuthPageWrapper />,
+        loader: () => defer({ userPromise: authPageLoader() }),
       },
       {
         path: '/main',
-        element: (
-          <ProtectedRoute>
-            <MainPage />
-          </ProtectedRoute>
-        ),
+        element: <MainPageWrapper />,
+        loader: () => defer({ userPromise: mainPageLoader() }),
       },
     ],
   },

@@ -77,6 +77,7 @@ module.exports = {
     'react/jsx-boolean-value': 1,
     'react/jsx-curly-brace-presence': 1,
     'react/jsx-key': 1,
+    'react/no-children-prop': 0,
     'react/jsx-sort-props': [
       1,
       {
