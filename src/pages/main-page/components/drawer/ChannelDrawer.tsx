@@ -1,44 +1,53 @@
 import { Avatar, Divider, List, ListItem, ListItemButton } from '@mui/material'
 import ListItemText from '@mui/material/ListItemText'
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Drawer } from './styles'
 import { TProps } from './types'
-
-function randomColor() {
-  let hex = Math.floor(Math.random() * 0xffffff)
-  let color = '#' + hex.toString(16)
-
-  return color
-}
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, getChannels } from '../../../../store/store'
+import { setUserChannels } from '../../../../store/channels-slice/thunk'
+import { useChannel } from '../../hooks/useChannel.hook'
 
 const ChannelDrawer = memo(({ isDrawerOpen }: TProps) => {
+  const { handleSetChannel } = useChannel()
+  const dispatch = useDispatch<AppDispatch>()
+  const storeChannels = useSelector(getChannels)
+  useEffect(() => {
+    dispatch(setUserChannels('ds'))
+  }, [])
   return (
     <Drawer anchor='left' open={isDrawerOpen} variant='permanent'>
       <Divider sx={{ border: 'none' }} />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} sx={{ display: 'block', ml: '2px' }} disablePadding>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: 'initial',
-              }}
+        {storeChannels &&
+          storeChannels.map((channel, index) => (
+            <ListItem
+              key={channel.id}
+              sx={{ display: 'block', ml: '2px' }}
+              disablePadding
+              onClick={() => handleSetChannel(channel)}
             >
-              <Avatar
+              <ListItemButton
                 sx={{
-                  width: 32,
-                  height: 32,
-                  mr: isDrawerOpen ? 3 : 'auto',
-                  justifyContent: 'center',
-                  backgroundColor: randomColor(),
+                  minHeight: 48,
+                  justifyContent: 'initial',
                 }}
               >
-                {text[0].toUpperCase()}
-              </Avatar>
-              <ListItemText primary={text} sx={{ opacity: isDrawerOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <Avatar
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    mr: isDrawerOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                    backgroundColor: channel.color,
+                  }}
+                >
+                  {channel.channelName[0].toUpperCase()}
+                </Avatar>
+                <ListItemText primary={channel.channelName} sx={{ opacity: isDrawerOpen ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Drawer>
   )

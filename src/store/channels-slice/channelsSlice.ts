@@ -1,30 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { Channel } from '../../interfaces/channel'
+import { TChannel } from '../../interfaces/channel'
+import { setUserChannels } from './thunk'
 
-function randomColor() {
-  let hex = Math.floor(Math.random() * 0xffffff)
-  let color = '#' + hex.toString(16)
-
-  return color
+type TColor = {
+  color: string
+} & TChannel
+type TState = {
+  channels: TColor[] | null
 }
 
-export const channelSlice = createSlice({
-  name: 'channels',
-  initialState: [],
-  reducers: {
-    setChannels: {
-      reducer: (state, action: PayloadAction<Channel[]>) => {
-        state.push(action.payload)
-      },
-      prepare: (value) => {
-        return {
-          payload: {
-            ...value,
-            color: randomColor(),
-          },
-        }
-      },
-    },
+const initialState = {
+  channels: null,
+} as TState
+
+const channelsSlice = createSlice({
+  name: 'channelReducer',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(setUserChannels.fulfilled, (state, action) => {
+      state.channels = action.payload
+    })
   },
 })
+
+export default channelsSlice.reducer

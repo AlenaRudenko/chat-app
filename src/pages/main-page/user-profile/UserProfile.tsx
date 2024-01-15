@@ -2,7 +2,7 @@ import { Avatar, Container, Typography } from '@mui/material'
 import { IProps } from './types'
 import { Bubble } from './styles'
 
-export const UserProfile = ({ user, reverse }: IProps) => {
+export const UserProfile = ({ message, reverse }: IProps) => {
   return (
     <>
       <Container
@@ -12,7 +12,7 @@ export const UserProfile = ({ user, reverse }: IProps) => {
       >
         <Avatar>A</Avatar>
         <Bubble>
-          <Typography sx={{ whiteSpace: 'pre-wrap', display: 'inline' }}>{user.message}</Typography>
+          <Typography sx={{ whiteSpace: 'pre-wrap', display: 'inline' }}>{message.message}</Typography>
         </Bubble>
       </Container>
       <div />

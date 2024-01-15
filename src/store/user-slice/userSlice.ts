@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authLogin, regUser } from './thunk'
+import { authLogin, logoutUser, regUser } from './thunk'
 import { TState } from './types'
+import { store } from '../store'
 
 const initialState = {
   user: null,
@@ -41,6 +42,9 @@ const userSlice = createSlice({
     builder.addCase(regUser.rejected, (state, action) => {
       state.regStatus = 'rejected'
       state.regError = action.error.message
+    })
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.user = null
     })
   },
 })

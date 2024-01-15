@@ -25,18 +25,18 @@ export const MainPage = () => {
       <CssBaseline />
       <ChatHeader {...{ isDrawerOpen, handleDrawerOpen }} />
       <ChannelDrawer {...{ isDrawerOpen }} />
-      <Paper
+      <Box
         sx={{
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'center',
           width: '100%',
-          height: '100%',
+          height: '100vh',
           background: theme.palette.background.default,
         }}
       >
         <ChatLayout />
-      </Paper>
+      </Box>
       <ChatInput {...{ isDrawerOpen }} />
     </Box>
   )

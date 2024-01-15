@@ -1,0 +1,32 @@
+{
+  "messages": [
+    {
+      "userId": "feb042250f75284d5c91f42190afc289",
+      "channelId": "5dbb3ca088c9823994e1b078ba4f5ac2",
+      "message": "Lets go",
+      "createdAt": "2023-11-19T22:54:25.907Z",
+      "id": "42476e1c646bb9a54007988ca8e8a2fe"
+    },
+    {
+      "userId": "feb042250f75284d5c91f42190dfc289",
+      "channelId": "5dbb3ca088c9823994e1b078ba4f5ac2",
+      "message": "Hello how are you",
+      "createdAt": "2023-11-19T22:54:25.907Z",
+      "id": "42476e1c646bb9a54007988ca8e9a2fe"
+    },
+    {
+      "userId": "feb042250f75284d5c91f42190afc289",
+      "channelId": "5dbb3ca088c9823994e1b078ba4f5ac3",
+      "message": "Iam a doctor",
+      "createdAt": "2023-11-19T22:54:25.907Z",
+      "id": "42476e1c646bb9a54007988ca8e7a2fe"
+    },
+    {
+      "userId": "feb042250f75284d5c91f42190gfc289",
+      "channelId": "5dbb3ca088c9823994e1b078ba4f5ac3",
+      "message": "Bye",
+      "createdAt": "2023-11-19T22:54:25.907Z",
+      "id": "42476e1c646bb9a54007988ca6e8a2fe"
+    }
+  ]
+}

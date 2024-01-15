@@ -2,18 +2,25 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { memo, useState } from 'react'
 import { TState } from './types'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../../../store/store'
+import { logoutUser } from '../../../../store/user-slice/thunk'
+import { useNavigate } from 'react-router-dom'
 
 export const ChatMenu = memo(() => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
-
+  const dispatch = useDispatch<AppDispatch>()
   const isMenuOpen = Boolean(anchorEl)
+  const navigate = useNavigate()
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorEl) {
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)
   }
-
+  const handleLogOut = () => {
+    dispatch(logoutUser(() => navigate('/auth')))
+  }
   return (
     <>
       <IconButton
@@ -43,7 +50,7 @@ export const ChatMenu = memo(() => {
         <MenuItem value='leaveChannel' onClick={handleMenu}>
           Покинуть канал
         </MenuItem>
-        <MenuItem value='logOut' onClick={handleMenu}>
+        <MenuItem value='logOut' onClick={handleLogOut}>
           Выйти из аккаунта
         </MenuItem>
       </Menu>

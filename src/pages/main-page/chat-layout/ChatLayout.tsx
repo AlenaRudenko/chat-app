@@ -1,9 +1,16 @@
 import { Box } from '@mui/material'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { dummyData } from './constants'
 import { UserProfile } from '../user-profile/UserProfile'
+import { useSelector } from 'react-redux'
+import { getMessages, getUser } from '../../../store/store'
 
-export const ChatLayout = memo(() => {
+export const ChatLayout = () => {
+  const messages = useSelector(getMessages)
+  const user = useSelector(getUser)
+  useEffect(() => {
+    console.log(messages)
+  }, [messages])
   return (
     <Box
       sx={{
@@ -15,15 +22,16 @@ export const ChatLayout = memo(() => {
         width: '100%',
       }}
     >
-      {dummyData.map((user, i = 0) => {
-        const reverse = user.id === 1 ? 'row-reverse' : 'row'
-        const randomKey = Math.random().toString(36).slice(2, 7)
-        return (
-          <div key={randomKey}>
-            <UserProfile {...{ user, reverse }} />
-          </div>
-        )
-      })}
+      {messages &&
+        messages.map((message, i = 0) => {
+          const reverse = message.userId === user.id ? 'row-reverse' : 'row'
+          const randomKey = Math.random().toString(36).slice(2, 7)
+          return (
+            <div key={randomKey}>
+              <UserProfile {...{ message, reverse }} />
+            </div>
+          )
+        })}
     </Box>
   )
-})
+}

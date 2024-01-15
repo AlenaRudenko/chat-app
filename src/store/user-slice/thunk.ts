@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import IUser from '../../interfaces/User'
 import { ApiService } from '../../services/Api.service'
 import { LocalService } from '../../services/LocalStore.service'
+import { redirect } from 'react-router-dom'
 
 type TProps = {
   login: string
@@ -49,4 +50,14 @@ export const regUser = createAsyncThunk('user/regUser', async (user: { nickName:
   } catch (error) {
     return rejectWithValue(error.message)
   }
+})
+
+export const logoutUser = createAsyncThunk('user/logoutUser', (navigateFn: () => void) => {
+  return new Promise<string>((resolve, reject) => {
+    setTimeout(async () => {
+      const response = await LocalService.clearUserLogin()
+    }, 50)
+    navigateFn && navigateFn()
+    resolve('success')
+  })
 })

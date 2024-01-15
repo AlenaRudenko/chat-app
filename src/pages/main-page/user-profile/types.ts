@@ -1,8 +1,6 @@
-type TUser = {
-  message: string
-  id: number
-}
+import { TMessage } from '../../../interfaces/message'
+
 export interface IProps {
-  user: TUser
+  message: TMessage
   reverse: string
 }

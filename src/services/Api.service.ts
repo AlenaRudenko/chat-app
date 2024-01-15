@@ -1,5 +1,7 @@
 import axios from 'axios'
 import IUser from '../interfaces/User'
+import { TChannel } from '../interfaces/channel'
+import { TMessage } from '../interfaces/message'
 
 class Api {
   private instance = axios.create({
@@ -16,7 +18,10 @@ class Api {
     return this.instance.post('/database/users.json', credentials)
   }
   getChannels() {
-    return this.instance.get('/database/channels.json')
+    return this.instance.get<{ channels: TChannel[] }>('/database/channels.json')
+  }
+  getMessages() {
+    return this.instance.get<{ messages: TMessage[] }>('/database/messages.json')
   }
 }
 
