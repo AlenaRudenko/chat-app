@@ -7,3 +7,5 @@ export type TChannel = {
 export type ColoredChannel = {
   color: string
 } & TChannel
+
+export type TJoinChannel = Pick<TChannel, 'userId' & 'channelName'>

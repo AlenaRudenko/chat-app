@@ -4,13 +4,14 @@ import { memo, useEffect, useState } from 'react'
 import { Drawer } from './styles'
 import { TProps } from './types'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, getChannels } from '../../../../store/store'
+import { AppDispatch, getChannels, getCurrentChannel } from '../../../../store/store'
 import { setUserChannels } from '../../../../store/channels-slice/thunk'
 import { useChannel } from '../../hooks/useChannel.hook'
 
 const ChannelDrawer = memo(({ isDrawerOpen }: TProps) => {
   const { handleSetChannel } = useChannel()
   const dispatch = useDispatch<AppDispatch>()
+  const currentChannel = useSelector(getCurrentChannel)
   const storeChannels = useSelector(getChannels)
   useEffect(() => {
     dispatch(setUserChannels('ds'))
@@ -28,6 +29,7 @@ const ChannelDrawer = memo(({ isDrawerOpen }: TProps) => {
               onClick={() => handleSetChannel(channel)}
             >
               <ListItemButton
+                selected={currentChannel && currentChannel.id === channel.id ? true : false}
                 sx={{
                   minHeight: 48,
                   justifyContent: 'initial',

@@ -2,10 +2,12 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { memo, useState } from 'react'
 import { TState } from './types'
-import { useDispatch } from 'react-redux'
+import { batch, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../../store/store'
 import { logoutUser } from '../../../../store/user-slice/thunk'
 import { useNavigate } from 'react-router-dom'
+import { clearChannels } from '../../../../store/channels-slice/channelsSlice'
+import { clearMessages } from '../../../../store/messages-slice/messagesSlice'
 
 export const ChatMenu = memo(() => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
@@ -20,6 +22,8 @@ export const ChatMenu = memo(() => {
   }
   const handleLogOut = () => {
     dispatch(logoutUser(() => navigate('/auth')))
+    dispatch(clearChannels())
+    dispatch(clearMessages())
   }
   return (
     <>

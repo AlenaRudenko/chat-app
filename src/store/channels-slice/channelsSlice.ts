@@ -16,12 +16,16 @@ const initialState = {
 const channelsSlice = createSlice({
   name: 'channelReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    clearChannels: (state) => {
+      state.channels = null
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(setUserChannels.fulfilled, (state, action) => {
       state.channels = action.payload
     })
   },
 })
-
+export const { clearChannels } = channelsSlice.actions
 export default channelsSlice.reducer

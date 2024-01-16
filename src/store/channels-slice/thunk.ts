@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { TChannel } from '../../interfaces/channel'
 import { ApiService } from '../../services/Api.service'
+import { TChannel } from '../../interfaces/channel'
 
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff)

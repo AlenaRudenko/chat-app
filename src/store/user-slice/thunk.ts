@@ -40,7 +40,7 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
 
 export const regUser = createAsyncThunk('user/regUser', async (user: { nickName: string }, { rejectWithValue }) => {
   try {
-    const response = await ApiService.createUser(user)
+    const response = await ApiService.createUser(user.nickName)
 
     if (response.statusText !== 'OK') {
       throw new Error('Такой пользователь уже существует')

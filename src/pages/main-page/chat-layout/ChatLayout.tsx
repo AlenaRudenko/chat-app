@@ -5,12 +5,10 @@ import { UserProfile } from '../user-profile/UserProfile'
 import { useSelector } from 'react-redux'
 import { getMessages, getUser } from '../../../store/store'
 
-export const ChatLayout = () => {
+export const ChatLayout = memo(() => {
   const messages = useSelector(getMessages)
   const user = useSelector(getUser)
-  useEffect(() => {
-    console.log(messages)
-  }, [messages])
+
   return (
     <Box
       sx={{
@@ -23,7 +21,8 @@ export const ChatLayout = () => {
       }}
     >
       {messages &&
-        messages.map((message, i = 0) => {
+        user &&
+        messages.map((message) => {
           const reverse = message.userId === user.id ? 'row-reverse' : 'row'
           const randomKey = Math.random().toString(36).slice(2, 7)
           return (
@@ -34,4 +33,4 @@ export const ChatLayout = () => {
         })}
     </Box>
   )
-}
+})

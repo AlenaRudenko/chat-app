@@ -5,3 +5,9 @@ export type TMessage = {
   createdAt: string
   id: string
 }
+
+export type TPostMessage = {
+  userId: string
+  channelId: string
+  message: string
+}

@@ -1,8 +1,9 @@
 import { Avatar, Container, Typography } from '@mui/material'
 import { IProps } from './types'
 import { Bubble } from './styles'
+import { memo } from 'react'
 
-export const UserProfile = ({ message, reverse }: IProps) => {
+export const UserProfile = memo(({ message, reverse }: IProps) => {
   return (
     <>
       <Container
@@ -18,4 +19,4 @@ export const UserProfile = ({ message, reverse }: IProps) => {
       <div />
     </>
   )
-}
+})
