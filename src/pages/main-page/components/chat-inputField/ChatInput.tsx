@@ -2,12 +2,12 @@ import { Toolbar, useTheme, IconButton } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
-import { TProps } from './types'
 
-export const ChatInput = ({ isDrawerOpen }: TProps) => {
+export const ChatInput = () => {
   const theme = useTheme()
+
   return (
-    <MyAppBar {...{ isDrawerOpen }}>
+    <MyAppBar>
       <Toolbar
         sx={{
           display: 'flex',

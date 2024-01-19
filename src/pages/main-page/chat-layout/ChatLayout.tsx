@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
-import { memo, useEffect } from 'react'
-import { dummyData } from './constants'
+import { memo } from 'react'
 import { UserProfile } from '../user-profile/UserProfile'
 import { useSelector } from 'react-redux'
 import { getMessages, getUser } from '../../../store/store'

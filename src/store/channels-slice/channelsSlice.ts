@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { TChannel } from '../../interfaces/channel'
+import { ColoredChannel, TChannel } from '../../interfaces/channel'
 import { setUserChannels } from './thunk'
 
-type TColor = {
-  color: string
-} & TChannel
 type TState = {
-  channels: TColor[] | null
+  channels: ColoredChannel[] | null
 }
 
 const initialState = {

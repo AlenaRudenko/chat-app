@@ -1,14 +1,13 @@
-import { Box, styled } from '@mui/material'
+import { Box, IconButton, styled } from '@mui/material'
 import { type BoxProps as MuiBoxProps } from '@mui/material'
 import { ReactElement } from 'react'
+import { useDrawer } from '../../../pages/main-page/store/drawerContext'
+import MenuIcon from '@mui/icons-material/Menu'
+
 type HeaderBoxProps = {
   open?: boolean
 } & MuiBoxProps
 
-interface IProps extends React.PropsWithChildren {
-  open: boolean
-  children: ReactElement
-}
 const DrawerButton = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })<HeaderBoxProps>(
   ({ theme, open }) => ({
     display: 'flex',
@@ -30,8 +29,15 @@ const DrawerButton = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 )
-const DrawerButtonBox = ({ open, children }: IProps) => {
-  return <DrawerButton {...{ open }}>{children}</DrawerButton>
+const DrawerButtonBox = () => {
+  const { isDrawerOpen, handleIsDrawerOpen } = useDrawer()
+  return (
+    <DrawerButton open={isDrawerOpen}>
+      <IconButton aria-label='open drawer' color='inherit' edge='start' sx={{ mr: 2 }} onClick={handleIsDrawerOpen}>
+        <MenuIcon />
+      </IconButton>
+    </DrawerButton>
+  )
 }
 DrawerButtonBox.displayName = 'DrawerButtonBox'
 export default DrawerButtonBox
