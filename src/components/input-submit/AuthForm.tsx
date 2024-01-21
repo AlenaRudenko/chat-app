@@ -28,13 +28,12 @@ export const AuthForm = ({
       <Button disabled={value.length < 3} color='primary' variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}
       </Button>
-      <Typography>
-        <Typography sx={{ textAlign: 'center' }}>
-          {authChangeText}
-          <Button variant='text' disableElevation onClick={onClickAuthBtnChange}>
-            {authChangeButtonText}
-          </Button>
-        </Typography>
+
+      <Typography sx={{ textAlign: 'center' }}>
+        {authChangeText}
+        <Button variant='text' disableElevation onClick={onClickAuthBtnChange}>
+          {authChangeButtonText}
+        </Button>
       </Typography>
     </Container>
   )

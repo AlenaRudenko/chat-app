@@ -25,7 +25,7 @@ export const FormContent = () => {
   }
 
   return (
-    <Grid className={classes.paper} md={6} sm={12} spacing={2} xs={12} item>
+    <Grid className={classes.paper} md={6} sm={12} xs={12} item>
       <Paper
         style={{
           height: '100vh',

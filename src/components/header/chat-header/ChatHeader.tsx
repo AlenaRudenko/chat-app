@@ -20,7 +20,9 @@ export const ChatHeader = () => {
           disableGutters
         >
           <DrawerButtonBox />
-          <Typography variant='h2'>{channel ? channel.channelName : ''}</Typography>
+          <Typography component={'span'} variant='h2'>
+            {channel ? channel.channelName : ''}
+          </Typography>
         </Container>
         <Box sx={{ display: 'flex' }}>
           <ChatMenu />
