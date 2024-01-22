@@ -3,7 +3,7 @@ import io, { Socket } from 'socket.io-client'
 class SocketApi {
   public socket: null | Socket = null
   createConnection() {
-    this.socket = io('http://localhost:3000/')
+    this.socket = io('https://j9rl2v-3000.csb.app/')
     this.socket.on('connect', () => {
       console.log('connected')
     })

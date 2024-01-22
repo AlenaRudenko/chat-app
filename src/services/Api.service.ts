@@ -5,14 +5,14 @@ import { TMessage, TPostMessage } from '../interfaces/message'
 
 class Api {
   private instance = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://6fq8v2-3000.csb.app/',
     headers: {
       'Content-type': 'application/json',
     },
   })
 
   getUsers() {
-    return this.instance.get<{ users: IUser[] }>('/database/users.json')
+    return this.instance.get<{ users: IUser[] }>('/users')
   }
   createUser(credentials: IUser['nickName']) {
     return this.instance.post('/database/users.json', { nickName: credentials })
