@@ -6,8 +6,6 @@ import { getCurrentChannel } from '../../../../store/store'
 import { memo } from 'react'
 
 export const Channel = ({ channel }: { channel: ColoredChannel }) => {
-  console.log('channel rerender', channel.channelName)
-
   return (
     <StyledListItem {...{ channel }}>
       <StyledAvatar channelColor={channel.color}>{channel.channelName[0].toUpperCase()}</StyledAvatar>

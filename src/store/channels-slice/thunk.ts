@@ -13,12 +13,12 @@ export const setUserChannels = createAsyncThunk<ColoredChannel[], string, { reje
   'channels/setUserChannels',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await ApiService.getChannels()
-      if (response.statusText !== 'OK') {
+      const response = await ApiService.getUserChannels(userId)
+      if (response.status !== 200) {
         return rejectWithValue('Server error')
       }
-      const idUser = userId
-      const channels = response.data.channels
+      const channels = response.data
+      console.log('channels', channels)
       if (!channels) {
         return rejectWithValue('No channels')
       }

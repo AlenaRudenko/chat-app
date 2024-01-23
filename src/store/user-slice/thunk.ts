@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import IUser from '../../interfaces/User'
 import { ApiService } from '../../services/Api.service'
 import { LocalService } from '../../services/LocalStore.service'
-import { redirect } from 'react-router-dom'
 
 type TProps = {
   login: string
@@ -13,18 +12,14 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
   'user/authLogin',
   async ({ login, navigateFn }, { rejectWithValue }) => {
     try {
-      const response = await ApiService.getUsers()
+      const response = await ApiService.getUserByNickName(login)
 
-      const users = response.data.users
+      const currentUser = response.data[0]
 
-      const currentUser = users.find((user: IUser) => {
-        return user.nickName === login
-      })
-
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         return rejectWithValue('Server error')
       } else if (!currentUser) {
-        return rejectWithValue('Пользователь уже существует')
+        return rejectWithValue('Пользователя не существует, зареристрируйтесь, чтобы войти')
       }
 
       LocalService.setUserLogin(currentUser.nickName)

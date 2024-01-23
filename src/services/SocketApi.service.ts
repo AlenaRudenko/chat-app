@@ -1,33 +1,21 @@
-import io, { Socket } from 'socket.io-client'
+import io from 'socket.io-client'
 
 class SocketApi {
-  public socket: null | Socket = null
+  public socket = io('https://j9rl2v-3000.csb.app/')
   createConnection() {
-    this.socket = io('https://j9rl2v-3000.csb.app/')
-    this.socket.on('connect', () => {
+    return this.socket.on('connect', () => {
       console.log('connected')
     })
-    this.socket.on('users', (data) => {
-      console.log('users', data)
-    })
-    this.socket.on('disconnect', () => {
-      console.log('disconnected')
+  }
+  joinChannel({ userId, channelName }: { userId: string; channelName: string }) {
+    console.log('join', { userId, channelName })
+    return this.socket.emit('join_channel', { userId, channelName })
+  }
+  receiveMessages() {
+    return this.socket.on('receive_message', (msg) => {
+      console.log(msg)
     })
   }
-  //   sendMessage() {
-  //     this.socket = io('http://localhost:3000/')
-  //     this.socket.emit('send_message', {
-  //       userId: 'feb042250f75284d5c91f42190afc289',
-  //       channelId: '5dbb3ca088c9823994e1b078ba4f5ac2',
-  //       message: 'hello world',
-  //     })
-  //   }
-  //   getUsers() {
-  //     this.socket = io('http://localhost:3000/')
-  //     this.socket.emit('users', (data: IUser[]) => {
-  //       console.log('hi', data)
-  //     })
-  //   }
 }
 
 export const SocketApiServise = new SocketApi()

@@ -1,13 +1,16 @@
 import { Box } from '@mui/material'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { UserProfile } from '../user-profile/UserProfile'
 import { useSelector } from 'react-redux'
 import { getMessages, getUser } from '../../../store/store'
+import { SocketApiServise } from '../../../services/SocketApi.service'
 
 export const ChatLayout = memo(() => {
   const messages = useSelector(getMessages)
   const user = useSelector(getUser)
-
+  useEffect(() => {
+    SocketApiServise.receiveMessages()
+  }, [])
   return (
     <Box
       sx={{

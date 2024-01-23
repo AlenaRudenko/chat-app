@@ -9,8 +9,7 @@ import { ApiService } from '../services/Api.service'
 
 export const App = () => {
   const [theme, setTheme] = useAppTheme()
-  useConnectSocket()
-  ApiService.getUsers().then((res) => console.log(res.data))
+
   return (
     <div>
       <MyThemeContext.Provider value={setTheme}>

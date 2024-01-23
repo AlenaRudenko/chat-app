@@ -12,14 +12,16 @@ class Api {
   })
 
   getUsers() {
-    return this.instance.get<{ users: IUser[] }>('/users')
+    return this.instance.get<IUser[]>('/users')
+  }
+  getUserByNickName(nickName: string) {
+    return this.instance.get<IUser[]>(`/users?nickName=${nickName}`)
+  }
+  getUserChannels(id: string) {
+    return this.instance.get<TChannel[]>(`/users/${id}/channels`)
   }
   createUser(credentials: IUser['nickName']) {
     return this.instance.post('/database/users.json', { nickName: credentials })
-  }
-
-  getChannels() {
-    return this.instance.get<{ channels: TChannel[] }>('/database/channels.json')
   }
   joinChannel() {
     return this.instance.post('/database/channels.json')
