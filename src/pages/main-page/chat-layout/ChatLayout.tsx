@@ -1,16 +1,20 @@
 import { Box } from '@mui/material'
-import { memo, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { UserProfile } from '../user-profile/UserProfile'
 import { useSelector } from 'react-redux'
-import { getMessages, getUser } from '../../../store/store'
+import { getUser } from '../../../store/store'
 import { SocketApiServise } from '../../../services/SocketApi.service'
+import { TMessage } from '../../../interfaces/message'
 
-export const ChatLayout = memo(() => {
-  const messages = useSelector(getMessages)
+export const ChatLayout = () => {
+  const [messages, setMessages] = useState<TMessage[]>([])
   const user = useSelector(getUser)
   useEffect(() => {
-    SocketApiServise.receiveMessages()
-  }, [])
+    SocketApiServise.socket.on('receive_message', (msg: TMessage[]) => {
+      setMessages(msg)
+    })
+    console.log('messages', messages)
+  })
   return (
     <Box
       sx={{
@@ -35,4 +39,4 @@ export const ChatLayout = memo(() => {
         })}
     </Box>
   )
-})
+}

@@ -8,9 +8,12 @@ const ChatInput = styled(TextField)(({ theme }) => ({
     borderBottom: 'none',
   },
 }))
-
-const ChatTextField = () => {
-  return <ChatInput placeholder='Ответить...' variant='standard' fullWidth />
+interface IProps {
+  value: string
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+const ChatTextField = ({ value, handleChange }: IProps) => {
+  return <ChatInput placeholder='Ответить...' value={value} variant='standard' fullWidth onChange={handleChange} />
 }
 ChatTextField.displayName = 'ChatTextField'
 export default ChatTextField

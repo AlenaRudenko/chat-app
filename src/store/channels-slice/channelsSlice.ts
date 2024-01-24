@@ -4,10 +4,12 @@ import { setUserChannels } from './thunk'
 
 type TState = {
   channels: ColoredChannel[] | null
+  currentChannel: ColoredChannel | null
 }
 
 const initialState = {
   channels: null,
+  currentChannel: null,
 } as TState
 
 const channelsSlice = createSlice({
@@ -16,6 +18,10 @@ const channelsSlice = createSlice({
   reducers: {
     clearChannels: (state) => {
       state.channels = null
+      state.currentChannel = null
+    },
+    setCurrentChannel: (state, action) => {
+      state.currentChannel = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -24,5 +30,5 @@ const channelsSlice = createSlice({
     })
   },
 })
-export const { clearChannels } = channelsSlice.actions
+export const { clearChannels, setCurrentChannel } = channelsSlice.actions
 export default channelsSlice.reducer

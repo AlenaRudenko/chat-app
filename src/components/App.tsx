@@ -4,7 +4,6 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppTheme } from '../hooks/useAppTheme'
 import { MyThemeContext } from '../theme-context/themeContext'
 import { SnackbarProvider } from 'notistack'
-import { useConnectSocket } from '../hooks/useConnectSocket'
 import { ApiService } from '../services/Api.service'
 
 export const App = () => {
