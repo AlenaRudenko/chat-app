@@ -33,19 +33,35 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
   },
 )
 
-export const regUser = createAsyncThunk('user/regUser', async (user: { nickName: string }, { rejectWithValue }) => {
-  try {
-    const response = await ApiService.createUser(user.nickName)
+export const regUser = createAsyncThunk(
+  'user/regUser',
+  async ({ login, navigateFn }: TProps, { rejectWithValue, dispatch }) => {
+    try {
+      const userResponse = await ApiService.getUsers()
+      const users = userResponse.data
+      console.log('users', users)
+      const isExist = users.find((user) => user.nickName === login)
+      console.log('isExist', isExist)
+      if (isExist) {
+        console.log('Такой пользователь уже существует', isExist)
+        return rejectWithValue('Такой пользователь уже существует')
+      }
+      if (userResponse.status !== 200) {
+        console.log('Server error', userResponse.status)
+        return rejectWithValue('Server error')
+      }
+      const response = await ApiService.createUser(login)
 
-    if (response.statusText !== 'OK') {
-      throw new Error('Такой пользователь уже существует')
+      if (response.status !== 201) {
+        console.log('Server create action error', response)
+        return rejectWithValue('Server create action error')
+      }
+      return dispatch(authLogin({ ...{ login, navigateFn } }))
+    } catch (error) {
+      return rejectWithValue(error.message)
     }
-
-    return authLogin({ login: user.nickName, navigateFn: () => {} })
-  } catch (error) {
-    return rejectWithValue(error.message)
-  }
-})
+  },
+)
 
 export const logoutUser = createAsyncThunk('user/logoutUser', (navigateFn: () => void) => {
   return new Promise<string>((resolve, reject) => {

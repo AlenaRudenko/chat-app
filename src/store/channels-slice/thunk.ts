@@ -19,7 +19,8 @@ export const setUserChannels = createAsyncThunk<ColoredChannel[], string, { reje
       }
       const channels = response.data
       console.log('channels', channels)
-      if (!channels) {
+      if (Array.isArray(channels) && !channels.length) {
+        console.log('no channels')
         return rejectWithValue('No channels')
       }
       const result = channels.map((channel: TChannel) => {

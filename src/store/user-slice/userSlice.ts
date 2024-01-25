@@ -35,9 +35,11 @@ const userSlice = createSlice({
     })
     builder.addCase(regUser.pending, (state, action) => {
       state.regStatus = 'loading'
+      state.regError = null
     })
     builder.addCase(regUser.fulfilled, (state, action) => {
       state.regStatus = 'success'
+      state.regError = null
     })
     builder.addCase(regUser.rejected, (state, action) => {
       state.regStatus = 'rejected'

@@ -10,11 +10,10 @@ export const ChatLayout = () => {
   const [messages, setMessages] = useState<TMessage[]>([])
   const user = useSelector(getUser)
   useEffect(() => {
-    SocketApiServise.socket.on('receive_message', (msg: TMessage[]) => {
-      setMessages(msg)
+    SocketApiServise.socket.on('receive_message', (msg: TMessage[] | TMessage) => {
+      return Array.isArray(msg) ? setMessages(msg) : setMessages([...messages, msg])
     })
-    console.log('messages', messages)
-  })
+  }, [])
   return (
     <Box
       sx={{

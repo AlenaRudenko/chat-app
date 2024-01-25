@@ -1,19 +1,23 @@
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { TState } from './types'
-import { batch, useDispatch } from 'react-redux'
-import { AppDispatch } from '../../../../store/store'
+import { batch, useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, getChannels } from '../../../../store/store'
 import { logoutUser } from '../../../../store/user-slice/thunk'
 import { useNavigate } from 'react-router-dom'
 import { clearChannels } from '../../../../store/channels-slice/channelsSlice'
 
 export const ChatMenu = memo(() => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
+
+  const channels = useSelector(getChannels)
   const dispatch = useDispatch<AppDispatch>()
   const isMenuOpen = Boolean(anchorEl)
   const navigate = useNavigate()
-
+  useEffect(() => {
+    console.log(channels)
+  })
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorEl) {
       setAnchorEl(null)
@@ -23,6 +27,7 @@ export const ChatMenu = memo(() => {
     dispatch(logoutUser(() => navigate('/auth')))
     dispatch(clearChannels())
   }
+
   return (
     <>
       <IconButton
@@ -49,8 +54,13 @@ export const ChatMenu = memo(() => {
         }}
         onClose={handleMenu}
       >
-        <MenuItem value='leaveChannel' onClick={handleMenu}>
-          Покинуть канал
+        {channels && Array.isArray(channels) && (
+          <MenuItem value='leaveChannel' onClick={handleMenu}>
+            Покинуть канал
+          </MenuItem>
+        )}
+        <MenuItem value='createChannel' onClick={handleLogOut}>
+          Создать канал
         </MenuItem>
         <MenuItem value='logOut' onClick={handleLogOut}>
           Выйти из аккаунта

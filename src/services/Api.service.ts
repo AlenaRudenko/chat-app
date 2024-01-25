@@ -21,7 +21,7 @@ class Api {
     return this.instance.get<TChannel[]>(`/users/${id}/channels`)
   }
   createUser(credentials: IUser['nickName']) {
-    return this.instance.post('/database/users.json', { nickName: credentials })
+    return this.instance.post('/users', { nickName: credentials })
   }
   joinChannel() {
     return this.instance.post('/database/channels.json')
