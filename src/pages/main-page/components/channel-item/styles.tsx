@@ -1,21 +1,22 @@
 import { Avatar, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import { useDrawer } from '../../store/drawerContext'
 import { TListItemProps } from './types'
-import { useChannel } from '../../hooks/useChannel.hook'
-import { getCurrentChannel } from '../../../../store/store'
-import { useSelector } from 'react-redux'
+import { AppDispatch, getCurrentChannel } from '../../../../store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { useChat } from '../../hooks/useChat'
+import { setCurrentChannel } from '../../../../store/channels-slice/channelsSlice'
 
 export const StyledListItem = ({ children, channel }: TListItemProps) => {
-  const { handleSetChannel } = useChannel()
-  console.log('list rerender')
-  const currentChannel = useSelector(getCurrentChannel)
+  const { currentChannel, handleJoinChannel } = useChat()
+  const dispatch = useDispatch<AppDispatch>()
   return (
     <ListItem
       key={channel.id}
       sx={{ display: 'block', ml: '2px' }}
       disablePadding
       onClick={() => {
-        handleSetChannel(channel)
+        handleJoinChannel(channel.id)
+        dispatch(setCurrentChannel(channel))
       }}
     >
       {' '}

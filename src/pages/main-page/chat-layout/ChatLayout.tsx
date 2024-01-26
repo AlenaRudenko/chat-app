@@ -1,19 +1,9 @@
 import { Box } from '@mui/material'
-import { memo, useEffect, useState } from 'react'
 import { UserProfile } from '../user-profile/UserProfile'
-import { useSelector } from 'react-redux'
-import { getUser } from '../../../store/store'
-import { SocketApiServise } from '../../../services/SocketApi.service'
-import { TMessage } from '../../../interfaces/message'
+import { useChat } from '../hooks/useChat'
 
 export const ChatLayout = () => {
-  const [messages, setMessages] = useState<TMessage[]>([])
-  const user = useSelector(getUser)
-  useEffect(() => {
-    SocketApiServise.socket.on('receive_message', (msg: TMessage[] | TMessage) => {
-      return Array.isArray(msg) ? setMessages(msg) : setMessages([...messages, msg])
-    })
-  }, [])
+  const { user, messages } = useChat()
   return (
     <Box
       sx={{

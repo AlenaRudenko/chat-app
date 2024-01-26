@@ -8,7 +8,6 @@ import { SignUp } from './sign-up/SignUp'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../../store/store'
 import { clearErrors } from '../../../../store/user-slice/userSlice'
-import { SocketApiServise } from '../../../../services/SocketApi.service'
 import { ApiService } from '../../../../services/Api.service'
 
 export const FormContent = () => {
