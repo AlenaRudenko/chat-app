@@ -16,10 +16,11 @@ export const useChat = () => {
   }, [])
   useEffect(() => {
     socket.on('receive_message', (response) => {
-      return Array.isArray(response) ? setMessages(response) : setMessages([...messages, response])
+      return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
     })
   }, [])
   const handleJoinChannel = (channelId: string) => {
+    setMessages((prevState) => [])
     socket.emit('join_channel', { userId: user.id, channelId })
   }
   const handleSendMessage = (value: string) => {

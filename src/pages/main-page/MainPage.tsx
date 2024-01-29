@@ -20,11 +20,11 @@ export const MainPage = () => {
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
         <ChatHeader />
-        <ChannelDrawer />
+        <ChannelDrawer {...{ currentChannel, handleJoinChannel }} />
         <StyledBox>
-          <ChatLayout />
+          <ChatLayout {...{ user, messages }} />
         </StyledBox>
-        <ChatInput />
+        <ChatInput {...{ handleSendMessage }} />
       </Box>
     </DrawerProvider>
   )

@@ -1,9 +1,13 @@
-import { Box } from '@mui/material'
+import { Box, Chip, Stack } from '@mui/material'
 import { UserProfile } from '../user-profile/UserProfile'
-import { useChat } from '../hooks/useChat'
+import IUser from '../../../interfaces/User'
+import { TMessage } from '../../../interfaces/message'
 
-export const ChatLayout = () => {
-  const { user, messages } = useChat()
+interface IProps {
+  user: IUser
+  messages: TMessage[]
+}
+export const ChatLayout = ({ user, messages }: IProps) => {
   return (
     <Box
       sx={{
@@ -26,6 +30,11 @@ export const ChatLayout = () => {
             </div>
           )
         })}
+      {!messages.length && (
+        <Stack sx={{ height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+          <Chip color='info' label='Пока что тут пусто' />
+        </Stack>
+      )}
     </Box>
   )
 }

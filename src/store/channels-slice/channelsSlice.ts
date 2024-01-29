@@ -25,6 +25,9 @@ const channelsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(setUserChannels.pending, (state, action) => {
+      state.channels = action.payload
+    })
     builder.addCase(setUserChannels.fulfilled, (state, action) => {
       state.channels = action.payload
     })

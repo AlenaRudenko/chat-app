@@ -3,17 +3,21 @@ import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
 import { useState } from 'react'
-import { useChat } from '../../hooks/useChat'
 
-export const ChatInput = () => {
+type IProps = {
+  handleSendMessage: (value: string) => void
+}
+export const ChatInput = ({ handleSendMessage }: IProps) => {
   const [value, setValue] = useState('')
-  const { handleSendMessage } = useChat()
   const theme = useTheme()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
-
+  const handleSend = () => {
+    handleSendMessage(value)
+    setValue((prevState) => '')
+  }
   return (
     <MyAppBar>
       <Toolbar
@@ -25,8 +29,8 @@ export const ChatInput = () => {
         }}
       >
         <ChatTextField {...{ value, handleChange }} />
-        <IconButton>
-          <SendIcon onClick={() => handleSendMessage(value)} />
+        <IconButton disabled={value.length < 3}>
+          <SendIcon onClick={handleSend} />
         </IconButton>
       </Toolbar>
     </MyAppBar>

@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useChat } from '../../hooks/useChat'
 import { setCurrentChannel } from '../../../../store/channels-slice/channelsSlice'
 
-export const StyledListItem = ({ children, channel }: TListItemProps) => {
-  const { currentChannel, handleJoinChannel } = useChat()
+export const StyledListItem = ({ children, channel, currentChannel, handleJoinChannel }: TListItemProps) => {
   const dispatch = useDispatch<AppDispatch>()
   return (
     <ListItem
