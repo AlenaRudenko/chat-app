@@ -5,8 +5,11 @@ import DrawerButtonBox from './styles'
 import { ChatMenu } from './menu-chat-header/ChatMenu'
 import { useSelector } from 'react-redux'
 import { getCurrentChannel } from '../../../store/store'
-
-export const ChatHeader = () => {
+interface IProps {
+  handleOpenModal: () => void
+  handleLeaveChannel: () => void
+}
+export const ChatHeader = ({ handleOpenModal, handleLeaveChannel }: IProps) => {
   const channel = useSelector(getCurrentChannel)
 
   const theme = useTheme()
@@ -25,7 +28,7 @@ export const ChatHeader = () => {
           </Typography>
         </Container>
         <Box sx={{ display: 'flex' }}>
-          <ChatMenu />
+          <ChatMenu {...{ handleOpenModal, handleLeaveChannel }} />
           <ThemeIcon />
         </Box>
       </Toolbar>

@@ -19,6 +19,7 @@ export const useChat = () => {
       return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
     })
   }, [])
+
   const handleJoinChannel = (channelId: string) => {
     setMessages((prevState) => [])
     socket.emit('join_channel', { userId: user.id, channelId })
@@ -31,6 +32,7 @@ export const useChat = () => {
     })
   }
   const handleLeaveChannel = () => {
+    console.log('leave', currentChannel)
     return socket.emit('leave_channel', {
       channelId: currentChannel.id,
     })

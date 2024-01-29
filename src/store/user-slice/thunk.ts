@@ -56,7 +56,8 @@ export const regUser = createAsyncThunk(
         console.log('Server create action error', response)
         return rejectWithValue('Server create action error')
       }
-      return dispatch(authLogin({ ...{ login, navigateFn } }))
+      dispatch(authLogin({ ...{ login, navigateFn } }))
+      return 'success'
     } catch (error) {
       return rejectWithValue(error.message)
     }

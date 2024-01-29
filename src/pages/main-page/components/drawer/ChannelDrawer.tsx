@@ -17,7 +17,7 @@ const ChannelDrawer = ({
 }) => {
   const storeChannels = useSelector(getChannels)
   const user = useSelector(getUser)
-
+  console.log('drawerchannels', storeChannels)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {

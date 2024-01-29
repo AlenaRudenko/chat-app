@@ -7,8 +7,11 @@ import { AppDispatch, getChannels } from '../../../../store/store'
 import { logoutUser } from '../../../../store/user-slice/thunk'
 import { useNavigate } from 'react-router-dom'
 import { clearChannels } from '../../../../store/channels-slice/channelsSlice'
-
-export const ChatMenu = memo(() => {
+interface IProps {
+  handleOpenModal: () => void
+  handleLeaveChannel: () => void
+}
+export const ChatMenu = memo(({ handleOpenModal, handleLeaveChannel }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
 
   const channels = useSelector(getChannels)
@@ -19,6 +22,18 @@ export const ChatMenu = memo(() => {
     console.log(channels)
   })
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    if (anchorEl) {
+      setAnchorEl(null)
+    } else setAnchorEl(event.currentTarget)
+  }
+  const handleLeave = (event: React.MouseEvent<HTMLElement>) => {
+    handleLeaveChannel()
+    if (anchorEl) {
+      setAnchorEl(null)
+    } else setAnchorEl(event.currentTarget)
+  }
+  const handleCreate = (event: React.MouseEvent<HTMLElement>) => {
+    handleOpenModal()
     if (anchorEl) {
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)
@@ -55,11 +70,11 @@ export const ChatMenu = memo(() => {
         onClose={handleMenu}
       >
         {channels && Array.isArray(channels) && (
-          <MenuItem value='leaveChannel' onClick={handleMenu}>
+          <MenuItem value='leaveChannel' onClick={handleLeave}>
             Покинуть канал
           </MenuItem>
         )}
-        <MenuItem value='createChannel' onClick={handleLogOut}>
+        <MenuItem value='createChannel' onClick={handleCreate}>
           Создать канал
         </MenuItem>
         <MenuItem value='logOut' onClick={handleLogOut}>

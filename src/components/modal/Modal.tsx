@@ -1,28 +1,33 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createChannel } from '../../store/channels-slice/thunk'
+import { AppDispatch, getUser } from '../../store/store'
 
 type TProps = {
   isOpen: boolean
-  handleModalClose: () => void
-  modalText: string
+  handleCloseModal: () => void
 }
-export const ModalComponent = ({ isOpen, handleModalClose, modalText }: TProps) => {
+export const ModalComponent = ({ isOpen, handleCloseModal }: TProps) => {
   const [value, setValue] = useState('')
+  const dispatch = useDispatch<AppDispatch>()
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+  }
+  const handleSubmit = () => {
+    dispatch(createChannel({ channelName: value }))
+    setValue((prevState) => '')
+    handleCloseModal()
   }
   return (
     <Modal
       open={isOpen}
-      onClose={handleModalClose}
+      onClose={handleCloseModal}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >
       <Box>
-        <Typography id='modal-modal-title' variant='h6' component='h2'>
-          Введите название нового канала:
-        </Typography>
         <TextField
           label='channelName'
           margin='normal'
@@ -31,6 +36,9 @@ export const ModalComponent = ({ isOpen, handleModalClose, modalText }: TProps) 
           fullWidth
           onChange={handleInputChange}
         />
+        <Button variant='text' disableElevation onClick={handleSubmit}>
+          Создать
+        </Button>
       </Box>
     </Modal>
   )
