@@ -21,6 +21,11 @@ export const useChat = () => {
   }, [])
 
   const handleJoinChannel = (channelId: string) => {
+    if(!currentChannel) {
+      socket.emit('join_channel', { userId: user.id, channelId })
+    } else if(currentChannel) {
+
+    }
     setMessages((prevState) => [])
     socket.emit('join_channel', { userId: user.id, channelId })
   }

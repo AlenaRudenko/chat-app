@@ -18,8 +18,8 @@ class Api {
   getUserByNickName(nickName: string) {
     return this.instance.get<IUser[]>(`/users?nickName=${nickName}`)
   }
-  getUserChannels(id: string) {
-    return this.instance.get<TChannel[]>(`/users/${id}/channels`)
+  getChannels() {
+    return this.instance.get<TChannel[]>(`/channels`)
   }
   createUser(credentials: IUser['nickName']) {
     return this.instance.post('/users', { nickName: credentials })

@@ -22,7 +22,7 @@ const ChannelDrawer = ({
 
   useEffect(() => {
     if (user) {
-      dispatch(setUserChannels(user.id))
+      dispatch(setUserChannels())
     }
   }, [dispatch, user])
 

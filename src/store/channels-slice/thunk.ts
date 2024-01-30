@@ -10,18 +10,16 @@ function randomColor() {
   return color
 }
 
-export const setUserChannels = createAsyncThunk<ColoredChannel[], string, { rejectValue: string }>(
+export const setUserChannels = createAsyncThunk<ColoredChannel[], void, { rejectValue: string }>(
   'channels/setUserChannels',
-  async (userId, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await ApiService.getUserChannels(userId)
+      const response = await ApiService.getChannels()
       if (response.status !== 200) {
         return rejectWithValue('Server error')
       }
       const channels = response.data
-      console.log('channels', channels)
       if (Array.isArray(channels) && !channels.length) {
-        console.log('no channels')
         return rejectWithValue('No channels')
       }
       const result = channels.map((channel: TChannel) => {
@@ -41,15 +39,13 @@ export const createChannel = createAsyncThunk(
       const userId = store.getState().user.user.id
       const response = await ApiService.createChannel({ userId, channelName })
       if (response.status !== 201) {
-        console.log('Server create channel error', response)
         return rejectWithValue('Server create channel error')
       }
-      const resChannels = await ApiService.getUserChannels(userId)
+      const resChannels = await ApiService.getChannels()
       const channels = resChannels.data
       const result = channels.map((channel: TChannel) => {
         return { ...channel, color: randomColor() }
       })
-      console.log('new result', result)
       return result
     } catch (error) {
       rejectWithValue(error.message)
