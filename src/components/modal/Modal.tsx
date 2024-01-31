@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, TextField, useTheme } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -12,7 +12,7 @@ type TProps = {
 
 export const ModalComponent = ({ isOpen, handleCloseModal }: TProps) => {
   const [value, setValue] = useState('')
-
+const theme = useTheme()
   const dispatch = useDispatch<AppDispatch>()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,24 +26,24 @@ export const ModalComponent = ({ isOpen, handleCloseModal }: TProps) => {
   }
   return (
     <Modal
-      sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'  }}
       open={isOpen}
       onClose={handleCloseModal}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >
-      <Box sx={{ width: '300px', height: '200px' }}>
+      <Box sx={{gap:1, width: '300px', height: '200px', borderRadius:'5.59px', display:'flex', alignItems:'center',flexDirection:'column', backgroundColor:theme.palette.background.paper, }}>
         <TextField
-          sx={{ color: 'primary' }}
+        
+        color="success"
           label='Название канала'
-          margin='normal'
+          margin='none'
           value={value}
           variant='outlined'
-          fullWidth
           onChange={handleInputChange}
-          focused
+   
         />
-        <Button variant='text' disableElevation onClick={handleSubmit}>
+        <Button disabled={value.length <= 1} variant='outlined' disableElevation onClick={handleSubmit}>
           Создать
         </Button>
       </Box>

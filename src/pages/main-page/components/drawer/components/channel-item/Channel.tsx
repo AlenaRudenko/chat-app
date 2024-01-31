@@ -1,9 +1,6 @@
-import { ListItemButton } from '@mui/material'
 import { StyledAvatar, StyledListItem, StyledListItemText } from './styles'
 import { ColoredChannel } from '../../../../../../interfaces/channel'
-import { useSelector } from 'react-redux'
-import { getCurrentChannel } from '../../../../../../store/store'
-import { memo } from 'react'
+
 
 export const Channel = ({
   channel,
@@ -14,9 +11,10 @@ export const Channel = ({
   currentChannel: ColoredChannel
   handleJoinChannel: (channel: ColoredChannel) => void
 }) => {
+  console.log('ij ckexbkjcm',channel)
   return (
     <StyledListItem {...{ channel, currentChannel, handleJoinChannel }}>
-      <StyledAvatar channelColor={channel.color}>{channel.channelName[0].toUpperCase()}</StyledAvatar>
+      <StyledAvatar channelColor={channel.color}>{channel.channelName[0]}</StyledAvatar>
       <StyledListItemText channelName={channel.channelName} />
     </StyledListItem>
   )

@@ -1,4 +1,4 @@
-import { Avatar, ListItem, ListItemButton, ListItemText, Skeleton, Typography } from '@mui/material'
+import {  ListItem, Skeleton, Typography } from '@mui/material'
 
 export const SkeletonChannel = () => {
   return (
