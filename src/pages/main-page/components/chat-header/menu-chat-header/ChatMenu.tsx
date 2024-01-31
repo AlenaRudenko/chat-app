@@ -2,16 +2,16 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { memo, useEffect, useState } from 'react'
 import { TState } from './types'
-import { batch, useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, getChannels } from '../../../../store/store'
-import { logoutUser } from '../../../../store/user-slice/thunk'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, getChannels } from '../../../../../store/store'
+import { logoutUser } from '../../../../../store/user-slice/thunk'
 import { useNavigate } from 'react-router-dom'
-import { clearChannels } from '../../../../store/channels-slice/channelsSlice'
+import { clearChannels } from '../../../../../store/channels-slice/channelsSlice'
 interface IProps {
   handleOpenModal: () => void
-  handleLeaveChannel: () => void
+  handleLogOut: () => void
 }
-export const ChatMenu = memo(({ handleOpenModal, handleLeaveChannel }: IProps) => {
+export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
 
   const channels = useSelector(getChannels)
@@ -26,20 +26,16 @@ export const ChatMenu = memo(({ handleOpenModal, handleLeaveChannel }: IProps) =
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)
   }
-  const handleLeave = (event: React.MouseEvent<HTMLElement>) => {
-    handleLeaveChannel()
-    if (anchorEl) {
-      setAnchorEl(null)
-    } else setAnchorEl(event.currentTarget)
-  }
+
   const handleCreate = (event: React.MouseEvent<HTMLElement>) => {
     handleOpenModal()
     if (anchorEl) {
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)
   }
-  const handleLogOut = () => {
+  const handleLogOutUser = () => {
     dispatch(logoutUser(() => navigate('/auth')))
+    handleLogOut()
     dispatch(clearChannels())
   }
 
@@ -69,15 +65,10 @@ export const ChatMenu = memo(({ handleOpenModal, handleLeaveChannel }: IProps) =
         }}
         onClose={handleMenu}
       >
-        {channels && Array.isArray(channels) && (
-          <MenuItem value='leaveChannel' onClick={handleLeave}>
-            Покинуть канал
-          </MenuItem>
-        )}
         <MenuItem value='createChannel' onClick={handleCreate}>
           Создать канал
         </MenuItem>
-        <MenuItem value='logOut' onClick={handleLogOut}>
+        <MenuItem value='logOut' onClick={handleLogOutUser}>
           Выйти из аккаунта
         </MenuItem>
       </Menu>

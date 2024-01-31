@@ -1,10 +1,9 @@
-import { Avatar, Divider, List, Skeleton } from '@mui/material'
-import { memo, useEffect } from 'react'
+import { Divider, List } from '@mui/material'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, getChannels, getUser } from '../../../../store/store'
 import { setUserChannels } from '../../../../store/channels-slice/thunk'
-
-import { Channel } from '../channel-item/Channel'
+import { Channel } from './components/channel-item/Channel'
 import StyledDrawer from './styles'
 import { ColoredChannel } from '../../../../interfaces/channel'
 import { SkeletonChannel } from './components/Skeleton'
@@ -34,7 +33,7 @@ const ChannelDrawer = ({
         {!storeChannels &&
           Array(20)
             .fill('')
-            .map((i) => <SkeletonChannel />)}
+            .map((value, index) => <SkeletonChannel key={index} />)}
         {storeChannels &&
           storeChannels.map((channel) => (
             <Channel key={channel.id} {...{ channel, currentChannel, handleJoinChannel }} />

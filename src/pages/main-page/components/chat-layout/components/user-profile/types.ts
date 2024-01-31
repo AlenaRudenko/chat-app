@@ -1,4 +1,4 @@
-import { TMessage } from '../../../interfaces/message'
+import { TMessage } from '../../../../../../interfaces/message'
 
 export interface IProps {
   message: TMessage

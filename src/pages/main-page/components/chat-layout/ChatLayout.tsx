@@ -1,7 +1,7 @@
 import { Box, Chip, Stack, useTheme } from '@mui/material'
-import { UserProfile } from '../user-profile/UserProfile'
-import IUser from '../../../interfaces/User'
-import { TMessage } from '../../../interfaces/message'
+import { UserProfile } from './components/user-profile/UserProfile'
+import IUser from '../../../../interfaces/User'
+import { TMessage } from '../../../../interfaces/message'
 import { useEffect, useRef } from 'react'
 
 interface IProps {

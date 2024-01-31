@@ -1,15 +1,15 @@
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material'
-import { ThemeIcon } from '../../theme-icon/ThemeIcon'
+import { ThemeIcon } from '../../../../components/theme-icon/ThemeIcon'
 import { useTheme } from '@mui/material/styles'
 import DrawerButtonBox from './styles'
 import { ChatMenu } from './menu-chat-header/ChatMenu'
 import { useSelector } from 'react-redux'
-import { getCurrentChannel } from '../../../store/store'
+import { getCurrentChannel } from '../../../../store/store'
 interface IProps {
   handleOpenModal: () => void
-  handleLeaveChannel: () => void
+  handleLogOut: () => void
 }
-export const ChatHeader = ({ handleOpenModal, handleLeaveChannel }: IProps) => {
+export const ChatHeader = ({ handleOpenModal, handleLogOut }: IProps) => {
   const channel = useSelector(getCurrentChannel)
 
   const theme = useTheme()
@@ -28,7 +28,7 @@ export const ChatHeader = ({ handleOpenModal, handleLeaveChannel }: IProps) => {
           </Typography>
         </Container>
         <Box sx={{ display: 'flex' }}>
-          <ChatMenu {...{ handleOpenModal, handleLeaveChannel }} />
+          <ChatMenu {...{ handleOpenModal, handleLogOut }} />
           <ThemeIcon />
         </Box>
       </Toolbar>

@@ -1,7 +1,7 @@
 import { Box, IconButton, styled } from '@mui/material'
 import { type BoxProps as MuiBoxProps } from '@mui/material'
 import { ReactElement } from 'react'
-import { useDrawer } from '../../../pages/main-page/store/drawerContext'
+import { useDrawer } from '../../store/drawerContext'
 import MenuIcon from '@mui/icons-material/Menu'
 
 type HeaderBoxProps = {

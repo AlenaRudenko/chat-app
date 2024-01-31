@@ -1,4 +1,4 @@
-import { Box, styled, useTheme } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import { ReactElement } from 'react'
 
 interface IProps extends React.PropsWithChildren {

@@ -1,8 +1,8 @@
 import { ListItemButton } from '@mui/material'
 import { StyledAvatar, StyledListItem, StyledListItemText } from './styles'
-import { ColoredChannel } from '../../../../interfaces/channel'
+import { ColoredChannel } from '../../../../../../interfaces/channel'
 import { useSelector } from 'react-redux'
-import { getCurrentChannel } from '../../../../store/store'
+import { getCurrentChannel } from '../../../../../../store/store'
 import { memo } from 'react'
 
 export const Channel = ({

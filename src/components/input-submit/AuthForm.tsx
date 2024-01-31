@@ -24,7 +24,15 @@ export const AuthForm = ({
         width: '100%',
       }}
     >
-      <TextField label='NickName' margin='normal' value={value} variant='outlined' fullWidth onChange={handleChange} />
+      <TextField
+        label='NickName'
+        margin='normal'
+        color='secondary'
+        value={value}
+        variant='outlined'
+        fullWidth
+        onChange={handleChange}
+      />
       <Button disabled={value.length < 3} color='primary' variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}
       </Button>

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ColoredChannel } from '../../../../interfaces/channel'
+import { ColoredChannel } from '../../../../../../interfaces/channel'
 
 export type TListItemProps = {
   children: ReactNode

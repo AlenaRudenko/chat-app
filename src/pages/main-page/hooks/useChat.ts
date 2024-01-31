@@ -7,39 +7,45 @@ import { ColoredChannel } from '../../../interfaces/channel'
 import { setCurrentChannel } from '../../../store/channels-slice/channelsSlice'
 
 export const useChat = () => {
+  const [messages, setMessages] = useState([])
+
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
+
   const { current: socket } = useRef(io(SERVER_URI))
+
   const dispatch = useDispatch<AppDispatch>()
-  const [messages, setMessages] = useState([])
+
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connect successful !')
     })
   }, [])
+
   useEffect(() => {
     socket.on('receive_message', (response) => {
       return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
     })
   }, [])
+
   const handleJoinChannel = (channel: ColoredChannel) => {
-    if(!currentChannel) {
-      console.log('firts join',channel)
-      socket.emit('join_channel', { userId: user.id, channelId:channel.id })
+    if (!currentChannel) {
+      console.log('firts join', channel)
+      socket.emit('join_channel', { userId: user.id, channelId: channel.id })
       dispatch(setCurrentChannel(channel))
-    } else if(currentChannel) {
-      console.log('no curcha',channel, 'curcha', currentChannel)
-        if (currentChannel.id !== channel.id ) {
-          setMessages((prevState) => [])
-          socket.emit('leave_channel', {
-            
-            channelId: currentChannel.id,
-          })
-          socket.emit('join_channel', { userId: user.id, channelId:channel.id  })
-          dispatch(setCurrentChannel(channel))
-        }
+    } else if (currentChannel) {
+      console.log('no curcha', channel, 'curcha', currentChannel)
+      if (currentChannel.id !== channel.id) {
+        setMessages((prevState) => [])
+        socket.emit('leave_channel', {
+          channelId: currentChannel.id,
+        })
+        socket.emit('join_channel', { userId: user.id, channelId: channel.id })
+        dispatch(setCurrentChannel(channel))
+      }
     }
   }
+
   const handleSendMessage = (value: string) => {
     return socket.emit('send_message', {
       userId: user.id,
@@ -47,11 +53,17 @@ export const useChat = () => {
       message: value,
     })
   }
-  const handleLeaveChannel = () => {
-    console.log('leave', currentChannel)
-    return socket.emit('leave_channel', {
-      channelId: currentChannel.id,
+  const handleLogOut = () => {
+    console.log('trying disconnecting')
+    if (currentChannel) {
+      socket.emit('leave_channel', {
+        channelId: currentChannel.id,
+      })
+    }
+    socket.disconnect()
+    socket.on('disconnect', () => {
+      console.log('user disconnected')
     })
   }
-  return { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLeaveChannel }
+  return { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut }
 }

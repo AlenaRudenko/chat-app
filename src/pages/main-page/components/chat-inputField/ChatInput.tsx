@@ -35,8 +35,8 @@ export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
       >
         <ChatTextField {...{ isDisabled, value, handleChange }} />
 
-        <IconButton disabled={value.length < 3 && isDisabled}>
-          <SendIcon onClick={handleSend} />
+        <IconButton onClick={handleSend} disabled={value.length < 3 && isDisabled}>
+          <SendIcon />
         </IconButton>
       </Toolbar>
     </MyAppBar>
