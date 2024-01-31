@@ -28,7 +28,7 @@ export const MainPage = () => {
         <StyledBox>
           <ChatLayout {...{ user, messages }} />
         </StyledBox>
-        <ChatInput {...{ handleSendMessage }} />
+        <ChatInput {...{ currentChannel,handleSendMessage }} />
       </Box>
     </DrawerProvider>
   )

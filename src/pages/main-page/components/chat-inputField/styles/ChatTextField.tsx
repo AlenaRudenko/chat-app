@@ -11,9 +11,19 @@ const ChatInput = styled(TextField)(({ theme }) => ({
 interface IProps {
   value: string
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  isDisabled: boolean
 }
-const ChatTextField = ({ value, handleChange }: IProps) => {
-  return <ChatInput placeholder='Ответить...' value={value} variant='standard' fullWidth onChange={handleChange} />
+const ChatTextField = ({ isDisabled, value, handleChange }: IProps) => {
+  return (
+    <ChatInput
+      disabled={isDisabled}
+      placeholder='Ответить...'
+      value={value}
+      variant='standard'
+      fullWidth
+      onChange={handleChange}
+    />
+  )
 }
 ChatTextField.displayName = 'ChatTextField'
 export default ChatTextField

@@ -12,7 +12,7 @@ export const Channel = ({
 }: {
   channel: ColoredChannel
   currentChannel: ColoredChannel
-  handleJoinChannel: (channelId: string) => void
+  handleJoinChannel: (channel: ColoredChannel) => void
 }) => {
   return (
     <StyledListItem {...{ channel, currentChannel, handleJoinChannel }}>

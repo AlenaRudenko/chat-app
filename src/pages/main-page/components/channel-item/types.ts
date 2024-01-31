@@ -5,5 +5,5 @@ export type TListItemProps = {
   children: ReactNode
   channel: ColoredChannel
   currentChannel: ColoredChannel
-  handleJoinChannel: (channelId: string) => void
+  handleJoinChannel: (channel: ColoredChannel) => void
 }

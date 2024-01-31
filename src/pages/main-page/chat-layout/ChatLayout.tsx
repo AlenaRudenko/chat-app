@@ -1,4 +1,4 @@
-import { Box, Chip, Stack } from '@mui/material'
+import { Box, Chip, Stack, useTheme } from '@mui/material'
 import { UserProfile } from '../user-profile/UserProfile'
 import IUser from '../../../interfaces/User'
 import { TMessage } from '../../../interfaces/message'
@@ -12,9 +12,9 @@ export const ChatLayout = ({ user, messages }: IProps) => {
   const scrollRef = useRef(null)
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behaviour: "smooth" });
+      scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
     }
-      }, [messages])
+  }, [messages])
   return (
     <Box
       sx={{
@@ -37,10 +37,10 @@ export const ChatLayout = ({ user, messages }: IProps) => {
             </div>
           )
         })}
-        <div ref={scrollRef}/>
+      <div ref={scrollRef} />
       {!messages.length && (
         <Stack sx={{ height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
-          <Chip color='info' label='Пока что тут пусто' />
+          <Chip color='default' label='Пока что тут пусто' />
         </Stack>
       )}
     </Box>

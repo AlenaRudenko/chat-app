@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { SERVER_URI } from '../../../constants/serverUri'
 import { io } from 'socket.io-client'
-import { useSelector } from 'react-redux'
-import { getCurrentChannel, getUser } from '../../../store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, getCurrentChannel, getUser } from '../../../store/store'
+import { ColoredChannel } from '../../../interfaces/channel'
+import { setCurrentChannel } from '../../../store/channels-slice/channelsSlice'
 
 export const useChat = () => {
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
   const { current: socket } = useRef(io(SERVER_URI))
+  const dispatch = useDispatch<AppDispatch>()
   const [messages, setMessages] = useState([])
   useEffect(() => {
     socket.on('connect', () => {
@@ -19,15 +22,23 @@ export const useChat = () => {
       return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
     })
   }, [])
-
-  const handleJoinChannel = (channelId: string) => {
+  const handleJoinChannel = (channel: ColoredChannel) => {
     if(!currentChannel) {
-      socket.emit('join_channel', { userId: user.id, channelId })
+      console.log('firts join',channel)
+      socket.emit('join_channel', { userId: user.id, channelId:channel.id })
+      dispatch(setCurrentChannel(channel))
     } else if(currentChannel) {
-
+      console.log('no curcha',channel, 'curcha', currentChannel)
+        if (currentChannel.id !== channel.id ) {
+          setMessages((prevState) => [])
+          socket.emit('leave_channel', {
+            
+            channelId: currentChannel.id,
+          })
+          socket.emit('join_channel', { userId: user.id, channelId:channel.id  })
+          dispatch(setCurrentChannel(channel))
+        }
     }
-    setMessages((prevState) => [])
-    socket.emit('join_channel', { userId: user.id, channelId })
   }
   const handleSendMessage = (value: string) => {
     return socket.emit('send_message', {
