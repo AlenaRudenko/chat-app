@@ -12,11 +12,10 @@ export const useChat = () => {
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
 
- const  socket = io(SERVER_URI, {autoConnect:false})
+ const  socket = io(SERVER_URI)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    socket.connect()
     socket.on('connect', () => {
       console.log('Connect successful !')
     })
@@ -26,7 +25,7 @@ export const useChat = () => {
     socket.on('receive_message', (response) => {
       return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
     })
-  },[])
+  })
 
   const handleJoinChannel = (channel: ColoredChannel) => {
     if (!currentChannel) {
@@ -47,6 +46,7 @@ export const useChat = () => {
   }
 
   const handleSendMessage = (value: string) => {
+    console.log(user, currentChannel,value)
     return socket.emit('send_message', {
       userId: user.id,
       channelId: currentChannel.id,
