@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authLogin, logoutUser, regUser } from './thunk'
 import { TState } from './types'
-import { store } from '../store'
 
 const initialState = {
   user: null,

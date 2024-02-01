@@ -13,7 +13,7 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
   async ({ login, navigateFn }, { rejectWithValue }) => {
     try {
       const response = await ApiService.getUserByNickName(login)
-
+console.log('USEEEER', response.data)
       const currentUser = response.data[0]
 
       if (response.status !== 200) {

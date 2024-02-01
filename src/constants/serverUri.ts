@@ -1,1 +1,1 @@
-export const SERVER_URI = 'https://j9rl2v-3000.csb.app/'
+export const SERVER_URI = 'https://227c85-3000.csb.app/'

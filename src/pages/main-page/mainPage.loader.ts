@@ -1,8 +1,8 @@
 import { TState } from '../../store/user-slice/types'
 import { LocalService } from '../../services/LocalStore.service'
-import { RootState, store } from '../../store/store'
+import { store } from '../../store/store'
 import { authLogin } from '../../store/user-slice/thunk'
-import { setUserChannels } from '../../store/channels-slice/thunk'
+
 
 export const mainPageLoader = () =>
   new Promise<string>((resolve, reject) =>

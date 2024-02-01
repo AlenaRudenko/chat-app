@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import { useTheme } from '@mui/material/styles'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { ChatHeader } from './components/chat-header/ChatHeader'
 import { ChatInput } from './components/chat-inputField/ChatInput'
 import ChannelDrawer from './components/drawer/ChannelDrawer'
@@ -13,22 +13,29 @@ import { StyledBox } from './styles'
 import { useChat } from './hooks/useChat'
 import { useModal } from './components/chat-header/hooks/useModal'
 import { ModalComponent } from '../../components/modal/Modal'
+import { SocketService } from '../../services/Socket.service'
+import { store } from '../../store/store'
 
 export const MainPage = () => {
   const theme = useTheme()
   const { isOpen, handleCloseModal, handleOpenModal } = useModal()
-  const { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
+  console.log('MAIN',store.getState().user.user)
+  useEffect(() => {
+
+    SocketService.createConnection()
+  },[])
+
   return (
     <DrawerProvider>
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
         <ModalComponent {...{ isOpen, handleCloseModal }} />
-        <ChatHeader {...{ handleOpenModal, handleLogOut }} />
-        <ChannelDrawer {...{ currentChannel, handleJoinChannel }} />
-        <StyledBox>
+        <ChatHeader {...{ handleOpenModal }} />
+        <ChannelDrawer  />
+        {/* <StyledBox>
           <ChatLayout {...{ user, messages }} />
         </StyledBox>
-        <ChatInput {...{ currentChannel, handleSendMessage }} />
+        <ChatInput {...{ currentChannel, handleSendMessage }} /> */}
       </Box>
     </DrawerProvider>
   )
