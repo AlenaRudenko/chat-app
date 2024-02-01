@@ -6,7 +6,7 @@ import { TMessage, TPostMessage } from '../interfaces/message'
 class Api {
   private instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://6fq8v2-3000.csb.app/',
+    baseURL: 'https://227c85-3000.csb.app/',
     headers: {
       'Content-type': 'application/json',
     },

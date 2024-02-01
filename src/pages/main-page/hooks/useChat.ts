@@ -12,11 +12,11 @@ export const useChat = () => {
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
 
- const  socket = io(SERVER_URI)
+ const  socket = io(SERVER_URI, {autoConnect:false})
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-
+    socket.connect()
     socket.on('connect', () => {
       console.log('Connect successful !')
     })

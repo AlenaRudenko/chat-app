@@ -3,13 +3,14 @@ import { ColoredChannel } from '../../../../../../interfaces/channel'
 
 
 export const Channel = ({
-  channel
+  channel,currentChannel, handleJoinChannel
 }: {
-  channel: ColoredChannel
+  channel: ColoredChannel,
+  currentChannel:ColoredChannel, handleJoinChannel:(channel:ColoredChannel) => void
 }) => {
 
   return (
-    <StyledListItem {...{ channel }}>
+    <StyledListItem {...{ channel,currentChannel, handleJoinChannel }}>
       <StyledAvatar channelColor={channel.color}>{channel.channelName[0]}</StyledAvatar>
       <StyledListItemText channelName={channel.channelName} />
     </StyledListItem>

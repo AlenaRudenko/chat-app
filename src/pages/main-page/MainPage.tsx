@@ -13,17 +13,11 @@ import { StyledBox } from './styles'
 import { useChat } from './hooks/useChat'
 import { useModal } from './components/chat-header/hooks/useModal'
 import { ModalComponent } from '../../components/modal/Modal'
-import { SocketService } from '../../services/Socket.service'
-import { store } from '../../store/store'
 
 export const MainPage = () => {
   const theme = useTheme()
+  const { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
   const { isOpen, handleCloseModal, handleOpenModal } = useModal()
-  console.log('MAIN',store.getState().user.user)
-  useEffect(() => {
-
-    SocketService.createConnection()
-  },[])
 
   return (
     <DrawerProvider>
@@ -31,11 +25,11 @@ export const MainPage = () => {
         <CssBaseline />
         <ModalComponent {...{ isOpen, handleCloseModal }} />
         <ChatHeader {...{ handleOpenModal }} />
-        <ChannelDrawer  />
-        {/* <StyledBox>
+        <ChannelDrawer {...{currentChannel, handleJoinChannel}} />
+         <StyledBox>
           <ChatLayout {...{ user, messages }} />
         </StyledBox>
-        <ChatInput {...{ currentChannel, handleSendMessage }} /> */}
+        <ChatInput {...{ currentChannel, handleSendMessage }} /> 
       </Box>
     </DrawerProvider>
   )

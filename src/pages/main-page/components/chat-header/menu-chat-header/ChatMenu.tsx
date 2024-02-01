@@ -7,7 +7,6 @@ import { AppDispatch, getChannels } from '../../../../../store/store'
 import { logoutUser } from '../../../../../store/user-slice/thunk'
 import { useNavigate } from 'react-router-dom'
 import { clearChannels } from '../../../../../store/channels-slice/channelsSlice'
-import { SocketService } from '../../../../../services/Socket.service'
 interface IProps {
   handleOpenModal: () => void
 }
@@ -17,9 +16,7 @@ export const ChatMenu = memo(({ handleOpenModal,  }: IProps) => {
   const dispatch = useDispatch<AppDispatch>()
   const isMenuOpen = Boolean(anchorEl)
   const navigate = useNavigate()
-  useEffect(() => {
-    console.log(channels)
-  })
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorEl) {
       setAnchorEl(null)
@@ -34,7 +31,6 @@ export const ChatMenu = memo(({ handleOpenModal,  }: IProps) => {
   }
   const handleLogOutUser = () => {
     dispatch(logoutUser(() => navigate('/auth')))
-    SocketService.handleLogOut()
     dispatch(clearChannels())
   }
 

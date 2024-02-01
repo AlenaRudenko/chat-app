@@ -1,22 +1,20 @@
 import { Avatar, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import { useDrawer } from '../../../../store/drawerContext'
 import { TListItemProps } from './types'
-import { SocketService } from '../../../../../../services/Socket.service'
 
-export const StyledListItem = ({ children, channel }: TListItemProps) => {
+export const StyledListItem = ({ children, channel,currentChannel, handleJoinChannel }: TListItemProps) => {
   return (
     <ListItem
       key={channel.id}
       sx={{ display: 'block', ml: '2px' }}
       disablePadding
       onClick={() => {
-        console.log('click',channel)
-        SocketService.handleJoinChannel(channel)
+        handleJoinChannel(channel)
       }}
     >
       {' '}
       <ListItemButton
-        selected={SocketService.currentChannel && SocketService.currentChannel.id === channel.id ? true : false}
+        selected={currentChannel && currentChannel.id === channel.id ? true : false}
         sx={{
           minHeight: 48,
           justifyContent: 'initial',

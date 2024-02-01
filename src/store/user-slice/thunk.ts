@@ -13,7 +13,7 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
   async ({ login, navigateFn }, { rejectWithValue }) => {
     try {
       const response = await ApiService.getUserByNickName(login)
-console.log('USEEEER', response.data)
+
       const currentUser = response.data[0]
 
       if (response.status !== 200) {
@@ -39,21 +39,21 @@ export const regUser = createAsyncThunk(
     try {
       const userResponse = await ApiService.getUsers()
       const users = userResponse.data
-      console.log('users', users)
+
       const isExist = users.find((user) => user.nickName === login)
-      console.log('isExist', isExist)
+
       if (isExist) {
-        console.log('Такой пользователь уже существует', isExist)
+
         return rejectWithValue('Такой пользователь уже существует')
       }
       if (userResponse.status !== 200) {
-        console.log('Server error', userResponse.status)
+
         return rejectWithValue('Server error')
       }
       const response = await ApiService.createUser(login)
 
       if (response.status !== 201) {
-        console.log('Server create action error', response)
+
         return rejectWithValue('Server create action error')
       }
       dispatch(authLogin({ ...{ login, navigateFn } }))
