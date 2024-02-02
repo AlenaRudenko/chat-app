@@ -43,17 +43,14 @@ export const regUser = createAsyncThunk(
       const isExist = users.find((user) => user.nickName === login)
 
       if (isExist) {
-
         return rejectWithValue('Такой пользователь уже существует')
       }
       if (userResponse.status !== 200) {
-
         return rejectWithValue('Server error')
       }
       const response = await ApiService.createUser(login)
 
       if (response.status !== 201) {
-
         return rejectWithValue('Server create action error')
       }
       dispatch(authLogin({ ...{ login, navigateFn } }))

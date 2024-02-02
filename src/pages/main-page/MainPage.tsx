@@ -15,7 +15,7 @@ import { ModalComponent } from '../../components/modal/Modal'
 
 export const MainPage = () => {
   const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
-  console.log('main page RERENDER')
+
   const { isOpen, handleCloseModal, handleOpenModal } = useModal()
 
   return (

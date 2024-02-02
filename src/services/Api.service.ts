@@ -2,6 +2,8 @@ import axios from 'axios'
 import IUser from '../interfaces/User'
 import { TChannel } from '../interfaces/channel'
 
+type TUser = Pick<IUser, 'id' & 'userName'>
+
 class Api {
   private instance = axios.create({
     withCredentials: true,
@@ -13,6 +15,10 @@ class Api {
 
   getUsers() {
     return this.instance.get<IUser[]>('/users')
+  }
+
+  getUserById(credentials: IUser['id']) {
+    return this.instance.get<TUser[]>(`users/${credentials}`)
   }
 
   getUserByNickName(nickName: string) {

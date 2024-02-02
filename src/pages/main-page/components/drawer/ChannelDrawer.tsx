@@ -30,14 +30,13 @@ const ChannelDrawer = ({
     <StyledDrawer>
       <Divider sx={{ border: 'none' }} />
       <List>
-        {!storeChannels &&
-          Array(20)
-            .fill('')
-            .map((value, index) => <SkeletonChannel key={index} />)}
-        {storeChannels &&
+        {!storeChannels ? (
+          <SkeletonChannel />
+        ) : (
           storeChannels.map((channel) => (
             <Channel key={channel.id} {...{ channel, currentChannel, handleJoinChannel }} />
-          ))}
+          ))
+        )}
       </List>
     </StyledDrawer>
   )

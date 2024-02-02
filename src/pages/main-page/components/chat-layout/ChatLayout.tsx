@@ -1,15 +1,12 @@
 import { Box } from '@mui/material'
 import { UserProfile } from './components/user-profile/UserProfile'
-import IUser from '../../../../interfaces/User'
-import { TMessage } from '../../../../interfaces/message'
 import { useEffect, useRef } from 'react'
-import { ColoredChannel } from '../../../../interfaces/channel'
-import { StubComponent } from './components/chat-stub/Stub'
 import { TProps } from './types'
+import { StubComponent } from './components/chat-stub/StubComponent'
 
 export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) => {
   const scrollRef = useRef(null)
-
+  console.log('ddddddddddddd', messages)
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: 'smooth' })

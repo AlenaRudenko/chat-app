@@ -2,7 +2,7 @@ import { Avatar, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import { useDrawer } from '../../../../store/drawerContext'
 import { TListItemProps } from './types'
 
-export const StyledListItem = ({ children, channel,currentChannel, handleJoinChannel }: TListItemProps) => {
+export const StyledListItem = ({ children, channel, currentChannel, handleJoinChannel }: TListItemProps) => {
   return (
     <ListItem
       key={channel.id}
