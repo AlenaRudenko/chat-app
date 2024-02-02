@@ -16,7 +16,6 @@ export const useSignup = (login: TProps) => {
   useEffect(() => {
     if (error) {
       enqueueSnackbar('Пользователь уже существует', { variant: 'error' })
-
     }
   }, [enqueueSnackbar, error])
 

@@ -11,7 +11,6 @@ import { clearErrors } from '../../../../store/user-slice/userSlice'
 import { ApiService } from '../../../../services/Api.service'
 
 export const FormContent = () => {
-
   const [authType, setAuthType] = useState<TState['authType']>('signin')
   const [login, setLogin] = useState('')
 
