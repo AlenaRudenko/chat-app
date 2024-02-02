@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 import { getCurrentChannel } from '../../../../store/store'
 interface IProps {
   handleOpenModal: () => void
-
+  handleLogOut: () => void
 }
-export const ChatHeader = ({ handleOpenModal,  }: IProps) => {
+export const ChatHeader = ({ handleOpenModal, handleLogOut }: IProps) => {
   const channel = useSelector(getCurrentChannel)
 
   const theme = useTheme()
@@ -28,7 +28,7 @@ export const ChatHeader = ({ handleOpenModal,  }: IProps) => {
           </Typography>
         </Container>
         <Box sx={{ display: 'flex' }}>
-          <ChatMenu {...{ handleOpenModal }} />
+          <ChatMenu {...{ handleOpenModal,handleLogOut }} />
           <ThemeIcon />
         </Box>
       </Toolbar>

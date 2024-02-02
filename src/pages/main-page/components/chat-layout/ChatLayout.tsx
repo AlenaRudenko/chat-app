@@ -9,7 +9,7 @@ interface IProps {
   messages: TMessage[]
 }
 export const ChatLayout = ({ user, messages }: IProps) => {
-
+  console.log('chat', user, messages)
   const scrollRef = useRef(null)
   useEffect(() => {
     if (scrollRef.current) {

@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-import { SERVER_URI } from '../../../constants/serverUri'
-import { io } from 'socket.io-client'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, getCurrentChannel, getUser } from '../../../store/store'
 import { ColoredChannel } from '../../../interfaces/channel'
 import { setCurrentChannel } from '../../../store/channels-slice/channelsSlice'
+import { SocketService } from '../../../services/Socket.service'
 
 export const useChat = () => {
   const [messages, setMessages] = useState([])
@@ -12,58 +11,49 @@ export const useChat = () => {
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
 
- const  socket = io(SERVER_URI)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('Connect successful !')
-    })
+    SocketService.createConnection()
   }, [])
 
   useEffect(() => {
-    socket.on('receive_message', (response) => {
-      return Array.isArray(response) ? setMessages(response) : setMessages((prevState) => [...prevState, response])
+    SocketService.socket.on('receive_message', (response) => {
+      if (Array.isArray(response)) {
+        setMessages(response)
+      } else setMessages((prevState) => [...prevState, response])
+      console.log('end', messages)
     })
-  })
+  }, [])
 
   const handleJoinChannel = (channel: ColoredChannel) => {
     if (!currentChannel) {
       console.log('firts join', channel)
-      socket.emit('join_channel', { userId: user.id, channelId: channel.id })
+      SocketService.handleJoinChannel({ userId: user.id, channelId: channel.id })
       dispatch(setCurrentChannel(channel))
     } else if (currentChannel) {
-      console.log('no curcha', channel, 'curcha', currentChannel)
       if (currentChannel.id !== channel.id) {
         setMessages((prevState) => [])
-        socket.emit('leave_channel', {
-          channelId: currentChannel.id,
-        })
-        socket.emit('join_channel', { userId: user.id, channelId: channel.id })
+        SocketService.handleLeaveChannel(currentChannel.id)
+        SocketService.handleJoinChannel({ userId: user.id, channelId: channel.id })
         dispatch(setCurrentChannel(channel))
       }
     }
   }
 
   const handleSendMessage = (value: string) => {
-    console.log(user, currentChannel,value)
-    return socket.emit('send_message', {
+    console.log(user, currentChannel, value)
+    return SocketService.handleSendMessage({
       userId: user.id,
       channelId: currentChannel.id,
       message: value,
     })
   }
   const handleLogOut = () => {
-    console.log('trying disconnecting')
     if (currentChannel) {
-      socket.emit('leave_channel', {
-        channelId: currentChannel.id,
-      })
+      SocketService.handleLeaveChannel(currentChannel.id)
     }
-    socket.disconnect()
-    socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
+    SocketService.handleLogOut()
   }
   return { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut }
 }

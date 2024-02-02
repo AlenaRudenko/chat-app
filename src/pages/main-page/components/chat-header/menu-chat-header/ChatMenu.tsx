@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom'
 import { clearChannels } from '../../../../../store/channels-slice/channelsSlice'
 interface IProps {
   handleOpenModal: () => void
+  handleLogOut: () => void
 }
-export const ChatMenu = memo(({ handleOpenModal,  }: IProps) => {
+export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
   const channels = useSelector(getChannels)
   const dispatch = useDispatch<AppDispatch>()
@@ -30,6 +31,7 @@ export const ChatMenu = memo(({ handleOpenModal,  }: IProps) => {
     } else setAnchorEl(event.currentTarget)
   }
   const handleLogOutUser = () => {
+    handleLogOut()
     dispatch(logoutUser(() => navigate('/auth')))
     dispatch(clearChannels())
   }

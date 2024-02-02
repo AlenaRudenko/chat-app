@@ -15,8 +15,8 @@ import { useModal } from './components/chat-header/hooks/useModal'
 import { ModalComponent } from '../../components/modal/Modal'
 
 export const MainPage = () => {
-  const theme = useTheme()
   const { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
+  
   const { isOpen, handleCloseModal, handleOpenModal } = useModal()
 
   return (
@@ -24,7 +24,7 @@ export const MainPage = () => {
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
         <ModalComponent {...{ isOpen, handleCloseModal }} />
-        <ChatHeader {...{ handleOpenModal }} />
+        <ChatHeader {...{ handleOpenModal,handleLogOut }} />
         <ChannelDrawer {...{currentChannel, handleJoinChannel}} />
          <StyledBox>
           <ChatLayout {...{ user, messages }} />
