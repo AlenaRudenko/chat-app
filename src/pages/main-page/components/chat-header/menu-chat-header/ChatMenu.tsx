@@ -1,21 +1,18 @@
+import { memo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { IProps, TState } from './types'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { memo, useEffect, useState } from 'react'
-import { TState } from './types'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, getChannels } from '../../../../../store/store'
+import { AppDispatch } from '../../../../../store/store'
 import { logoutUser } from '../../../../../store/user-slice/thunk'
-import { useNavigate } from 'react-router-dom'
 import { clearChannels } from '../../../../../store/channels-slice/channelsSlice'
-interface IProps {
-  handleOpenModal: () => void
-  handleLogOut: () => void
-}
+
 export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
-  const channels = useSelector(getChannels)
-  const dispatch = useDispatch<AppDispatch>()
   const isMenuOpen = Boolean(anchorEl)
+
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,6 +27,7 @@ export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)
   }
+
   const handleLogOutUser = () => {
     handleLogOut()
     dispatch(logoutUser(() => navigate('/auth')))
@@ -39,10 +37,10 @@ export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
   return (
     <>
       <IconButton
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-controls={open ? 'menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup='true'
-        id='demo-positioned-button'
+        id='menu'
         onClick={handleMenu}
       >
         <MoreVertIcon />
@@ -53,8 +51,8 @@ export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
           vertical: 'bottom',
           horizontal: 'right',
         }}
-        aria-labelledby='demo-positioned-button'
-        id='demo-positioned-menu'
+        aria-labelledby='menu'
+        id='menu'
         open={isMenuOpen}
         transformOrigin={{
           vertical: 'top',

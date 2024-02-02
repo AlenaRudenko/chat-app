@@ -1,21 +1,21 @@
-import { Box, Chip, Stack, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import { UserProfile } from './components/user-profile/UserProfile'
 import IUser from '../../../../interfaces/User'
 import { TMessage } from '../../../../interfaces/message'
 import { useEffect, useRef } from 'react'
+import { ColoredChannel } from '../../../../interfaces/channel'
+import { StubComponent } from './components/chat-stub/Stub'
+import { TProps } from './types'
 
-interface IProps {
-  user: IUser
-  messages: TMessage[]
-}
-export const ChatLayout = ({ user, messages }: IProps) => {
-  console.log('chat', user, messages)
+export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) => {
   const scrollRef = useRef(null)
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
     }
   }, [messages])
+
   return (
     <Box
       sx={{
@@ -27,6 +27,7 @@ export const ChatLayout = ({ user, messages }: IProps) => {
         width: '100%',
       }}
     >
+      <StubComponent {...{ messages, currentChannel, loading }} />
       {messages &&
         user &&
         messages.map((message) => {
@@ -39,11 +40,6 @@ export const ChatLayout = ({ user, messages }: IProps) => {
           )
         })}
       <div ref={scrollRef} />
-      {!messages.length && (
-        <Stack sx={{ height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
-          <Chip color='default' label='Пока что тут пусто' />
-        </Stack>
-      )}
     </Box>
   )
 }

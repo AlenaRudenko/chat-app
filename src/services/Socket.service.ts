@@ -1,35 +1,34 @@
 import { Socket, io } from 'socket.io-client'
 import { SERVER_URI } from '../constants/serverUri'
-import { store } from '../store/store'
 import { ColoredChannel } from '../interfaces/channel'
-import { setCurrentChannel } from '../store/channels-slice/channelsSlice'
-import IUser from '../interfaces/User'
-import { TMessage } from 'src/interfaces/message'
+import { TMessage } from '../interfaces/message'
 
 class SocketServizz {
   public socket: null | Socket = null
-  public messages = [] as TMessage[]
+
   createConnection() {
     this.socket = io(SERVER_URI)
     this.socket.on('connect', () => {
       return console.log('user connect to server')
     })
   }
-  receiveMessages(callback: (mes: [] | TMessage[]) => void): [] | TMessage[] {
+
+  receiveMessages(callback: (mes: null | TMessage[] | TMessage) => void) {
     this.socket.on('receive_message', (response) => {
       if (response) {
-        this.messages = response
-        callback(this.messages)
+        callback(response)
       }
     })
-    return
   }
+
   handleJoinChannel({ channelId, userId }: { channelId: ColoredChannel['id']; userId: string }) {
     this.socket.emit('join_channel', { userId, channelId })
   }
+
   handleLeaveChannel(channelId: string) {
     this.socket.emit('user left', { channelId })
   }
+
   handleSendMessage({ message, channelId, userId }: { message: string; channelId: string; userId: string }) {
     this.socket.emit('send_message', {
       userId,
@@ -37,8 +36,9 @@ class SocketServizz {
       message,
     })
   }
+
   handleLogOut() {
-    console.log('trying disconnecting')
+    console.log('trying disconnect')
     this.socket.disconnect()
     this.socket.on('disconnect', () => {
       console.log('user disconnected')

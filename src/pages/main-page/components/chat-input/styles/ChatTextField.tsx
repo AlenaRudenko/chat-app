@@ -1,6 +1,7 @@
 import { TextField, styled } from '@mui/material'
+import { ChatIProps } from './types'
 
-const ChatInput = styled(TextField)(({ theme }) => ({
+const ChatInput = styled(TextField)(() => ({
   '& .MuiInput-underline::before': {
     borderBottom: 'none',
   },
@@ -8,12 +9,8 @@ const ChatInput = styled(TextField)(({ theme }) => ({
     borderBottom: 'none',
   },
 }))
-interface IProps {
-  value: string
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  isDisabled: boolean
-}
-const ChatTextField = ({ isDisabled, value, handleChange }: IProps) => {
+
+const ChatTextField = ({ isDisabled, value, handleChange }: ChatIProps) => {
   return (
     <ChatInput
       disabled={isDisabled}

@@ -8,7 +8,13 @@ import StyledDrawer from './styles'
 import { ColoredChannel } from '../../../../interfaces/channel'
 import { SkeletonChannel } from './components/Skeleton'
 
-const ChannelDrawer = ({currentChannel, handleJoinChannel}:{currentChannel:ColoredChannel, handleJoinChannel:(channel:ColoredChannel) => void}) => {
+const ChannelDrawer = ({
+  currentChannel,
+  handleJoinChannel,
+}: {
+  currentChannel: ColoredChannel
+  handleJoinChannel: (channel: ColoredChannel) => void
+}) => {
   const storeChannels = useSelector(getChannels)
   const user = useSelector(getUser)
 
@@ -30,7 +36,7 @@ const ChannelDrawer = ({currentChannel, handleJoinChannel}:{currentChannel:Color
             .map((value, index) => <SkeletonChannel key={index} />)}
         {storeChannels &&
           storeChannels.map((channel) => (
-            <Channel key={channel.id} {...{ channel,currentChannel, handleJoinChannel }} />
+            <Channel key={channel.id} {...{ channel, currentChannel, handleJoinChannel }} />
           ))}
       </List>
     </StyledDrawer>

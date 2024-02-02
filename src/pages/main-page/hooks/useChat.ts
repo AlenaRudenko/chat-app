@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, getCurrentChannel, getUser } from '../../../store/store'
 import { ColoredChannel } from '../../../interfaces/channel'
@@ -7,6 +7,7 @@ import { SocketService } from '../../../services/Socket.service'
 
 export const useChat = () => {
   const [messages, setMessages] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
@@ -19,16 +20,16 @@ export const useChat = () => {
 
   useEffect(() => {
     SocketService.socket.on('receive_message', (response) => {
+      setLoading(false)
       if (Array.isArray(response)) {
         setMessages(response)
       } else setMessages((prevState) => [...prevState, response])
-      console.log('end', messages)
     })
   }, [])
 
   const handleJoinChannel = (channel: ColoredChannel) => {
+    setLoading((prevState) => true)
     if (!currentChannel) {
-      console.log('firts join', channel)
       SocketService.handleJoinChannel({ userId: user.id, channelId: channel.id })
       dispatch(setCurrentChannel(channel))
     } else if (currentChannel) {
@@ -42,18 +43,18 @@ export const useChat = () => {
   }
 
   const handleSendMessage = (value: string) => {
-    console.log(user, currentChannel, value)
     return SocketService.handleSendMessage({
       userId: user.id,
       channelId: currentChannel.id,
       message: value,
     })
   }
-  const handleLogOut = () => {
+
+  const handleLogOut = useCallback(() => {
     if (currentChannel) {
       SocketService.handleLeaveChannel(currentChannel.id)
     }
     SocketService.handleLogOut()
-  }
-  return { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut }
+  }, [currentChannel])
+  return { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut }
 }

@@ -8,3 +8,9 @@ export interface IProps extends React.PropsWithChildren {
 export type AppBarProps = {
   open?: boolean
 } & MuiAppBarProps
+
+export interface ChatIProps {
+  value: string
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  isDisabled: boolean
+}

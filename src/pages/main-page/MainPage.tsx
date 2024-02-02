@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
-import { useTheme } from '@mui/material/styles'
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { ChatHeader } from './components/chat-header/ChatHeader'
-import { ChatInput } from './components/chat-inputField/ChatInput'
+import { ChatInput } from './components/chat-input/ChatInput'
 import ChannelDrawer from './components/drawer/ChannelDrawer'
 import { ChatLayout } from './components/chat-layout/ChatLayout'
 import { Await, Navigate, useLoaderData } from 'react-router-dom'
@@ -15,8 +14,8 @@ import { useModal } from './components/chat-header/hooks/useModal'
 import { ModalComponent } from '../../components/modal/Modal'
 
 export const MainPage = () => {
-  const { user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
-  
+  const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
+  console.log('main page RERENDER')
   const { isOpen, handleCloseModal, handleOpenModal } = useModal()
 
   return (
@@ -24,12 +23,12 @@ export const MainPage = () => {
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
         <ModalComponent {...{ isOpen, handleCloseModal }} />
-        <ChatHeader {...{ handleOpenModal,handleLogOut }} />
-        <ChannelDrawer {...{currentChannel, handleJoinChannel}} />
-         <StyledBox>
-          <ChatLayout {...{ user, messages }} />
+        <ChatHeader {...{ handleOpenModal, handleLogOut, currentChannel }} />
+        <ChannelDrawer {...{ currentChannel, handleJoinChannel }} />
+        <StyledBox>
+          <ChatLayout {...{ user, messages, currentChannel, loading }} />
         </StyledBox>
-        <ChatInput {...{ currentChannel, handleSendMessage }} /> 
+        <ChatInput {...{ currentChannel, handleSendMessage }} />
       </Box>
     </DrawerProvider>
   )

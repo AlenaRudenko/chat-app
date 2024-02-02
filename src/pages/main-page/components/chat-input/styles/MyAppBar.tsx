@@ -2,7 +2,7 @@ import { AppBarProps, IProps } from './types'
 import { styled, useTheme } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import { drawerWidth } from '../../../../../constants/drawerWidth'
-import { useDrawer } from '../../../../../pages/main-page/store/drawerContext'
+import { useDrawer } from '../../../store/drawerContext'
 
 const MyApp = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -29,8 +29,10 @@ const MyApp = styled(MuiAppBar, {
     }),
   }),
 }))
+
 const MyAppBar = ({ children }: IProps) => {
   const theme = useTheme()
+
   const { isDrawerOpen } = useDrawer()
   return (
     <MyApp
@@ -43,5 +45,6 @@ const MyAppBar = ({ children }: IProps) => {
     </MyApp>
   )
 }
+
 MyAppBar.displayName = 'MyAppBar'
 export default MyAppBar

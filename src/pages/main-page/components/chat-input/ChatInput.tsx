@@ -3,21 +3,18 @@ import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
 import { useState } from 'react'
-import { ColoredChannel } from '../../../../interfaces/channel'
+import { IProps } from './types'
 
-type IProps = {
-  handleSendMessage: (value: string) => void
-  currentChannel: ColoredChannel
-}
 export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
-  const isDisabled = !currentChannel
   const [value, setValue] = useState('')
+  const isDisabled = !currentChannel
 
   const theme = useTheme()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
+
   const handleSend = () => {
     handleSendMessage(value)
     setValue((prevState) => '')
@@ -34,8 +31,7 @@ export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
         }}
       >
         <ChatTextField {...{ isDisabled, value, handleChange }} />
-
-        <IconButton onClick={handleSend} disabled={value.length < 3 && isDisabled}>
+        <IconButton disabled={isDisabled || value.length < 1} onClick={handleSend}>
           <SendIcon />
         </IconButton>
       </Toolbar>

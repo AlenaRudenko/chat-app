@@ -1,6 +1,5 @@
 import { Box, IconButton, styled } from '@mui/material'
 import { type BoxProps as MuiBoxProps } from '@mui/material'
-import { ReactElement } from 'react'
 import { useDrawer } from '../../store/drawerContext'
 import MenuIcon from '@mui/icons-material/Menu'
 
@@ -29,6 +28,7 @@ const DrawerButton = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 )
+
 const DrawerButtonBox = () => {
   const { isDrawerOpen, handleIsDrawerOpen } = useDrawer()
   return (
@@ -39,5 +39,6 @@ const DrawerButtonBox = () => {
     </DrawerButton>
   )
 }
+
 DrawerButtonBox.displayName = 'DrawerButtonBox'
 export default DrawerButtonBox

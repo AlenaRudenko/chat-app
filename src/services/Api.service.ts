@@ -1,7 +1,6 @@
 import axios from 'axios'
 import IUser from '../interfaces/User'
 import { TChannel } from '../interfaces/channel'
-import { TMessage, TPostMessage } from '../interfaces/message'
 
 class Api {
   private instance = axios.create({
@@ -15,15 +14,19 @@ class Api {
   getUsers() {
     return this.instance.get<IUser[]>('/users')
   }
+
   getUserByNickName(nickName: string) {
     return this.instance.get<IUser[]>(`/users?nickName=${nickName}`)
   }
+
   getChannels() {
     return this.instance.get<TChannel[]>(`/channels`)
   }
+
   createUser(credentials: IUser['nickName']) {
     return this.instance.post('/users', { nickName: credentials })
   }
+
   createChannel(credentials: { userId: string; channelName: string }) {
     return this.instance.post('/channels', credentials)
   }
