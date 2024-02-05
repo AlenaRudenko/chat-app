@@ -7,7 +7,8 @@ type TUser = Pick<IUser, 'id' & 'userName'>
 class Api {
   private instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://227c85-3000.csb.app/',
+    baseURL: 'http://localhost:3003/',
+    // baseURL: 'https://227c85-3000.csb.app/',
     headers: {
       'Content-type': 'application/json',
     },

@@ -4,12 +4,21 @@ import { ColoredChannel } from '../interfaces/channel'
 import { TMessage } from '../interfaces/message'
 
 class SocketServizz {
-  public socket: null | Socket = null
+  public socket: Socket = io(SERVER_URI, { autoConnect: false, transports: ['websocket'], upgrade: false })
 
   createConnection() {
-    this.socket = io(SERVER_URI)
+    this.socket.connect()
     this.socket.on('connect', () => {
-      return console.log('user connect to server')
+      console.log('user connect to server')
+    })
+    this.socket.on('connect_error', () => {
+      console.log('connect error')
+    })
+    this.socket.on('reconnect', () => {
+      console.log('reconnect')
+    })
+    this.socket.on('disconnect', () => {
+      console.log('user disconnected')
     })
   }
 
@@ -39,10 +48,7 @@ class SocketServizz {
 
   handleLogOut() {
     console.log('trying disconnect')
-    this.socket.disconnect()
-    this.socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
+    // this.socket.disconnect()
   }
 }
 

@@ -31,7 +31,14 @@ export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
         }}
       >
         <ChatTextField {...{ isDisabled, value, handleChange }} />
-        <IconButton disabled={isDisabled || value.length < 1} onClick={handleSend}>
+        <IconButton
+          disabled={isDisabled || value.length < 1}
+          onClick={(event) => {
+            event.stopPropagation()
+            event.preventDefault()
+            handleSend()
+          }}
+        >
           <SendIcon />
         </IconButton>
       </Toolbar>

@@ -16,7 +16,6 @@ type TProps = {
 export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpen, handleViewModal }: TProps) => {
   const theme = useTheme()
 
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleSetValue(e.target.value)
   }

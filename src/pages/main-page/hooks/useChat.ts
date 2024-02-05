@@ -16,11 +16,9 @@ export const useChat = () => {
 
   useEffect(() => {
     SocketService.createConnection()
-  }, [])
-
-  useEffect(() => {
-    SocketService.socket.on('receive_message', (response) => {
+    SocketService.receiveMessages((response) => {
       setLoading(false)
+      console.log('usechat', response)
       if (Array.isArray(response)) {
         setMessages(response)
       } else setMessages((prevState) => [...prevState, response])
@@ -43,7 +41,7 @@ export const useChat = () => {
   }
 
   const handleSendMessage = (value: string) => {
-    return SocketService.handleSendMessage({
+    SocketService.handleSendMessage({
       userId: user.id,
       channelId: currentChannel.id,
       message: value,
