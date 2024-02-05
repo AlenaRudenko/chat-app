@@ -8,7 +8,7 @@ import { AppDispatch } from '../../../../../store/store'
 import { logoutUser } from '../../../../../store/user-slice/thunk'
 import { clearChannels } from '../../../../../store/channels-slice/channelsSlice'
 
-export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
+export const ChatMenu = memo(({ handleViewModal, handleLogOut }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<TState['anchorEl']>(null)
   const isMenuOpen = Boolean(anchorEl)
 
@@ -22,7 +22,7 @@ export const ChatMenu = memo(({ handleOpenModal, handleLogOut }: IProps) => {
   }
 
   const handleCreate = (event: React.MouseEvent<HTMLElement>) => {
-    handleOpenModal()
+    handleViewModal()
     if (anchorEl) {
       setAnchorEl(null)
     } else setAnchorEl(event.currentTarget)

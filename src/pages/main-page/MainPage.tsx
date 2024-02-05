@@ -10,20 +10,18 @@ import { LoadingPage } from '../../components/loading-page/LoadingPage'
 import { DrawerProvider } from './store/drawerContext'
 import { StyledBox } from './styles'
 import { useChat } from './hooks/useChat'
-import { useModal } from './components/chat-header/hooks/useModal'
 import { ModalComponent } from '../../components/modal/Modal'
+import { Props } from './types'
+import { useCreateChannel } from './components/chat-header/menu-chat-header/create-channel-modal/hooks/useCreateChannel.hook'
 
 export const MainPage = () => {
   const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
-
-  const { isOpen, handleCloseModal, handleOpenModal } = useModal()
 
   return (
     <DrawerProvider>
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
-        <ModalComponent {...{ isOpen, handleCloseModal }} />
-        <ChatHeader {...{ handleOpenModal, handleLogOut, currentChannel }} />
+        <ChatHeader {...{ handleLogOut, currentChannel }} />
         <ChannelDrawer {...{ currentChannel, handleJoinChannel }} />
         <StyledBox>
           <ChatLayout {...{ user, messages, currentChannel, loading }} />
@@ -34,9 +32,6 @@ export const MainPage = () => {
   )
 }
 
-type Props = {
-  userPromise: Promise<string>
-}
 export const MainPageWrapper = () => {
   const user = useLoaderData()
 

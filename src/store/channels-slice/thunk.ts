@@ -2,13 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ApiService } from '../../services/Api.service'
 import { ColoredChannel, TChannel } from '../../interfaces/channel'
 import { store } from '../store'
-
-function randomColor() {
-  let hex = Math.floor(Math.random() * 0xffffff)
-  let color = '#' + hex.toString(16)
-
-  return color
-}
+import { randomColor } from '../../methods/randomColor'
 
 export const setUserChannels = createAsyncThunk<ColoredChannel[], void, { rejectValue: string }>(
   'channels/setUserChannels',
@@ -32,9 +26,9 @@ export const setUserChannels = createAsyncThunk<ColoredChannel[], void, { reject
   },
 )
 
-export const createChannel = createAsyncThunk(
+export const createChannel = createAsyncThunk<ColoredChannel[], { channelName: string }, { rejectValue: string }>(
   'channels/createChannel',
-  async ({ channelName }: { channelName: string }, { rejectWithValue }) => {
+  async ({ channelName }, { rejectWithValue }) => {
     try {
       const userId = store.getState().user.user.id
       const response = await ApiService.createChannel({ userId, channelName })

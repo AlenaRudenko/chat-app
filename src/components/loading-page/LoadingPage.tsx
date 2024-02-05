@@ -2,6 +2,7 @@ import { Box, CircularProgress, useTheme } from '@mui/material'
 
 export const LoadingPage = () => {
   const theme = useTheme()
+
   return (
     <Box
       sx={{

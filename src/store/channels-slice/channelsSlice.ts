@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ColoredChannel, TChannel } from '../../interfaces/channel'
 import { createChannel, setUserChannels } from './thunk'
-
-type TState = {
-  channels: ColoredChannel[] | null
-  currentChannel: ColoredChannel | null
-}
+import { TState } from './types'
 
 const initialState = {
   channels: null,
@@ -25,9 +20,6 @@ const channelsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(setUserChannels.pending, (state, action) => {
-      state.channels = action.payload
-    })
     builder.addCase(setUserChannels.fulfilled, (state, action) => {
       state.channels = action.payload
     })

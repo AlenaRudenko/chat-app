@@ -25,18 +25,17 @@ export const AuthForm = ({
       }}
     >
       <TextField
+        color='secondary'
         label='NickName'
         margin='normal'
-        color='secondary'
         value={value}
         variant='outlined'
         fullWidth
         onChange={handleChange}
       />
-      <Button disabled={value.length < 3} color='primary' variant='contained' disableElevation onClick={onSubmit}>
+      <Button color='primary' disabled={value.length < 3} variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}
       </Button>
-
       <Typography sx={{ textAlign: 'center' }}>
         {authChangeText}
         <Button variant='text' disableElevation onClick={onClickAuthBtnChange}>

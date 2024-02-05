@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import IUser from '../../interfaces/User'
 import { ApiService } from '../../services/Api.service'
 import { LocalService } from '../../services/LocalStore.service'
-
-type TProps = {
-  login: string
-  navigateFn?: () => void
-}
+import { TProps } from './types'
 
 export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }>(
   'user/authLogin',
@@ -17,9 +13,9 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
       const currentUser = response.data[0]
 
       if (response.status !== 200) {
-        return rejectWithValue('Server error')
+        return rejectWithValue('Сервер недоступен')
       } else if (!currentUser) {
-        return rejectWithValue('Пользователя не существует, зареристрируйтесь, чтобы войти')
+        return rejectWithValue('Пользователя не существует, зарегистрируйтесь, чтобы войти')
       }
 
       LocalService.setUserLogin(currentUser.nickName)
@@ -28,14 +24,14 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
 
       return currentUser
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue('Пользователя не существует, зарегистрируйтесь, чтобы войти')
     }
   },
 )
 
-export const regUser = createAsyncThunk(
+export const regUser = createAsyncThunk<string, TProps, { rejectValue: string }>(
   'user/regUser',
-  async ({ login, navigateFn }: TProps, { rejectWithValue, dispatch }) => {
+  async ({ login, navigateFn }, { rejectWithValue, dispatch }) => {
     try {
       const userResponse = await ApiService.getUsers()
       const users = userResponse.data
@@ -61,8 +57,8 @@ export const regUser = createAsyncThunk(
   },
 )
 
-export const logoutUser = createAsyncThunk('user/logoutUser', (navigateFn: () => void) => {
-  return new Promise<string>((resolve, reject) => {
+export const logoutUser = createAsyncThunk<Promise<string>, () => void>('user/logoutUser', (navigateFn) => {
+  return new Promise<string>((resolve) => {
     setTimeout(async () => {
       const response = await LocalService.clearUserLogin()
     }, 50)

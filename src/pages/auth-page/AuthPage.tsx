@@ -8,7 +8,6 @@ import { Suspense } from 'react'
 import { LoadingPage } from '../../components/loading-page/LoadingPage'
 
 export const AuthPage = () => {
-  const theme = useTheme()
   return (
     <div>
       <Container maxWidth={false} disableGutters>
@@ -16,7 +15,7 @@ export const AuthPage = () => {
           sx={{ height: '100vh', justifyContent: 'center', backgroundColor: 'red', alignItems: 'center' }}
           container
         >
-          <PreviewContent {...{ theme }} />
+          <PreviewContent />
           <FormContent />
         </Grid>
       </Container>

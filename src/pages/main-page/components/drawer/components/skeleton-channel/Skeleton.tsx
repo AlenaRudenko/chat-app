@@ -1,6 +1,8 @@
 import { ListItem, Skeleton, Typography } from '@mui/material'
+import { useDrawer } from '../../../../store/drawerContext'
 
 export const SkeletonChannel = () => {
+  const { isDrawerOpen } = useDrawer()
   return (
     <>
       {Array(20)
@@ -29,10 +31,11 @@ export const SkeletonChannel = () => {
               }}
             >
               <Skeleton height={32} variant='circular' width={32} />
-
-              <Skeleton width='70%'>
-                <Typography variant='h2'>.</Typography>
-              </Skeleton>
+              {isDrawerOpen && (
+                <Skeleton width='70%'>
+                  <Typography variant='h2'>.</Typography>
+                </Skeleton>
+              )}
             </div>
           </ListItem>
         ))}

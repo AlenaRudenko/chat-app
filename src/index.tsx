@@ -15,6 +15,6 @@ const container = createRoot(root)
 
 container.render(
   <Provider store={store}>
-    <RouterProvider router={router} />{' '}
+    <RouterProvider router={router} />
   </Provider>,
 )

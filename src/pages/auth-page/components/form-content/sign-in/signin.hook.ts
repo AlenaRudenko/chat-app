@@ -14,7 +14,8 @@ export const useSignin = (login: string) => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar('Пользователя не существует', { variant: 'error' })
+      console.log('eeeeee', error)
+      enqueueSnackbar('error', { variant: 'error' })
     }
   }, [enqueueSnackbar, error])
 

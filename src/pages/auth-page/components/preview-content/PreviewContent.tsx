@@ -1,11 +1,9 @@
-import { Box, Container, Grid, Paper, type Theme, Typography } from '@mui/material'
+import { Box, Container, Grid, Paper, Typography, useTheme } from '@mui/material'
 import { Logo } from '../../../../components/logo/Logo'
 import Illustration from '../../../../assets/Illustration.png'
 
-type TProps = {
-  theme: Theme
-}
-export const PreviewContent = ({ theme }: TProps) => {
+export const PreviewContent = () => {
+  const theme = useTheme()
   return (
     <Grid md={6} item>
       <Paper

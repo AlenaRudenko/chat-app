@@ -6,7 +6,7 @@ import { setUserChannels } from '../../../../store/channels-slice/thunk'
 import { Channel } from './components/channel-item/Channel'
 import StyledDrawer from './styles'
 import { ColoredChannel } from '../../../../interfaces/channel'
-import { SkeletonChannel } from './components/Skeleton'
+import { SkeletonChannel } from './components/skeleton-channel/Skeleton'
 
 const ChannelDrawer = ({
   currentChannel,

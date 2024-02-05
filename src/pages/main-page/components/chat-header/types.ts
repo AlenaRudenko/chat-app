@@ -1,7 +1,6 @@
 import { ColoredChannel } from '../../../../interfaces/channel'
 
-export interface IProps {
-  handleOpenModal: () => void
+export type IProps = {
   handleLogOut: () => void
   currentChannel: ColoredChannel
 }

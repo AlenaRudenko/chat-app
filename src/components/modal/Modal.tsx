@@ -7,28 +7,25 @@ import { AppDispatch } from '../../store/store'
 
 type TProps = {
   isOpen: boolean
-  handleCloseModal: () => void
+  handleViewModal: () => void
+  value: string
+  handleSetValue: (value: string) => void
+  handleSubmit: () => void
 }
 
-export const ModalComponent = memo(({ isOpen, handleCloseModal }: TProps) => {
-  const [value, setValue] = useState('')
+export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpen, handleViewModal }: TProps) => {
   const theme = useTheme()
-  const dispatch = useDispatch<AppDispatch>()
-  console.log('modal rerender')
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
+    handleSetValue(e.target.value)
   }
 
-  const handleSubmit = () => {
-    dispatch(createChannel({ channelName: value }))
-    setValue((prevState) => '')
-    handleCloseModal()
-  }
   return (
     <Modal
       sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       open={isOpen}
-      onClose={handleCloseModal}
+      onClose={handleViewModal}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >

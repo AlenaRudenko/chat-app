@@ -1,17 +1,12 @@
 import { Box } from '@mui/material'
 import { UserProfile } from './components/user-profile/UserProfile'
-import { useEffect, useRef } from 'react'
 import { TProps } from './types'
 import { StubComponent } from './components/chat-stub/StubComponent'
+import { randomKey } from '../../../../methods/randomKey'
+import { useScroll } from './hooks/useScroll'
 
 export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) => {
-  const scrollRef = useRef(null)
-  console.log('ddddddddddddd', messages)
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
-    }
-  }, [messages])
+  const { scrollRef } = useScroll(messages)
 
   return (
     <Box
@@ -29,9 +24,9 @@ export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) 
         user &&
         messages.map((message) => {
           const reverse = message.userId === user.id ? 'row-reverse' : 'row'
-          const randomKey = Math.random().toString(36).slice(2, 7)
+          const messageKey = randomKey()
           return (
-            <div key={randomKey}>
+            <div key={messageKey}>
               <UserProfile {...{ message, reverse }} />
             </div>
           )

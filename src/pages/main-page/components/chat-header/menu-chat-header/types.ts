@@ -2,7 +2,7 @@ export type TState = {
   anchorEl: null | HTMLElement
 }
 
-export interface IProps {
-  handleOpenModal: () => void
+export type IProps = {
+  handleViewModal: () => void
   handleLogOut: () => void
 }

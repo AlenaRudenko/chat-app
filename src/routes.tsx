@@ -1,4 +1,4 @@
-import { App } from './components/App'
+import { App } from './App'
 import { Navigate, createBrowserRouter, defer } from 'react-router-dom'
 import { AuthPageWrapper } from './pages/auth-page/AuthPage'
 import { MainPageWrapper } from './pages/main-page/MainPage'

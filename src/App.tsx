@@ -1,10 +1,9 @@
 import './style.scss'
 import { Outlet } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { useAppTheme } from '../hooks/useAppTheme'
-import { MyThemeContext } from '../theme-context/themeContext'
+import { useAppTheme } from './hooks/useAppTheme'
+import { MyThemeContext } from './theme-context/themeContext'
 import { SnackbarProvider } from 'notistack'
-import { ApiService } from '../services/Api.service'
 
 export const App = () => {
   const [theme, setTheme] = useAppTheme()
