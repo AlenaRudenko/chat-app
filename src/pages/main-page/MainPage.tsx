@@ -10,9 +10,7 @@ import { LoadingPage } from '../../components/loading-page/LoadingPage'
 import { DrawerProvider } from './store/drawerContext'
 import { StyledBox } from './styles'
 import { useChat } from './hooks/useChat'
-import { ModalComponent } from '../../components/modal/Modal'
 import { Props } from './types'
-import { useCreateChannel } from './components/chat-header/menu-chat-header/create-channel-modal/hooks/useCreateChannel.hook'
 
 export const MainPage = () => {
   const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
