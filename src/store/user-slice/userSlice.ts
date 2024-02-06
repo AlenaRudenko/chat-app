@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { authLogin, logoutUser, regUser } from './thunk'
 import { TState } from './types'
+import { isErrorFn } from '../errorFn'
 
 const initialState = {
   user: null,
-  authError: null,
-  regError: null,
+  error: null,
 } as TState
 
 const userSlice = createSlice({
@@ -13,32 +13,31 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearErrors: (state) => {
-      state.authError = null
-      state.regError = null
+      state.error = null
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(authLogin.pending, (state) => {
-      state.authError = null
-    })
-    builder.addCase(authLogin.fulfilled, (state, action) => {
-      state.user = action.payload
-    })
-    builder.addCase(authLogin.rejected, (state, action) => {
-      state.authError = action.error.message
-    })
-    builder.addCase(regUser.pending, (state, action) => {
-      state.regError = null
-    })
-    builder.addCase(regUser.fulfilled, (state, action) => {
-      state.regError = null
-    })
-    builder.addCase(regUser.rejected, (state, action) => {
-      state.regError = action.error.message
-    })
-    builder.addCase(logoutUser.fulfilled, (state) => {
-      state.user = null
-    })
+    builder
+      .addCase(authLogin.pending, (state) => {
+        state.error = null
+      })
+      .addCase(authLogin.fulfilled, (state, action) => {
+        state.user = action.payload
+      })
+
+      .addCase(regUser.pending, (state, action) => {
+        state.error = null
+      })
+      .addCase(regUser.fulfilled, (state, action) => {
+        state.error = null
+      })
+
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null
+      })
+      .addMatcher(isErrorFn, (state, action: PayloadAction<string>) => {
+        state.error = action.payload
+      })
   },
 })
 

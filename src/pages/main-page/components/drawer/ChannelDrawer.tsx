@@ -5,26 +5,11 @@ import { AppDispatch, getChannels, getUser } from '../../../../store/store'
 import { setUserChannels } from '../../../../store/channels-slice/thunk'
 import { Channel } from './components/channel-item/Channel'
 import StyledDrawer from './styles'
-import { ColoredChannel } from '../../../../interfaces/channel'
 import { SkeletonChannel } from './components/skeleton-channel/Skeleton'
+import { TProps } from './types'
 
-const ChannelDrawer = ({
-  currentChannel,
-  handleJoinChannel,
-}: {
-  currentChannel: ColoredChannel
-  handleJoinChannel: (channel: ColoredChannel) => void
-}) => {
+const ChannelDrawer = ({ currentChannel, handleJoinChannel }: TProps) => {
   const storeChannels = useSelector(getChannels)
-  const user = useSelector(getUser)
-
-  const dispatch = useDispatch<AppDispatch>()
-
-  useEffect(() => {
-    if (user) {
-      dispatch(setUserChannels())
-    }
-  }, [dispatch, user])
 
   return (
     <StyledDrawer>

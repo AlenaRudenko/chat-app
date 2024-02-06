@@ -2,7 +2,7 @@ import { type Theme, type CSSObject, styled } from '@mui/material/styles'
 import { drawerWidth } from '../../../../constants/drawerWidth'
 import MuiDrawer from '@mui/material/Drawer'
 import { useDrawer } from '../../store/drawerContext'
-import { TDrawerProps } from './types'
+import { TStyledDrawerProps, TStyledAvatar, TStyledListItemText } from './types'
 import { Avatar, ListItemText } from '@mui/material'
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -44,7 +44,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 }))
 
-const StyledDrawer = ({ children }: TDrawerProps) => {
+const StyledDrawer = ({ children }: TStyledDrawerProps) => {
   const { isDrawerOpen } = useDrawer()
   return (
     <Drawer anchor='left' open={isDrawerOpen} variant='permanent'>
@@ -55,7 +55,7 @@ const StyledDrawer = ({ children }: TDrawerProps) => {
 StyledDrawer.displayName = 'StyledDrawer'
 export default StyledDrawer
 
-export const StyledAvatar = ({ children, channelColor }: { children: string; channelColor: string }) => {
+export const StyledAvatar = ({ children, channelColor }: TStyledAvatar) => {
   const { isDrawerOpen } = useDrawer()
   return (
     <Avatar
@@ -73,8 +73,9 @@ export const StyledAvatar = ({ children, channelColor }: { children: string; cha
 }
 StyledAvatar.displayName = 'StyledAvatar'
 
-export const StyledListItemText = ({ channelName }: { channelName: string }) => {
+export const StyledListItemText = (channelName: TStyledListItemText) => {
   const { isDrawerOpen } = useDrawer()
+
   return <ListItemText primary={channelName} sx={{ opacity: isDrawerOpen ? 1 : 0 }} />
 }
 StyledListItemText.displayName = 'StyledListItemText'

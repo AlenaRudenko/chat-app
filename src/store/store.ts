@@ -13,7 +13,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 export const getUser = (state: RootState) => state.user.user
-export const getAuthError = (state: RootState) => state.user.authError
-export const getRegError = (state: RootState) => state.user.regError
+export const getUserError = (state: RootState) => state.user.error
 export const getChannels = (state: RootState) => state.channels.channels
+export const getChannelError = (state: RootState) => state.channels.error
 export const getCurrentChannel = (state: RootState) => state.channels.currentChannel

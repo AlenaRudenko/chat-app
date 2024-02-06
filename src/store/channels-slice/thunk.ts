@@ -8,11 +8,8 @@ export const setUserChannels = createAsyncThunk<ColoredChannel[], void, { reject
   'channels/setUserChannels',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await ApiService.getChannels()
-      if (response.status !== 200) {
-        return rejectWithValue('Server error')
-      }
-      const channels = response.data
+      const channels = (await ApiService.getChannels()).data
+
       if (Array.isArray(channels) && !channels.length) {
         return rejectWithValue('No channels')
       }
@@ -21,7 +18,7 @@ export const setUserChannels = createAsyncThunk<ColoredChannel[], void, { reject
       })
       return result
     } catch (error) {
-      return rejectWithValue('error')
+      return rejectWithValue('Server for getting channels error')
     }
   },
 )
@@ -35,14 +32,13 @@ export const createChannel = createAsyncThunk<ColoredChannel[], { channelName: s
       if (response.status !== 201) {
         return rejectWithValue('Server create channel error')
       }
-      const resChannels = await ApiService.getChannels()
-      const channels = resChannels.data
+      const channels = (await ApiService.getChannels()).data
       const result = channels.map((channel: TChannel) => {
         return { ...channel, color: randomColor() }
       })
       return result
     } catch (error) {
-      rejectWithValue(error.message)
+      rejectWithValue('Server create channel error')
     }
   },
 )

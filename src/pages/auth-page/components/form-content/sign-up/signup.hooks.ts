@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, getRegError } from '../../../../../store/store'
+import { AppDispatch, getUserError } from '../../../../../store/store'
 import { regUser } from '../../../../../store/user-slice/thunk'
 import { useSnackbar } from 'notistack'
 import { useEffect } from 'react'
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 type TProps = string
 
 export const useSignup = (login: TProps) => {
-  const error = useSelector(getRegError)
+  const error = useSelector(getUserError)
 
   const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar()
@@ -16,7 +16,7 @@ export const useSignup = (login: TProps) => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar('Пользователь уже существует', { variant: 'error' })
+      enqueueSnackbar(error, { variant: 'error' })
     }
   }, [enqueueSnackbar, error])
 

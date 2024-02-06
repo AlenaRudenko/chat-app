@@ -14,7 +14,7 @@ import { Props } from './types'
 
 export const MainPage = () => {
   const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
-
+  console.log('main rerender')
   return (
     <DrawerProvider>
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
@@ -24,7 +24,7 @@ export const MainPage = () => {
         <StyledBox>
           <ChatLayout {...{ user, messages, currentChannel, loading }} />
         </StyledBox>
-        <ChatInput {...{ currentChannel, handleSendMessage }} />
+        <ChatInput {...{ handleSendMessage }} />
       </Box>
     </DrawerProvider>
   )

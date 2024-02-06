@@ -2,11 +2,15 @@ import { Toolbar, useTheme, IconButton } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { IProps } from './types'
+import { getCurrentChannel, getUser } from '../../../../store/store'
+import { useSelector } from 'react-redux'
 
-export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
+export const ChatInput = memo(({ handleSendMessage }: IProps) => {
   const [value, setValue] = useState('')
+
+  const currentChannel = useSelector(getCurrentChannel)
   const isDisabled = !currentChannel
 
   const theme = useTheme()
@@ -44,4 +48,4 @@ export const ChatInput = ({ currentChannel, handleSendMessage }: IProps) => {
       </Toolbar>
     </MyAppBar>
   )
-}
+})
