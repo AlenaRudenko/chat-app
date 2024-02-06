@@ -9,6 +9,4 @@ export interface IProps extends React.PropsWithChildren {
 export type TProps = {
   user: IUser
   messages: TMessage[]
-  currentChannel: ColoredChannel
-  loading: boolean
 }

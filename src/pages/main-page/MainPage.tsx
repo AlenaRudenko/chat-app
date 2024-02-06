@@ -8,22 +8,24 @@ import { ChatLayout } from './components/chat-layout/ChatLayout'
 import { Await, Navigate, useLoaderData } from 'react-router-dom'
 import { LoadingPage } from '../../components/loading-page/LoadingPage'
 import { DrawerProvider } from './store/drawerContext'
-import { StyledBox } from './styles'
+import { StyledChatBox } from './styles'
 import { useChat } from './hooks/useChat'
 import { Props } from './types'
+import { StubComponent } from './components/chat-layout/components/chat-stub/StubComponent'
 
 export const MainPage = () => {
   const { loading, user, currentChannel, messages, handleJoinChannel, handleSendMessage, handleLogOut } = useChat()
-  console.log('main rerender')
+
   return (
     <DrawerProvider>
       <Box sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center' }}>
         <CssBaseline />
         <ChatHeader {...{ handleLogOut, currentChannel }} />
         <ChannelDrawer {...{ currentChannel, handleJoinChannel }} />
-        <StyledBox>
-          <ChatLayout {...{ user, messages, currentChannel, loading }} />
-        </StyledBox>
+        <StyledChatBox>
+          <StubComponent {...{ messages, currentChannel, loading }} />
+          <ChatLayout {...{ user, messages }} />
+        </StyledChatBox>
         <ChatInput {...{ handleSendMessage }} />
       </Box>
     </DrawerProvider>

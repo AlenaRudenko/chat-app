@@ -1,25 +1,14 @@
-import { Box } from '@mui/material'
 import { UserProfile } from './components/user-profile/UserProfile'
 import { TProps } from './types'
-import { StubComponent } from './components/chat-stub/StubComponent'
 import { randomKey } from '../../../../methods/randomKey'
 import { useScroll } from './hooks/useScroll'
+import { memo } from 'react'
 
-export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) => {
+export const ChatLayout = memo(({ user, messages }: TProps) => {
   const { scrollRef } = useScroll(messages)
 
   return (
-    <Box
-      sx={{
-        maxHeight: `calc(100vh - 128px)`,
-        overflow: 'auto',
-        margin: '64px 0px',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-      }}
-    >
-      <StubComponent {...{ messages, currentChannel, loading }} />
+    <>
       {messages &&
         user &&
         messages.map((message) => {
@@ -32,6 +21,6 @@ export const ChatLayout = ({ user, messages, currentChannel, loading }: TProps) 
           )
         })}
       <div ref={scrollRef} />
-    </Box>
+    </>
   )
-}
+})

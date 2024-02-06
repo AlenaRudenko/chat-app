@@ -20,9 +20,8 @@ export const useChat = () => {
 
   useEffect(() => {
     SocketService.createConnection()
-    console.log('hook first render')
+
     SocketService.receiveMessages((response) => {
-      console.log('dddddddddddddd')
       setLoading(false)
       if (Array.isArray(response)) {
         setMessages(response)
