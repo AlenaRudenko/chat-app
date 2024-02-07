@@ -1,5 +1,5 @@
 import { type AppBarProps as MuiAppBarProps } from '@mui/material'
-import { TEvent } from '../../../../../interfaces/event'
+import { TInputEvent } from '../../../../../interfaces/event'
 
 export type AppBarProps = {
   open?: boolean
@@ -7,6 +7,6 @@ export type AppBarProps = {
 
 export interface ChatIProps {
   value: string
-  handleChange: (e: TEvent) => void
+  handleChange: (e: TInputEvent) => void
   isDisabled: boolean
 }

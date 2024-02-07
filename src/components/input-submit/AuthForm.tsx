@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { TProps } from './types'
 import classes from './AuthForm.module.scss'
-import { TEvent } from '../../interfaces/event'
+import { TInputEvent } from '../../interfaces/event'
 
 export const AuthForm = ({
   submitButtonText,
@@ -12,7 +12,7 @@ export const AuthForm = ({
   value,
   onInputChange,
 }: TProps) => {
-  const handleChange = (event: TEvent) => {
+  const handleChange = (event: TInputEvent) => {
     onInputChange(event.target.value)
   }
   return (

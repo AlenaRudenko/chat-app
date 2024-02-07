@@ -1,17 +1,8 @@
 import { Box, Button, TextField, useTheme } from '@mui/material'
 import Modal from '@mui/material/Modal'
-import { memo, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { createChannel } from '../../store/channels-slice/thunk'
-import { AppDispatch } from '../../store/store'
-
-type TProps = {
-  isOpen: boolean
-  handleViewModal: () => void
-  value: string
-  handleSetValue: (value: string) => void
-  handleSubmit: () => void
-}
+import { memo } from 'react'
+import classes from './Modal.module.scss'
+import { TProps } from './types'
 
 export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpen, handleViewModal }: TProps) => {
   const theme = useTheme()
@@ -22,22 +13,15 @@ export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpe
 
   return (
     <Modal
-      sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      aria-describedby='modal-modal-description'
+      aria-labelledby='modal-modal-title'
+      className={classes.modal}
       open={isOpen}
       onClose={handleViewModal}
-      aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'
     >
       <Box
+        className={classes.box}
         sx={{
-          gap: 1,
-          width: '300px',
-          height: '200px',
-          borderRadius: '5.59px',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
           backgroundColor: theme.palette.background.paper,
         }}
       >

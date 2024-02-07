@@ -1,29 +1,14 @@
-import { Toolbar, useTheme, IconButton } from '@mui/material'
+import { Toolbar, IconButton } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { IProps } from './types'
-import { getCurrentChannel } from '../../../../store/store'
-import { useSelector } from 'react-redux'
-import { TEvent } from '../../../../interfaces/event'
+
+import { useChatInput } from './hooks/useChatInput'
 
 export const ChatInput = memo(({ handleSendMessage }: IProps) => {
-  const [value, setValue] = useState('')
-
-  const currentChannel = useSelector(getCurrentChannel)
-  const isDisabled = !currentChannel
-
-  const theme = useTheme()
-
-  const handleChange = (e: TEvent) => {
-    setValue(e.target.value)
-  }
-
-  const handleSend = () => {
-    handleSendMessage(value)
-    setValue((prevState) => '')
-  }
+  const { value, isDisabled, theme, handleChange, handleSend } = useChatInput({ handleSendMessage })
 
   return (
     <MyAppBar>

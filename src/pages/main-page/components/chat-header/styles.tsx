@@ -1,11 +1,7 @@
 import { Box, IconButton, styled } from '@mui/material'
-import { type BoxProps as MuiBoxProps } from '@mui/material'
 import { useDrawer } from '../../store/drawerContext'
 import MenuIcon from '@mui/icons-material/Menu'
-
-type HeaderBoxProps = {
-  open?: boolean
-} & MuiBoxProps
+import { HeaderBoxProps } from './types'
 
 const DrawerButton = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })<HeaderBoxProps>(
   ({ theme, open }) => ({

@@ -1,3 +1,4 @@
+import classes from './ChatHeader.module.scss'
 import { memo } from 'react'
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material'
 import { IProps } from './types'
@@ -6,7 +7,7 @@ import DrawerButtonBox from './styles'
 import { useTheme } from '@mui/material/styles'
 import { ChatMenu } from './menu-chat-header/ChatMenu'
 import { useCreateChannel } from './menu-chat-header/create-channel-modal/hooks/useCreateChannel.hook'
-import { ModalComponent } from '../../../../components/modal/Modal'
+import { ModalComponent } from './menu-chat-header/create-channel-modal/Modal'
 
 export const ChatHeader = memo(({ handleLogOut, currentChannel }: IProps) => {
   const theme = useTheme()
@@ -16,7 +17,7 @@ export const ChatHeader = memo(({ handleLogOut, currentChannel }: IProps) => {
   return (
     <AppBar elevation={0} position='fixed' sx={{ height: '64px', backgroundColor: theme.palette.primary.dark }}>
       <ModalComponent {...{ value, handleSetValue, handleSubmit, isOpen, handleViewModal }} />
-      <Toolbar sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Toolbar className={classes.toolBar}>
         <Container
           maxWidth={false}
           sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}

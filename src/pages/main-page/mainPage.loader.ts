@@ -18,10 +18,10 @@ export const mainPageLoader = () =>
             login: user,
           }),
         )
-        const channelResponse = await store.dispatch(setUserChannels())
+        store.dispatch(setUserChannels())
         resolve(user)
       }
-
+      store.dispatch(setUserChannels())
       resolve(user)
     }, 50),
   )

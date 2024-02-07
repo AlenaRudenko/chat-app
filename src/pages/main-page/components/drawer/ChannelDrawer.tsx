@@ -10,7 +10,7 @@ import { TProps } from './types'
 
 const ChannelDrawer = memo(({ currentChannel, handleJoinChannel }: TProps) => {
   const storeChannels = useSelector(getChannels)
-
+  console.log('sssssssaaaaa', storeChannels)
   return (
     <StyledDrawer>
       <Divider sx={{ border: 'none' }} />
