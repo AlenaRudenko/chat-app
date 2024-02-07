@@ -4,8 +4,9 @@ import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
 import { memo, useState } from 'react'
 import { IProps } from './types'
-import { getCurrentChannel, getUser } from '../../../../store/store'
+import { getCurrentChannel } from '../../../../store/store'
 import { useSelector } from 'react-redux'
+import { TEvent } from '../../../../interfaces/event'
 
 export const ChatInput = memo(({ handleSendMessage }: IProps) => {
   const [value, setValue] = useState('')
@@ -15,7 +16,7 @@ export const ChatInput = memo(({ handleSendMessage }: IProps) => {
 
   const theme = useTheme()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: TEvent) => {
     setValue(e.target.value)
   }
 

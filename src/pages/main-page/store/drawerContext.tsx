@@ -1,9 +1,10 @@
 import React, { createContext, useCallback, useContext, useState } from 'react'
 import { TContext } from './types'
+import { IChildrenProp } from '../../../interfaces/childrenProp'
 
 export const DrawerContext = createContext<TContext>({} as TContext)
 
-export const DrawerProvider = ({ children }: React.PropsWithChildren) => {
+export const DrawerProvider = ({ children }: IChildrenProp) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true)
 
   const handleIsDrawerOpen = useCallback(() => {

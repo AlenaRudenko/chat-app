@@ -1,14 +1,11 @@
 import { Box, styled } from '@mui/material'
-import { ReactElement } from 'react'
+import { IChildrenProp } from '../../../interfaces/childrenProp'
 
-interface IProps extends React.PropsWithChildren {
-  children: ReactElement
-}
-
-export const StyledBox = ({ children }: IProps) => {
+export const StyledBox = ({ children }: IChildrenProp) => {
   const StyledBox = styled(Box)(({ theme }) => ({
     visibility: 'hidden',
     opacity: 0,
+    height: '40px',
     transition: 'opacity 600ms, visibility 600ms',
 
     [theme.breakpoints.down('md')]: {

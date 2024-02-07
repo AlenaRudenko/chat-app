@@ -1,8 +1,9 @@
-import { AppBarProps, IProps } from './types'
+import { AppBarProps } from './types'
 import { styled, useTheme } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import { drawerWidth } from '../../../../../constants/drawerWidth'
 import { useDrawer } from '../../../store/drawerContext'
+import { IChildrenProp } from '../../../../../interfaces/childrenProp'
 
 const MyApp = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -30,7 +31,7 @@ const MyApp = styled(MuiAppBar, {
   }),
 }))
 
-const MyAppBar = ({ children }: IProps) => {
+const MyAppBar = ({ children }: IChildrenProp) => {
   const theme = useTheme()
 
   const { isDrawerOpen } = useDrawer()

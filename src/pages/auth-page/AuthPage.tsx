@@ -1,11 +1,10 @@
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
-import { useTheme } from '@mui/material'
 import { PreviewContent } from './components/preview-content/PreviewContent'
-import { FormContent } from './components/form-content/FormContent'
 import { Await, Navigate, useLoaderData } from 'react-router-dom'
 import { Suspense } from 'react'
 import { LoadingPage } from '../../components/loading-page/LoadingPage'
+import { FormContent } from './components/form-content/FormContent'
 
 export const AuthPage = () => {
   return (

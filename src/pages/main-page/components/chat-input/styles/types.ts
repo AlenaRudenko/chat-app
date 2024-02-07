@@ -1,9 +1,5 @@
-import { ReactElement } from 'react'
 import { type AppBarProps as MuiAppBarProps } from '@mui/material'
-
-export interface IProps extends React.PropsWithChildren {
-  children: ReactElement
-}
+import { TEvent } from '../../../../../interfaces/event'
 
 export type AppBarProps = {
   open?: boolean
@@ -11,6 +7,6 @@ export type AppBarProps = {
 
 export interface ChatIProps {
   value: string
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleChange: (e: TEvent) => void
   isDisabled: boolean
 }

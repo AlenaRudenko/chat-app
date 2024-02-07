@@ -1,5 +1,7 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import { TProps } from './types'
+import classes from './AuthForm.module.scss'
+import { TEvent } from '../../interfaces/event'
 
 export const AuthForm = ({
   submitButtonText,
@@ -10,20 +12,11 @@ export const AuthForm = ({
   value,
   onInputChange,
 }: TProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: TEvent) => {
     onInputChange(event.target.value)
   }
   return (
-    <Container
-      sx={{
-        height: '50%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100%',
-      }}
-    >
+    <Box className={classes.box}>
       <TextField
         color='secondary'
         label='NickName'
@@ -42,6 +35,6 @@ export const AuthForm = ({
           {authChangeButtonText}
         </Button>
       </Typography>
-    </Container>
+    </Box>
   )
 }
