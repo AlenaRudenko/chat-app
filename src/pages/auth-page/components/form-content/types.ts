@@ -1,4 +1,4 @@
 export type TState = {
   authType: 'signin' | 'signup'
-  login:string
+  login: string
 }
