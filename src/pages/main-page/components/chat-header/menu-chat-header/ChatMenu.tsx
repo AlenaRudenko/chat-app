@@ -22,14 +22,14 @@ export const ChatMenu = memo(({ handleViewModal, handleLogOut }: IProps) => {
         <MoreVertIcon />
       </IconButton>
       <MenuComponent {...{ anchorEl, isMenuOpen, handleMenu }}>
-        <>
+        <div>
           <MenuItem value='createChannel' onClick={handleCreate}>
             Создать канал
           </MenuItem>
           <MenuItem value='logOut' onClick={handleLogOutUser}>
             Выйти из аккаунта
           </MenuItem>
-        </>
+        </div>
       </MenuComponent>
     </>
   )

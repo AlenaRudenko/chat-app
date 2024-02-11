@@ -3,14 +3,16 @@ import IUser from '../../interfaces/User'
 import { ApiService } from '../../services/Api.service'
 import { LocalService } from '../../services/LocalStore.service'
 import { AsynkFuncProps } from './types'
+import { clearErrors } from './userSlice'
 
 export const authLogin = createAsyncThunk<IUser, AsynkFuncProps, { rejectValue: string }>(
   'user/authLogin',
   async ({ login, navigateFn }, { rejectWithValue }) => {
     try {
-      const [currentUser] = (await ApiService.getUserByNickName(login)).data
+      const currentUser = (await ApiService.getUserByNickName(login)).data[0]
 
       if (!currentUser) {
+        console.log('dddddddasasa', currentUser)
         return rejectWithValue('Пользователя не существует, зарегистрируйтесь, чтобы войти')
       }
 
@@ -43,6 +45,7 @@ export const regUser = createAsyncThunk<undefined, AsynkFuncProps, { rejectValue
         return rejectWithValue('Server create action error')
       }
       dispatch(authLogin({ ...{ login, navigateFn } }))
+
       return
     } catch (error) {
       return rejectWithValue('Server error')

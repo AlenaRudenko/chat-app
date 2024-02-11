@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
 import { PreviewContent } from './components/preview-content/PreviewContent'
 import { Await, Navigate, useLoaderData } from 'react-router-dom'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { LoadingPage } from '../../components/loading-page/LoadingPage'
 import { FormContent } from './components/form-content/FormContent'
 import { Props } from './types'
@@ -23,7 +23,6 @@ export const AuthPage = () => {
 
 export const AuthPageWrapper = () => {
   const user = useLoaderData()
-
   return (
     <Suspense fallback={<LoadingPage />}>
       <Await

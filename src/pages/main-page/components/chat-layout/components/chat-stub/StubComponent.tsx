@@ -1,5 +1,6 @@
 import { Stack, Chip, CircularProgress } from '@mui/material'
 import { TProps } from './types'
+import { useEffect } from 'react'
 
 export const StubComponent = ({ loading, messages, currentChannel }: TProps) => {
   return (

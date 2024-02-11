@@ -15,6 +15,9 @@ const userSlice = createSlice({
     clearErrors: (state) => {
       state.error = null
     },
+    setValidationError: (state, action) => {
+      state.error = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -41,6 +44,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { clearErrors } = userSlice.actions
+export const { clearErrors, setValidationError } = userSlice.actions
 // export const {setUser} = userSlice.actions
 export default userSlice.reducer

@@ -2,6 +2,7 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import { TProps } from './types'
 import classes from './AuthForm.module.scss'
 import { TInputEvent } from '../../interfaces/event'
+import { Input } from '@mui/material'
 
 export const AuthForm = ({
   submitButtonText,
@@ -15,6 +16,11 @@ export const AuthForm = ({
   const handleChange = (event: TInputEvent) => {
     onInputChange(event.target.value)
   }
+  const handleInputValid = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === ' ') {
+      event.preventDefault()
+    }
+  }
   return (
     <Box className={classes.box}>
       <TextField
@@ -25,6 +31,7 @@ export const AuthForm = ({
         variant='outlined'
         fullWidth
         onChange={handleChange}
+        onKeyDown={handleInputValid}
       />
       <Button color='primary' disabled={value.length < 3} variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}

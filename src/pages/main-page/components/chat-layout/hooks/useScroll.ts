@@ -8,11 +8,6 @@ export const useScroll = (messages: TMessage[]) => {
       scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
     }
   }, [messages])
-  useEffect(() => {
 
-  },[messages])
-  const handleScrollButton = () => {
-    scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
-  }
-  return { scrollRef,handleScrollButton }
+  return { scrollRef }
 }

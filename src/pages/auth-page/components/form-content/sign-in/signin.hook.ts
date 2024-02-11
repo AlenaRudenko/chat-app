@@ -19,7 +19,8 @@ export const useSignin = (login: string) => {
   }, [enqueueSnackbar, error])
 
   const handleSubmit = () => {
-    dispatch(authLogin({ login, navigateFn: () => navigate('/main') }))
+    const validLogin = login.trim()
+    dispatch(authLogin({ login: validLogin, navigateFn: () => navigate('/main') }))
   }
 
   return {

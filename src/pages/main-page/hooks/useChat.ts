@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, getChannelError, getCurrentChannel, getUser } from '../../../store/store'
+import { AppDispatch, getChannelError, getCurrentChannel, getUser, getUserError } from '../../../store/store'
 import { ColoredChannel } from '../../../interfaces/channel'
 import { setCurrentChannel } from '../../../store/channels-slice/channelsSlice'
 import { SocketService } from '../../../services/Socket.service'
@@ -14,6 +14,7 @@ export const useChat = () => {
   const user = useSelector(getUser)
   const currentChannel = useSelector(getCurrentChannel)
   const error = useSelector(getChannelError)
+  const usererror = useSelector(getUserError)
   console.log('hook rerender', messages, loading, user, currentChannel, error)
   const dispatch = useDispatch<AppDispatch>()
   const { enqueueSnackbar } = useSnackbar()
@@ -31,9 +32,12 @@ export const useChat = () => {
 
   useEffect(() => {
     if (error) {
-      enqueueSnackbar(error, { variant: 'error' })
+      enqueueSnackbar(error, { variant: 'info' })
     }
-  }, [enqueueSnackbar, error])
+    if (usererror) {
+      enqueueSnackbar(usererror, { variant: 'error' })
+    }
+  }, [enqueueSnackbar, error, usererror])
 
   const handleJoinChannel = useCallback(
     (channel: ColoredChannel) => {

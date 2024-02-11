@@ -3,8 +3,6 @@ import { TProps } from './types'
 import { randomKey } from '../../../../methods/randomKey'
 import { useScroll } from './hooks/useScroll'
 import { memo } from 'react'
-import { IconButton } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 export const ChatLayout = memo(({ user, messages }: TProps) => {
   const { scrollRef } = useScroll(messages)
@@ -22,9 +20,6 @@ export const ChatLayout = memo(({ user, messages }: TProps) => {
             </div>
           )
         })}
-        <IconButton sx={{width:'50px',bgcolor:'red', position:'absolute', bottom:'66px', right:'30px'}}>
-          <ArrowDownwardIcon />
-        </IconButton>
       <div ref={scrollRef} />
     </>
   )

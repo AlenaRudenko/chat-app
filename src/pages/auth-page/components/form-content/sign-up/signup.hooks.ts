@@ -4,6 +4,7 @@ import { regUser } from '../../../../../store/user-slice/thunk'
 import { useSnackbar } from 'notistack'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { clearErrors, setValidationError } from '../../../../../store/user-slice/userSlice'
 
 type TProps = string
 
@@ -21,7 +22,12 @@ export const useSignup = (login: TProps) => {
   }, [enqueueSnackbar, error])
 
   const handleSubmit = () => {
-    dispatch(regUser({ login, navigateFn: () => navigate('/main') }))
+    const validLogin = login.trim()
+    if (validLogin.split('').includes(' ')) {
+      dispatch(setValidationError('В userName не должно быть пробелов'))
+    } else {
+      dispatch(regUser({ login: validLogin, navigateFn: () => navigate('/main') }))
+    }
   }
 
   return {

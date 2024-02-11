@@ -1,12 +1,12 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { createChannel, setUserChannels } from './thunk'
 import { TState } from './types'
-import { isErrorFn } from '../errorFn'
+import { ColoredChannel } from '../../interfaces/channel'
 
 const initialState = {
   channels: null,
   currentChannel: null,
-  error: null,
+  channelError: null,
 } as TState
 
 const channelsSlice = createSlice({
@@ -23,14 +23,19 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setUserChannels.fulfilled, (state, action) => {
+      .addCase(setUserChannels.fulfilled, (state, action: PayloadAction<ColoredChannel[]>) => {
+        state.channelError = null
         state.channels = action.payload
       })
-      .addCase(createChannel.fulfilled, (state, action) => {
+      .addCase(setUserChannels.rejected, (state, action: PayloadAction<string>) => {
+        state.channelError = action.payload
+      })
+      .addCase(createChannel.fulfilled, (state, action: PayloadAction<ColoredChannel[]>) => {
+        state.channelError = null
         state.channels = action.payload
       })
-      .addMatcher(isErrorFn, (state, action: PayloadAction<string>) => {
-        state.error = action.payload
+      .addCase(createChannel.rejected, (state, action: PayloadAction<string>) => {
+        state.channelError = action.payload
       })
   },
 })
