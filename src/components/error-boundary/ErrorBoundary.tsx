@@ -1,12 +1,7 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
-
-type TProps = {
-  children: ReactNode
-}
-
-type TState = {
-  hasError: boolean
-}
+import { Paper, Typography } from '@mui/material'
+import { Component, ErrorInfo } from 'react'
+import classes from './ErrorBoundary.module.scss'
+import { TProps, TState } from './types'
 
 class ErrorBoundary extends Component<TProps, TState> {
   public state: TState = {
@@ -14,17 +9,20 @@ class ErrorBoundary extends Component<TProps, TState> {
   }
 
   public static getDerivedStateFromError(_: Error): TState {
-    // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)
+    console.log('Uncaught error:', error, errorInfo)
   }
 
   public render() {
     if (this.state.hasError) {
-      return <h1>Sorry.. there was an error</h1>
+      return (
+        <Paper className={classes.paper}>
+          <Typography variant='h2'>Упс... Что-то пошло не так, перезагрузите страницу</Typography>
+        </Paper>
+      )
     }
 
     return this.props.children

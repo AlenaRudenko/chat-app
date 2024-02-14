@@ -2,7 +2,6 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import { TProps } from './types'
 import classes from './AuthForm.module.scss'
 import { TInputEvent } from '../../interfaces/event'
-import { Input } from '@mui/material'
 
 export const AuthForm = ({
   submitButtonText,

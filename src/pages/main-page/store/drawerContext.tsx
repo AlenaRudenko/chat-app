@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { TContext } from './types'
 import { IChildrenProp } from '../../../interfaces/childrenProp'
 

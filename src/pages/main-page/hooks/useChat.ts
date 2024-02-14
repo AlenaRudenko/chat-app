@@ -15,7 +15,7 @@ export const useChat = () => {
   const currentChannel = useSelector(getCurrentChannel)
   const error = useSelector(getChannelError)
   const usererror = useSelector(getUserError)
-  console.log('hook rerender', messages, loading, user, currentChannel, error)
+
   const dispatch = useDispatch<AppDispatch>()
   const { enqueueSnackbar } = useSnackbar()
 

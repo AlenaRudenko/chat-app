@@ -4,7 +4,7 @@ import { regUser } from '../../../../../store/user-slice/thunk'
 import { useSnackbar } from 'notistack'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { clearErrors, setValidationError } from '../../../../../store/user-slice/userSlice'
+import { setValidationError } from '../../../../../store/user-slice/userSlice'
 
 type TProps = string
 

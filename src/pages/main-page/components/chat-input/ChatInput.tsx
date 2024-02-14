@@ -4,7 +4,7 @@ import MyAppBar from './styles/MyAppBar'
 import ChatTextField from './styles/ChatTextField'
 import { memo } from 'react'
 import { IProps } from './types'
-
+import classes from './ChatInput.module.scss'
 import { useChatInput } from './hooks/useChatInput'
 
 export const ChatInput = memo(({ handleSendMessage }: IProps) => {
@@ -13,10 +13,8 @@ export const ChatInput = memo(({ handleSendMessage }: IProps) => {
   return (
     <MyAppBar>
       <Toolbar
+        className={classes.toolbar}
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
           bgcolor: theme.palette.background.paper,
         }}
       >

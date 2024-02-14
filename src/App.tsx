@@ -1,4 +1,3 @@
-import './style.scss'
 import { Outlet } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppTheme } from './hooks/useAppTheme'

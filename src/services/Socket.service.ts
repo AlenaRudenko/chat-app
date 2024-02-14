@@ -10,7 +10,7 @@ class SocketServizz {
   createConnection() {
     this.socket.connect()
     this.socket.on('connect', () => {
-      console.log('user connect to server')
+      console.log('user connected to server')
     })
     this.socket.on('connect_error', () => {
       console.log('connect error')
@@ -56,7 +56,6 @@ class SocketServizz {
   }
 
   handleLogOut() {
-    console.log('trying disconnect')
     this.socket.disconnect()
   }
 }
