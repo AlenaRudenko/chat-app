@@ -18,7 +18,7 @@ export const useChatInput = ({ handleSendMessage }: IProps) => {
   }
 
   const handleSend = () => {
-    handleSendMessage(value)
+    handleSendMessage(value.trim())
     setValue((prevState) => '')
   }
   return { value, isDisabled, theme, handleChange, handleSend }

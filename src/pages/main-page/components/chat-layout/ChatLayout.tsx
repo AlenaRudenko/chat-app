@@ -1,10 +1,9 @@
 import { UserProfile } from './components/user-profile/UserProfile'
 import { TProps } from './types'
-import { randomKey } from '../../../../methods/randomKey'
 import { useScroll } from './hooks/useScroll'
-import { memo } from 'react'
 
-export const ChatLayout = memo(({ user, messages }: TProps) => {
+
+export const ChatLayout = ({ user, messages }: TProps) => {
   const { scrollRef } = useScroll(messages)
 
   return (
@@ -13,9 +12,8 @@ export const ChatLayout = memo(({ user, messages }: TProps) => {
         user &&
         messages.map((message) => {
           const reverse = message.userId === user.id ? 'row-reverse' : 'row'
-          const messageKey = randomKey()
           return (
-            <div key={messageKey}>
+            <div key={message.id}>
               <UserProfile {...{ message, reverse }} />
             </div>
           )
@@ -23,4 +21,4 @@ export const ChatLayout = memo(({ user, messages }: TProps) => {
       <div ref={scrollRef} />
     </>
   )
-})
+}

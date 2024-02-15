@@ -1,10 +1,9 @@
 import { Box, Button, TextField, useTheme } from '@mui/material'
 import Modal from '@mui/material/Modal'
-import { memo } from 'react'
 import classes from './Modal.module.scss'
 import { TProps } from './types'
 
-export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpen, handleViewModal }: TProps) => {
+export const ModalComponent = ({ value, handleSetValue, handleSubmit, isOpen, handleViewModal }: TProps) => {
   const theme = useTheme()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,4 +38,4 @@ export const ModalComponent = memo(({ value, handleSetValue, handleSubmit, isOpe
       </Box>
     </Modal>
   )
-})
+}

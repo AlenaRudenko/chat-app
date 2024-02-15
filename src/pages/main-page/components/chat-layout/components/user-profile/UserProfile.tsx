@@ -3,9 +3,9 @@ import { Avatar, Box, Typography } from '@mui/material'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'
 import { IProps } from './types'
 import { Bubble } from './styles'
-import { memo } from 'react'
 
-export const UserProfile = memo(({ message, reverse }: IProps) => {
+
+export const UserProfile = ({ message, reverse }: IProps) => {
   return (
     <Box className={classes.box} sx={{ flexDirection: reverse }}>
       {reverse === 'row' && (
@@ -18,4 +18,4 @@ export const UserProfile = memo(({ message, reverse }: IProps) => {
       </Bubble>
     </Box>
   )
-})
+}

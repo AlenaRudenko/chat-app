@@ -36,7 +36,7 @@ class SocketServizz {
   }
 
   handleLeaveChannel(channelId: ColoredChannel['id']) {
-    this.socket.emit('user left', { channelId })
+    this.socket.emit('leave_channel', { channelId })
   }
 
   handleSendMessage({

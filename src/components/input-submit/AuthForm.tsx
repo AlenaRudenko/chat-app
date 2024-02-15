@@ -12,13 +12,8 @@ export const AuthForm = ({
   value,
   onInputChange,
 }: TProps) => {
-  const handleChange = (event: TInputEvent) => {
-    onInputChange(event.target.value)
-  }
-  const handleInputValid = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === ' ') {
-      event.preventDefault()
-    }
+  const handleChange = ({target}: TInputEvent) => {
+    onInputChange(target.value.replace(/\s/g, ''))
   }
   return (
     <Box className={classes.box}>
@@ -30,7 +25,6 @@ export const AuthForm = ({
         variant='outlined'
         fullWidth
         onChange={handleChange}
-        onKeyDown={handleInputValid}
       />
       <Button color='primary' disabled={value.length < 3} variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}
