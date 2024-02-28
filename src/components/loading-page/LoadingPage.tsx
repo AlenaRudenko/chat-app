@@ -1,14 +1,13 @@
 import { Box, CircularProgress, useTheme } from '@mui/material'
+import classes from './ModalPage.module.scss'
 
 export const LoadingPage = () => {
   const theme = useTheme()
+
   return (
     <Box
+      className={classes.box}
       sx={{
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
         background: theme.palette.background.default,
       }}
     >

@@ -1,46 +1,28 @@
-import { Avatar, Divider, List, ListItem, ListItemButton } from '@mui/material'
-import ListItemText from '@mui/material/ListItemText'
+import { Divider, List } from '@mui/material'
 import { memo } from 'react'
-import { Drawer } from './styles'
+import { useSelector } from 'react-redux'
+import { getChannels } from '../../../../store/store'
+import { Channel } from './components/channel-item/Channel'
+import StyledDrawer from './styles'
+import { SkeletonChannel } from './components/skeleton-channel/Skeleton'
 import { TProps } from './types'
 
-function randomColor() {
-  let hex = Math.floor(Math.random() * 0xffffff)
-  let color = '#' + hex.toString(16)
+const ChannelDrawer = memo(({ currentChannel, handleJoinChannel }: TProps) => {
+  const storeChannels = useSelector(getChannels)
 
-  return color
-}
-
-const ChannelDrawer = memo(({ isDrawerOpen }: TProps) => {
   return (
-    <Drawer anchor='left' open={isDrawerOpen} variant='permanent'>
+    <StyledDrawer>
       <Divider sx={{ border: 'none' }} />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} sx={{ display: 'block', ml: '2px' }} disablePadding>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: 'initial',
-              }}
-            >
-              <Avatar
-                sx={{
-                  width: 32,
-                  height: 32,
-                  mr: isDrawerOpen ? 3 : 'auto',
-                  justifyContent: 'center',
-                  backgroundColor: randomColor(),
-                }}
-              >
-                {text[0].toUpperCase()}
-              </Avatar>
-              <ListItemText primary={text} sx={{ opacity: isDrawerOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {!storeChannels ? (
+          <SkeletonChannel />
+        ) : (
+          storeChannels.map((channel) => (
+            <Channel key={channel.id} {...{ channel, currentChannel, handleJoinChannel }} />
+          ))
+        )}
       </List>
-    </Drawer>
+    </StyledDrawer>
   )
 })
 ChannelDrawer.displayName = 'ChannelDrawer'

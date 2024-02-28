@@ -1,0 +1,16 @@
+.modal {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box {
+  gap: 1;
+  width: 300px;
+  height: 200px;
+  border-radius: 5.59px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

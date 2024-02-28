@@ -2,28 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import IUser from '../../interfaces/User'
 import { ApiService } from '../../services/Api.service'
 import { LocalService } from '../../services/LocalStore.service'
+import { AsynkFuncProps } from './types'
 
-type TProps = {
-  login: string
-  navigateFn?: () => void
-}
-
-export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }>(
+export const authLogin = createAsyncThunk<IUser, AsynkFuncProps, { rejectValue: string }>(
   'user/authLogin',
   async ({ login, navigateFn }, { rejectWithValue }) => {
     try {
-      const response = await ApiService.getUsers()
+      const currentUser = (await ApiService.getUserByNickName(login)).data[0]
 
-      const users = response.data.users
-
-      const currentUser = users.find((user: IUser) => {
-        return user.nickName === login
-      })
-
-      if (response.statusText !== 'OK') {
-        return rejectWithValue('Server error')
-      } else if (!currentUser) {
-        return rejectWithValue('Пользователь уже существует')
+      if (!currentUser) {
+        return rejectWithValue('Пользователя не существует, зарегистрируйтесь, чтобы войти')
       }
 
       LocalService.setUserLogin(currentUser.nickName)
@@ -32,21 +20,43 @@ export const authLogin = createAsyncThunk<IUser, TProps, { rejectValue: string }
 
       return currentUser
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue('Network Error')
     }
   },
 )
 
-export const regUser = createAsyncThunk('user/regUser', async (user: { nickName: string }, { rejectWithValue }) => {
-  try {
-    const response = await ApiService.createUser(user)
+export const regUser = createAsyncThunk<undefined, AsynkFuncProps, { rejectValue: string }>(
+  'user/regUser',
+  async ({ login, navigateFn }, { rejectWithValue, dispatch }) => {
+    try {
+      const users = (await ApiService.getUsers()).data
 
-    if (response.statusText !== 'OK') {
-      throw new Error('Такой пользователь уже существует')
+      const isExist = users.find((user) => user.nickName === login)
+
+      if (isExist) {
+        return rejectWithValue('Такой пользователь уже существует')
+      }
+
+      const response = await ApiService.createUser(login)
+
+      if (response.status !== 201) {
+        return rejectWithValue('Server create action error')
+      }
+      dispatch(authLogin({ ...{ login, navigateFn } }))
+
+      return
+    } catch (error) {
+      return rejectWithValue('Server error')
     }
+  },
+)
 
-    return authLogin({ login: user.nickName, navigateFn: () => {} })
-  } catch (error) {
-    return rejectWithValue(error.message)
-  }
+export const logoutUser = createAsyncThunk<Promise<string>, () => void>('user/logoutUser', (navigateFn) => {
+  return new Promise<string>((resolve) => {
+    setTimeout(async () => {
+      const response = await LocalService.clearUserLogin()
+    }, 50)
+    navigateFn && navigateFn()
+    resolve('success')
+  })
 })

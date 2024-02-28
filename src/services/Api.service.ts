@@ -1,22 +1,41 @@
 import axios from 'axios'
 import IUser from '../interfaces/User'
+import { TChannel } from '../interfaces/channel'
+
+type TUser = Pick<IUser, 'id' & 'userName'>
 
 class Api {
   private instance = axios.create({
-    baseURL: 'http://localhost:3000/',
+    withCredentials: true,
+    baseURL: 'http://localhost:3003/',
+
     headers: {
       'Content-type': 'application/json',
     },
   })
 
   getUsers() {
-    return this.instance.get<{ users: IUser[] }>('/database/users.json')
+    return this.instance.get<IUser[]>('/users')
   }
-  createUser(credentials: { nickName: string }) {
-    return this.instance.post('/database/users.json', credentials)
+
+  getUserById(credentials: IUser['id']) {
+    return this.instance.get<TUser[]>(`users/${credentials}`)
   }
+
+  getUserByNickName(nickName: string) {
+    return this.instance.get<IUser[]>(`/users?nickName=${nickName}`)
+  }
+
   getChannels() {
-    return this.instance.get('/database/channels.json')
+    return this.instance.get<TChannel[]>(`/channels`)
+  }
+
+  createUser(credentials: IUser['nickName']) {
+    return this.instance.post('/users', { nickName: credentials })
+  }
+
+  createChannel(credentials: { userId: string; channelName: string }) {
+    return this.instance.post('/channels', credentials)
   }
 }
 

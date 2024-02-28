@@ -68,6 +68,7 @@ module.exports = {
     'prettier/prettier': 2,
     'no-debugger': 1,
     'no-else-return': 1,
+    'no-named-as-default-member': 0,
     'no-param-reassign': 1,
     'no-undef': 'off',
     'no-unused-vars': 0,

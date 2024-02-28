@@ -1,11 +1,6 @@
 import { AuthForm } from '../../../../../components/input-submit/AuthForm'
 import { useSignup } from './signup.hooks'
-
-type TProps = {
-  login: string
-  onInputChange: (value: string) => void
-  onClickAuthBtnChange: () => void
-}
+import { TProps } from './types'
 
 export const SignUp = ({ login, onInputChange, onClickAuthBtnChange }: TProps) => {
   const { handleSubmit } = useSignup(login)

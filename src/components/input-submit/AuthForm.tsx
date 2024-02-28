@@ -1,5 +1,7 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import { TProps } from './types'
+import classes from './AuthForm.module.scss'
+import { TInputEvent } from '../../interfaces/event'
 
 export const AuthForm = ({
   submitButtonText,
@@ -10,32 +12,29 @@ export const AuthForm = ({
   value,
   onInputChange,
 }: TProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onInputChange(event.target.value)
+  const handleChange = ({target}: TInputEvent) => {
+    onInputChange(target.value.replace(/\s/g, ''))
   }
   return (
-    <Container
-      sx={{
-        height: '50%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100%',
-      }}
-    >
-      <TextField label='NickName' margin='normal' value={value} variant='outlined' fullWidth onChange={handleChange} />
-      <Button color='primary' variant='contained' disableElevation onClick={onSubmit}>
+    <Box className={classes.box}>
+      <TextField
+        color='secondary'
+        label='NickName'
+        margin='normal'
+        value={value}
+        variant='outlined'
+        fullWidth
+        onChange={handleChange}
+      />
+      <Button color='primary' disabled={value.length < 3} variant='contained' disableElevation onClick={onSubmit}>
         {submitButtonText}
       </Button>
-      <Typography>
-        <Typography sx={{ textAlign: 'center' }}>
-          {authChangeText}
-          <Button variant='text' disableElevation onClick={onClickAuthBtnChange}>
-            {authChangeButtonText}
-          </Button>
-        </Typography>
+      <Typography sx={{ textAlign: 'center' }}>
+        {authChangeText}
+        <Button variant='text' disableElevation onClick={onClickAuthBtnChange}>
+          {authChangeButtonText}
+        </Button>
       </Typography>
-    </Container>
+    </Box>
   )
 }

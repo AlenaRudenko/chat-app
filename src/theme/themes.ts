@@ -107,6 +107,21 @@ let lightTheme = createTheme({
         // Name of the slot
       },
     },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          ':hover': {
+            backgroundColor: '#f1f1f1',
+          },
+          '&.Mui-selected': {
+            ':hover': {
+              backgroundColor: '#FFBE98',
+            },
+            backgroundColor: '#FFBE98',
+          },
+        },
+      },
+    },
   },
 })
 
@@ -229,6 +244,21 @@ let darkTheme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: 'Jost',
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          ':hover': {
+            backgroundColor: '#4c3a51',
+          },
+          '&.Mui-selected': {
+            ':hover': {
+              backgroundColor: '#18191d',
+            },
+            backgroundColor: '#18191d',
+          },
         },
       },
     },
